@@ -1,15 +1,15 @@
-class people::ddaugher::config::gitconfig (
-    $my_homedir   = $people::ddaugher::params::my_homedir,
-    $my_sourcedir = $people::ddaugher::params::my_sourcedir,
-    $my_username  = $people::ddaugher::params::my_username,
-    $my_email     = $people::ddaugher::params::my_email
+class people::discoverydev::gitconfig (
+    $my_homedir   = $people::discoverydev::params::my_homedir,
+    $my_sourcedir = $people::discoverydev::params::my_sourcedir,
+    $my_username  = $people::discoverydev::params::my_username,
+    $my_email     = $people::discoverydev::params::my_email
     ){
   
   git::config::global {
-    'user.name':    value => 'DJ Daugherty';
-    'user.email':   value => 'ddaugherty@pillartechnology.com';
+    'user.name':    value => 'Discovery Dev';
+    'user.email':   value => 'adsdiscoveryteam@pillartechnology.com';
     'color.ui':     value => 'auto';
-    'github.user':  value => 'ddaugher';
+    'github.user':  value => 'discoverydev';
     'push.default': value => 'simple';
     'alias.a':      value => 'add';
     'alias.aa':     value => 'add -A';
@@ -24,5 +24,6 @@ class people::ddaugher::config::gitconfig (
     'alias.l':      value => 'log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative';
     'alias.l1':     value => 'log --pretty=oneline';
     'alias.s':      value => 'status';
-  }
+}
+  
 }
