@@ -1,4 +1,4 @@
-class people::discoverydev::gitconfig (
+class people::discoverydev::config::gitconfig (
     $my_homedir   = $people::discoverydev::params::my_homedir,
     $my_sourcedir = $people::discoverydev::params::my_sourcedir,
     $my_username  = $people::discoverydev::params::my_username,

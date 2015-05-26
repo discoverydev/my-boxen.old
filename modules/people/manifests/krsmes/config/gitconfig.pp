@@ -1,4 +1,4 @@
-class people::krsmes::gitconfig (
+class people::krsmes::config::gitconfig (
     $my_homedir   = $people::krsmes::params::my_homedir,
     $my_sourcedir = $people::krsmes::params::my_sourcedir,
     $my_username  = $people::krsmes::params::my_username,
