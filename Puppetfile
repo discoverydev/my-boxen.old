@@ -65,3 +65,8 @@ github "xquartz",     "1.2.1"
 # github "postgresql",  "3.0.3"
 # github "redis",       "3.1.0"
 # github "sysctl",      "1.0.1"
+
+github "java",          "1.8.2"
+github "sublime_text",  "1.1.0"
+github "osx",           "2.8.0"
+github "jenkins",       "1.2.0"
