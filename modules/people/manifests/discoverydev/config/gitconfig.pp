@@ -24,6 +24,5 @@ class people::discoverydev::config::gitconfig (
     'alias.l':      value => 'log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative';
     'alias.l1':     value => 'log --pretty=oneline';
     'alias.s':      value => 'status';
-}
-  
+  }
 }

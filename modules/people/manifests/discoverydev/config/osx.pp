@@ -1,5 +1,5 @@
-class people::krsmes::config::osx {
+class people::discoverydev::config::osx {
 
-  notify { 'class people::krsmes::config::osx declared': }
+  notify { 'class people::discoverydev::config::osx declared': }
 
 }
