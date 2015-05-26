@@ -1,9 +1,4 @@
-class people::ddaugher::config::gitconfig (
-    $my_homedir   = $people::ddaugher::params::my_homedir,
-    $my_sourcedir = $people::ddaugher::params::my_sourcedir,
-    $my_username  = $people::ddaugher::params::my_username,
-    $my_email     = $people::ddaugher::params::my_email
-    ){
+class people::ddaugher::config::gitconfig {
   
   git::config::global {
     'user.name':    value => 'DJ Daugherty';

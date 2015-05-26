@@ -1,9 +1,4 @@
-class people::krsmes::config::gitconfig (
-    $my_homedir   = $people::krsmes::params::my_homedir,
-    $my_sourcedir = $people::krsmes::params::my_sourcedir,
-    $my_username  = $people::krsmes::params::my_username,
-    $my_email     = $people::krsmes::params::my_email
-    ){
+class people::krsmes::config::gitconfig {
   
   git::config::global {
     'user.name':    value => 'Kevin Smith';
