@@ -87,6 +87,11 @@ node default {
     before => Package['virtualbox']
   }
 
+  # remove the base git config in order to properly install new
+  file { "/Users/admin/.gitconfig":
+          ensure  => absent,
+        }
+
   # common, useful packages -- brew
   package { 
     [
