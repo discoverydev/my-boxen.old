@@ -1,7 +1,12 @@
 class people::ddaugher::config::gitconfig {
   
+  # remove the base git config in order to properly install new
+  file { "/Users/admin/.gitconfig":
+    content => '',
+  }
+
   git::config::global {
-    'user.name':    value => 'DJ Daugherty';
+    'user.name':    value => 'DJ Daugherty', require => File['/Users/admin/.gitconfig'];
     'user.email':   value => 'ddaugherty@pillartechnology.com';
     'color.ui':     value => 'auto';
     'github.user':  value => 'ddaugher';

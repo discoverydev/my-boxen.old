@@ -67,8 +67,11 @@ node default {
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
 
+ # jenkins::jenkins::config { public => true }
+  class { 'jenkins::config':
+    public    => true
+  }  
   include jenkins
-
   # include the following jenkins plugins
   jenkins::plugin { 'xcode-plugin': version => '1.4.8' }
   jenkins::plugin { 'token-macro': version => '1.10' }
@@ -87,11 +90,6 @@ node default {
     before => Package['virtualbox']
   }
 
-  # remove the base git config in order to properly install new
-  file { "/Users/admin/.gitconfig":
-          ensure  => absent,
-        }
-
   # common, useful packages -- brew
   package { 
     [
@@ -103,7 +101,6 @@ node default {
       'git',               #
       'gradle',            #
       'groovy',            #
-#      'jenkins-lts',       #
       'maven',             #
       'node',              #
       'openssl',           #
@@ -147,10 +144,4 @@ node default {
   }
 
   include osx_config
-
-  # pull base repository
-  boxen::project { 'dotfiles': 
-    dir => "/Users/admin/github/dotfiles",
-    source => 'ddaugher/scaling-bear'
-  }
 }
