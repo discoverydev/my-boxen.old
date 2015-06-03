@@ -67,11 +67,10 @@ node default {
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
 
- # jenkins::jenkins::config { public => true }
-  class { 'jenkins::config':
-    public    => true
+  class { 'jenkins':
+    public_port    => true
   }  
-  include jenkins
+
   # include the following jenkins plugins
   jenkins::plugin { 'xcode-plugin': version => '1.4.8' }
   jenkins::plugin { 'token-macro': version => '1.10' }
