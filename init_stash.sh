@@ -27,16 +27,15 @@ sudo chown docker:staff /Users
 sudo /usr/local/etc/init.d/nfs-client start\n\
 # mount /Users to host /Users
 sudo mount 192.168.59.3:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp" > ~/bootlocal.sh'
-boot2docker ssh 'sudo mv ~/bootlocal.sh /opt/'
-boot2docker ssh 'ls -ltra /opt'
-boot2docker ssh '. /opt/bootlocal.sh'
+boot2docker ssh 'sudo mv ~/bootlocal.sh /var/lib/boot2docker/'
+boot2docker ssh 'ls -ltra /var/lib/boot2docker/'
+boot2docker ssh '. /var/lib/boot2docker/bootlocal.sh'
 boot2docker ssh mount
 boot2docker ssh 'ls -ltra /Users'
 
 echo "** docker stash startup"
-#docker rm stash
-#docker run --name="stash" -d -v /Users/Shared/data/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
-#docker ps
+docker run --name="stash" -d -v /Users/Shared/data/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
+docker ps
 
 echo "** open stash browser"
-#open http://localhost:7990/
+open http://localhost:7990/
