@@ -48,7 +48,7 @@ docker run --name nexus -d -v /Users/Shared/data/nexus:/sonatype-work -p 8081:80
 docker ps
 
 echo "** docker jenkins startup"
-docker run --name jenkins -d -v /Users/Shared/data/jenkins:/jenkins -p 8080:8080 jenkins 
+docker run --name jenkins -d -v /Users/Shared/data/jenkins:/var/jenkins_home -p 8080:8080 jenkins 
 docker ps
 
 echo "** open stash browser"
