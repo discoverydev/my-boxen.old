@@ -7,6 +7,7 @@ boot2docker delete
 
 mkdir -p /Users/Shared/data/stash
 mkdir -p /Users/Shared/data/nexus
+mkdir -p /Users/Shared/data/jenkins
 
 boot2docker init
 
@@ -14,6 +15,8 @@ VBoxManage modifyvm boot2docker-vm --memory 8192
 VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
 echo "exposing nexus port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
+echo "exposing jenkins port to the outside world"
+VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -42,6 +45,10 @@ docker ps
 
 echo "** docker nexus startup"
 docker run --name nexus -d -v /Users/Shared/data/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
+docker ps
+
+echo "** docker jenkins startup"
+docker run --name jenkins -d -v /Users/Shared/data/jenkins:/jenkins -p 8080:8080 jenkins 
 docker ps
 
 echo "** open stash browser"
