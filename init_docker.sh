@@ -6,11 +6,14 @@ boot2docker down
 boot2docker delete
 
 mkdir -p /Users/Shared/data/stash
+mkdir -p /Users/Shared/data/nexus
 
 boot2docker init
 
 VBoxManage modifyvm boot2docker-vm --memory 8192
 VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
+echo "exposing nexus port to the outside world"
+VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -34,7 +37,11 @@ boot2docker ssh mount
 boot2docker ssh 'ls -ltra /Users'
 
 echo "** docker stash startup"
-docker run --name="stash" -d -v /Users/Shared/data/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
+docker run --name=stash -d -v /Users/Shared/data/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
+docker ps
+
+echo "** docker nexus startup"
+docker run --name nexus -d -v /Users/Shared/data/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
 docker ps
 
 echo "** open stash browser"
