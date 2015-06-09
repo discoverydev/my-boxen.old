@@ -68,7 +68,7 @@ The following instructions will configure a base 'build' machine, complete with 
 > if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
 ```
 cd /opt/boxen/repo
-./init_build_machine_complete.sh
+./init_build_machine_complete.sh [base stash image if available]
 ```
 
 ## Jenkins Slave machine
