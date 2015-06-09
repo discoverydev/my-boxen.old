@@ -71,7 +71,7 @@ echo "* clone jenkins config"
 #todo
 echo "* clone jenkins jobs"
 #todo
-docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -p 8080:8080 -p 5000:5000 jenkins 
+docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
 echo "** open stash browser"
