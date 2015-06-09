@@ -66,12 +66,19 @@ The following instructions will configure a base 'build' machine, complete with 
 #### Configure local build machine
 
 > if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
+
 ```
 cd /opt/boxen/repo
 ./init_build_machine_complete.sh [base stash image if available]
 ```
 
 ## Jenkins Slave machine
+The base build installation will configure a single slave attached to the host OSX machine.  The slave is configured to accept as much traffic as available.
+
+Additional machines (development and/or build) can be added to the jenkins instance.  These additions should be commited to the repository in order to allow subsequent machines created using the  boxen/docker install scripts to remain the same.
+
+The configured slave will utilize the 'jenkins' user created during the development machine install.
 
 ----
 ### Help!
+More to come later !
