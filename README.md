@@ -1,6 +1,10 @@
 # Discovery Boxen
 
-This is a customized Boxen project for configuring a Discover development environment.
+This is a customized Boxen project for configuring a Discovery development environment.
+
+## Prerequisite
+
+This is intended to configure Discovery Dev and Infrastructure machines on OSX hardware only.
 
 ## Getting Started
 
@@ -18,84 +22,40 @@ Install the full Xcode and Command Line Tools.**
 
 ## What You Get
 
-See the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the default packages installed:
+List of packages installed, intentially not listed.  Please check the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the current list of packages installed:
 
-### How Boxen interacts with Puppet
+### Setup
+* create local OSX user (jenkins) as Administrator, please use username: 'jenkins' and password: 'password'
+* clone [boxen repository](https://github.com/discoverydev/my-boxen)
+* checkout the 'ads' branch (git checkout ads)
+* setup boxen
 
-Boxen runs everything declared in `manifests/site.pp` by default.
-But just like any other source code, throwing all your work into one massive
-file is going to be difficult to work with. Instead, we recommend you
-use modules in the `Puppetfile` when you can and make new modules
-in the `modules/` directory when you can't. Then add `include $modulename`
-for each new module in `manifests/site.pp` to include them.
-One pattern that's very common is to create a module for your organization
-(e.g., `modules/github`) and put an environment class in that module
-to include all of the modules your organization wants to install for
-everyone by default. An example of this might look like so:
-
-``` puppet
-# modules/github/manifests/environment.pp
-
- class github::environment {
-   include github::apps::mac
-
-   include ruby::1-8-7
-
-   include projects::super-top-secret-project
- }
+```
+sudo mkdir -p /opt/boxen
+sudo chown admin:staff /opt/boxen
+git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
+cd /opt/boxen/repo
+./script/boxen
 ```
 
- If you'd like to read more about how Puppet works, we recommend
- checking out [the official documentation](http://docs.puppetlabs.com/)
- for:
+It should run successfully, and should tell you to source a shell script
+in your environment.
+For users without a bash or zsh config or a `~/.profile` file,
+Boxen will create a shim for you that will work correctly.
+If you do have a `~/.bashrc` or `~/.zshrc`, your shell will not use
+`~/.profile` so you'll need to add a line like so at _the end of your config_:
 
- * [Modules](http://docs.puppetlabs.com/learning/modules1.html#modules)
- * [Classes](http://docs.puppetlabs.com/learning/modules1.html#classes)
- * [Defined Types](http://docs.puppetlabs.com/learning/definedtypes.html)
- * [Facts](http://docs.puppetlabs.com/guides/custom_facts.html)
+``` sh
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+```
 
-### Creating a personal module
+Once your shell is ready, open a new tab/window in your Terminal
+and you should be able to successfully run `boxen --env`.
+If that runs cleanly, you're in good shape.
 
-See [the documentation in the
-`modules/people`](modules/people/README.md)
-directory for creating per-user modules that don't need to be applied
-globally to everyone.
+* execute the init script (need to talk about where zip file will reside)
+----
 
-### Creating a project module
-
-See [the documentation in the
-`modules/projects`](modules/projects/README.md)
-directory for creating organization projects (i.e., repositories that people
-will be working in).
-
-## Binary packages
-
-We support binary packaging for everything in Homebrew, rbenv, and nvm.
-See `config/boxen.rb` for the environment variables to define.
-
-## Sharing Boxen Modules
-
-If you've got a Boxen module you'd like to be grouped under the Boxen org,
-(so it can easily be found by others), please file an issue on this
-repository with a link to your module.
-We'll review the code briefly, and if things look pretty all right,
-we'll fork it under the Boxen org and give you read+write access to our
-fork.
-You'll still be the maintainer, you'll still own the issues and PRs.
-It'll just be listed under the boxen org so folks can find it more easily.
-
-##upgrading boxen
-See [FAQ-Upgrading](https://github.com/boxen/our-boxen/blob/master/docs/faq.md#q-how-do-you-upgrade-your-boxen-from-the-public-our-boxen).
-
-## Integrating with Github Enterprise
-
-If you're using a Github Enterprise instance rather than github.com,
-you will need to set the `BOXEN_GITHUB_ENTERPRISE_URL` and
-`BOXEN_REPO_URL_TEMPLATE` variables in your
-[Boxen config](config/boxen.rb).
-
-## Halp!
+## Help!
 
 See [FAQ](https://github.com/boxen/our-boxen/blob/master/docs/faq.md).
-
-Use Issues or #boxen on irc.freenode.net.
