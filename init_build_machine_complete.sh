@@ -57,13 +57,15 @@ DATA_DIR=/Users/Shared/data
 mkdir -p $DATA_DIR
 
 echo "** docker stash startup"
-if [ -f $1 ]
+if [ "$#" -eq 1 ] && [ -f $1 ]
 then
-  echo "* unzipping $1 to stash"
+  echo "* base stash image provided -> unzipping $1 to $DATA_DIR/stash"
   rm -rf $DATA_DIR/stash
   unzip $1 -d $DATA_DIR/stash
+else
+  echo "* base stash image NOT provided -> assuming default"
+  mkdir -p $DATA_DIR/stash
 fi
-mkdir -p $DATA_DIR/stash
 docker run --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
