@@ -12,126 +12,13 @@ To give you a brief overview, we're going to:
 
 ### Dependencies
 
-**Install the full Xcode and Command Line Tools.**
-
-### Distributing
-
-```
-sudo mkdir -p /opt/boxen
-sudo chown ${USER}:staff /opt/boxen
-git clone https://github.com/discoverydev/my-boxen.git /opt/boxen/repo
-cd /opt/boxen/repo
-git checkout ads
-./script/boxen
-```
-
-It should run successfully, and should tell you to source a shell script
-in your environment.
-
-Once your shell is ready, open a new tab/window in your Terminal
-and you should be able to successfully run `boxen --env`.
-If that runs cleanly, you're in good shape.
+Install the full Xcode and Command Line Tools.**
 
 ----
 
 ## What You Get
 
 See the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the default packages installed:
-
-## Customizing
-
-You can always check out the number of existing modules we already
-provide as optional installs under the
-[boxen organization](https://github.com/boxen). These modules are all
-tested to be compatible with Boxen. Use the `Puppetfile` to pull them
-in dependencies automatically whenever `boxen` is run.
-
-### Including boxen modules from github (boxen/puppet-<name>)
-
-You must add the github information for your added Puppet module into your Puppetfile at the root of your
-boxen repo (ex. /path/to/your-boxen/Puppetfile):
-
-    # Core modules for a basic development environment. You can replace
-    # some/most of these if you want, but it's not recommended.
-
-    github "repository", "2.0.2"
-    github "dnsmasq",    "1.0.0"
-    github "gcc",        "1.0.0"
-    github "git",        "1.2.2"
-    github "homebrew",   "1.1.2"
-    github "hub",        "1.0.0"
-    github "inifile",    "0.9.0", :repo => "cprice404/puppetlabs-inifile"
-    github "nginx",      "1.4.0"
-    github "nodejs",     "2.2.0"
-    github "ruby",       "4.1.0"
-    github "stdlib",     "4.0.2", :repo => "puppetlabs/puppetlabs-stdlib"
-    github "sudo",       "1.0.0"
-
-    # Optional/custom modules. There are tons available at
-    # https://github.com/boxen.
-
-    github "java",     "1.6.0"
-
-In the above snippet of a customized Puppetfile, the bottom line
-includes the Java module from Github using the tag "1.6.0" from the github repository
-"[boxen/puppet-java/releases](https://github.com/boxen/puppet-java/releases)".  The function "github" is defined at the top of the Puppetfile
-and takes the name of the module, the version, and optional repo location:
-
-    def github(name, version, options = nil)
-      options ||= {}
-      options[:repo] ||= "boxen/puppet-#{name}"
-      mod name, version, :github_tarball => options[:repo]
-    end
-
-Now Puppet knows where to download the module from when you include it in your site.pp or mypersonal.pp file:
-
-    # include the java module referenced in my Puppetfile with the line
-    # github "java",     "1.6.0"
-    include java
-
-### Hiera
-
-Hiera is preferred mechanism to make changes to module defaults (e.g. default
-global ruby version, service ports, etc). This repository supplies a
-starting point for your Hiera configuration at `config/hiera.yml`, and an
-example data file at `hiera/common.yaml`. See those files for more details.
-
-The default `config/hiera.yml` is configured with a hierarchy that allows
-individuals to have their own hiera data file in
-`hiera/users/{github_login}.yaml` which augments and overrides
-site-wide values in `hiera/common.yaml`. This default is, as with most of the
-configuration in the example repo, a great starting point for many
-organisations, but is totally up to you. You might want to, for
-example, have a set of values that can't be overridden by adding a file to
-the top of the hierarchy, or to have values set on specific OS
-versions:
-
-```yaml
-# ...
-:hierarchy:
-  - "global-overrides.yaml"
-  - "users/%{::github_login}"
-  - "osx-%{::macosx_productversion_major}"
-  - common
-```
-
-### Node definitions
-
-Puppet has the concept of a
-['node'](http://docs.puppetlabs.com/references/glossary.html#agent),
-which is essentially the machine on which Puppet is running. Puppet looks for
-[node definitions](http://docs.puppetlabs.com/learning/agent_master_basic.html#node-definitions)
-in the `manifests/site.pp` file in the Boxen repo. You'll see a default node
-declaration that looks like the following:
-
-``` puppet
-node default {
-  # core modules, needed for most things
-  include dnsmasq
-
-  # more...
-}
-```
 
 ### How Boxen interacts with Puppet
 
