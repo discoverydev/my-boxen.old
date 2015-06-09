@@ -65,7 +65,7 @@ The following instructions will configure a base 'build' machine, complete with 
 ### Installation Steps
 #### Configure local build machine
 
-> if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
+> if you have not completed the [Development machine](#development-machine) setup, please complete prior to Stash installation
 
 ```
 cd /opt/boxen/repo
