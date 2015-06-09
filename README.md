@@ -1,7 +1,7 @@
 # Discovery Development Setup
 
 This document will detail the steps required to setup/configure:
-* [Development machine](https://github.com/discoverydev/my-boxen/tree/ads#discovery-boxen)
+* [Development machine](#discovery-boxen)
 * Jenkins machine
 * Nexus machine
 * Stash machine
