@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/s
 
 echo "** shutting boot2docker down"
 boot2docker down
@@ -23,3 +23,5 @@ rm -rf ~/rubies
 cd /opt/boxen/repo
 ./script/nuke --force --all
 rm -rf /opt/boxen
+
+cd ~
