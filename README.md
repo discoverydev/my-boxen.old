@@ -62,59 +62,11 @@ If that runs cleanly, you're in good shape.
 ##### Boxen Install Complete
 The Development machine is operational.
 
-## Stash machine
-The internal Discovery instance of Stash will be managed via a custom shell (bash) script and a Docker image of Stash.
+## Build machine
+The following instructions will configure a base 'build' machine, complete with Continuous Integration (Jenkins), artifact repository (Nexus) and Stash repository.
 
 ### Installation Steps
-#### Configure Stash on local build machine
-
-> if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
-```
-cd /opt/boxen/repo
-./init_stash.sh [provide location to base stash backup]
-```
-
-## Nexus machine
-The internal Discovery instance of Nexus will be managed via a custom shell (bash) script and a Docker image of Nexus.
-
-### Installation Steps
-#### Configure Stash on local build machine
-
-> if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
-```
-cd /opt/boxen/repo
-./init_nexus.sh
-```
-
-## Jenkins machine
-The internal Discovery instance of Jenkins will be managed via a custom shell (bash) script and a Docker image of Jenkins.
-
-### Installation Steps
-#### Configure Stash on local build machine
-
-> if you have not completed the [stash-machine](#stash-machine) setup, please complete prior to Stash installation.  The base Jenkins configuration and jobs will be maintained within the Stash Git repositories.
-```
-cd /opt/boxen/repo
-./init_jenkins.sh
-```
-
-## Jenkins machine
-The internal Discovery instance of Jenkins will be managed via a custom shell (bash) script and a Docker image of Jenkins.
-
-### Installation Steps
-#### Configure Stash on local build machine
-
-> if you have not completed the [stash-machine](#stash-machine) setup, please complete prior to Stash installation.  The base Jenkins configuration and jobs will be maintained within the Stash Git repositories.
-```
-cd /opt/boxen/repo
-./init_jenkins.sh
-```
-
-## Build machine complete install
-As a convenience, if you would like to install of all of the 'build' machine on a single hardware instance, the following script will complete the necessary tasks.
-
-### Installation Steps
-#### Configure Stash on local build machine
+#### Configure local build machine
 
 > if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
 ```

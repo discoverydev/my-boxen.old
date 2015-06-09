@@ -1,5 +1,5 @@
 #!/bin/sh
-progress() {
+progress_bar() {
   SECS=120
   while [[ 0 -ne $SECS ]]; do
     echo "$SECS.."
@@ -75,7 +75,7 @@ docker ps
 echo "** docker jenkins startup"
 mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
-progress
+progress_bar
 echo "* clone jenkins config"
 git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
 echo "* clone jenkins jobs"
