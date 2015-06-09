@@ -119,7 +119,7 @@ As a convenience, if you would like to install of all of the 'build' machine on 
 > if you have not completed the [development-machine](#development-machine) setup, please complete prior to Stash installation
 ```
 cd /opt/boxen/repo
-./init_build_complete.sh
+./init_build_machine_complete.sh
 ```
 
 ## Jenkins Slave machine
