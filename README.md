@@ -1,7 +1,7 @@
 # Discovery Development Setup
 
 This document will detail the steps required to setup/configure:
-* [Development machine](#discovery-boxen)
+* [Development machine](#development-machine)
 * Jenkins machine
 * Nexus machine
 * Stash machine
@@ -61,10 +61,10 @@ If that runs cleanly, you're in good shape.
 ##### Boxen Install Complete
 The Development machine is operational.
 
-#### Jenkins Setup
-
-* execute the init script (need to talk about where zip file will reside)
-#### Slave Setup
+## Jenkins machine
+## Nexus machine
+## Stash machine
+## Jenkins Slave machine
 ----
 
 ### Help!
