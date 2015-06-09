@@ -73,6 +73,7 @@ docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonaty
 docker ps
 
 echo "** docker jenkins startup"
+rm -rf $DATA_DIR/jenkins
 mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
 progress_bar
