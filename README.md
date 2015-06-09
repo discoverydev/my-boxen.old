@@ -1,5 +1,12 @@
 # Discovery Development Setup
 
+This document will detail the steps required to setup/configure:
+* [Development machine](https://github.com/discoverydev/my-boxen/tree/ads#discovery-boxen)
+* Jenkins machine
+* Nexus machine
+* Stash machine
+* Jenkins Slave machine:
+
 ## Discovery Boxen
 
 This is a customized Boxen script for configuring a Discovery development environment.  Including the option to configure build machine (Jenkins/Nexus/Stash)
