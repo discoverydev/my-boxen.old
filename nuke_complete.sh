@@ -1,4 +1,4 @@
-#!/bin/s
+#!/bin/
 
 echo "** shutting boot2docker down"
 boot2docker down
