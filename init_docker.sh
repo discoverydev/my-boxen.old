@@ -1,4 +1,13 @@
 #!/bin/sh
+progress() {
+  SECS=120
+  while [[ 0 -ne $SECS ]]; do
+    echo "$SECS.."
+    sleep 1
+    SECS=$[$SECS-1]
+  done
+  echo "Time is up, moving on."
+}
 
 echo "***** Initializing Stash"
 echo "** boot2docker setup"
@@ -66,11 +75,11 @@ docker ps
 echo "** docker jenkins startup"
 mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
-sleep 120 
+progress
 echo "* clone jenkins config"
-#todo
+git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
 echo "* clone jenkins jobs"
-#todo
+git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
 docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
@@ -80,3 +89,4 @@ echo "** open nexus browser"
 open http://localhost:8081/
 echo "** open jenkins browser"
 open http://localhost:8080/
+
