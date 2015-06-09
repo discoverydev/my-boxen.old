@@ -25,9 +25,9 @@ Install the full Xcode and Command Line Tools.**
 List of packages installed, intentially not listed.  Please check the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the current list of packages installed:
 
 ### Setup
+#### Create local OSX user
 * create local OSX user (jenkins) as Administrator, please use username: 'jenkins' and password: 'password'
 * clone [boxen repository](https://github.com/discoverydev/my-boxen)
-* checkout the 'ads' branch (git checkout ads)
 * setup boxen
 
 ```
@@ -35,6 +35,7 @@ sudo mkdir -p /opt/boxen
 sudo chown admin:staff /opt/boxen
 git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
+git checkout ads
 ./script/boxen
 ```
 
