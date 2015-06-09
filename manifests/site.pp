@@ -67,23 +67,6 @@ node default {
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
 
-  class { 'jenkins':
-    public_port    => true
-  }  
-
-  # include the following jenkins plugins
-  jenkins::plugin { 'xcode-plugin': version => '1.4.8' }
-  jenkins::plugin { 'token-macro': version => '1.10' }
-  jenkins::plugin { 'git-client': version => '1.16.1' }
-  jenkins::plugin { 'git': version => '2.3.5' }
-  jenkins::plugin { 'greenballs': version => '1.14' }
-  jenkins::plugin { 'scm-api': version => '0.2' }
-  jenkins::plugin { 'stashNotifier': version => '1.8' }
-  jenkins::plugin { 'gradle': version => '1.24' }
-
-  # the following will remove plugins, but will not remove the 'base' standard plugins delivered with jenkins
-  # jenkins::plugin { 'gradle': ensure => absent }
-
   file { '/usr/local/bin':
     ensure => directory,
     before => Package['virtualbox']
