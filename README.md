@@ -2,10 +2,10 @@
 
 This document will detail the steps required to setup/configure:
 * [Development machine](#development-machine)
-* Jenkins machine
-* Nexus machine
-* Stash machine
-* Jenkins Slave machine:
+* [Jenkins machine](#jenkins-machine)
+* [Nexus machine](nexus-machine)
+* [Stash machine](stash-machine)
+* [Jenkins Slave machine](jenkins-slave-machine)
 
 ## Development machine
 
