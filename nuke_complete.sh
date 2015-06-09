@@ -8,18 +8,28 @@ boot2docker delete
 DATA_DIR=/Users/Shared/data
 rm -rf $DATA_DIR
 
+echo "** deleting local user : jenkins"
 sudo /usr/bin/dscl . -delete "/Users/jenkins"
 
+echo "** deleting directory : ~/src"
 rm -rf ~/src
+echo "** deleting virtual box image"
 rm -rf ~/VirtualBox\ VMs/
+echo "** deleting .boot2docker directory"
 rm -rf ~/.boot2docker/
+echo "** deleting .jenkins directory"
 rm -rf ~/.jenkins/
+echo "** deleting .subversion directory"
 rm -rf ~/.subversion/
+echo "** deleting .gemrc directory"
 rm -rf ~/.gemrc
 rm -rf ~/.CFUserTextEncoding
+echo "** deleting homebrew-cast directory"
 rm -rf /opt/homebrew-cask
+echo "** deleting rubies directory"
 rm -rf ~/rubies
 
+echo "** nuking boxen install"
 cd /opt/boxen/repo
 ./script/nuke --force --all
 rm -rf /opt/boxen
