@@ -7,9 +7,9 @@ This document will detail the steps required to setup/configure:
 * Stash machine
 * Jenkins Slave machine:
 
-## Discovery Boxen
+## Development machine
 
-This is a customized Boxen script for configuring a Discovery development environment.  Including the option to configure build machine (Jenkins/Nexus/Stash)
+The standard development machine is managed via a customized Boxen script.  The following steps are required for all Discovery Development machines.
 
 ### Prerequisite
 
@@ -27,14 +27,11 @@ To give you a brief overview, we're going to:
 
 Install the full Xcode and Command Line Tools.**
 
-----
-
 ### What You Get
 
 List of packages installed, intentially not listed.  Please check the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the current list of packages installed
 
-#### Dev Machine Setup
-These steps are required for both Development machines as well as Build machines.
+### Installation Steps
 
 ##### Create local OSX user
 create local OSX user (jenkins) as Administrator, please use
