@@ -26,10 +26,10 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 
 ### Setup
 #### Create local OSX user
-* create local OSX user (jenkins) as Administrator, please use username: 'jenkins' and password: 'password'
+create local OSX user (jenkins) as Administrator, please use username: 'jenkins' and password: 'password'
 
 #### Clone Discovery Boxen repository
-* clone [boxen repository](https://github.com/discoverydev/my-boxen)
+clone [boxen repository](https://github.com/discoverydev/my-boxen)
 
 #### Setup Boxen on local machine
 ```
