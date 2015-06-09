@@ -10,8 +10,6 @@ more /Users/admin/.gitconfig
 security delete-generic-password -s 'GitHub API Token'
 
 cd /opt/boxen/repo
-./script/boxen --no-fde --debug
+./script/boxen
 
 . /opt/boxen/env.sh
-
-boot2docker init
