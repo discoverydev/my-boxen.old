@@ -79,7 +79,7 @@ Additional machines (development and/or build) can be added to the jenkins insta
 
 The configured slave will utilize the 'jenkins' user created during the development machine install.
 
-## Resetting the machine
+## Reset the machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
 
 ```
