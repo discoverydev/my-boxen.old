@@ -4,6 +4,7 @@ This document will detail the steps required to setup/configure:
 * [Development machine](#development-machine)
 * [Build machine](#build-machine)
 * [Jenkins Slave machine](#jenkins-slave-machine)
+* [Reset the machine](#reset-the-machine)
 
 ## Development machine
 
