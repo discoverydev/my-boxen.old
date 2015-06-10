@@ -5,6 +5,9 @@ boot2docker down
 echo "* deleting any existing boot2docker images"
 boot2docker delete
 
+echo "* quitting any running instances of VirutalBox"
+osascript -e 'quit app "VirtualBox"'
+
 DATA_DIR=/Users/Shared/data
 rm -rf $DATA_DIR
 
