@@ -126,4 +126,16 @@ node default {
   }
 
   include osx_config
+
+  host {'jenkins':
+    ip => '192.168.8.4',
+  }
+  
+  host {'stash':
+    ip => '192.168.8.4',
+  }
+  
+  host {'nexus':
+    ip => '192.168.8.4',
+  }
 }
