@@ -12,7 +12,8 @@ DATA_DIR=/Users/Shared/data
 rm -rf $DATA_DIR
 
 echo "** deleting local user : jenkins"
-sudo /usr/bin/dscl . -delete "/Users/jenkins"
+sudo dscl . -delete "/Users/jenkins"
+sudo rm /Users/jenkins
 
 echo "** deleting directory : ~/src"
 rm -rf ~/src
