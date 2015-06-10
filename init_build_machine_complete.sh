@@ -9,22 +9,22 @@ progress_bar() {
   echo "Time is up, moving on."
 }
 
-echo "***** Initializing Stash"
-echo "** boot2docker setup"
-echo "* deleting any existing boot2docker images"
+echo "* Initializing Build machine"
+echo "** shutting boot2docker down"
 boot2docker down
+echo "** deleting existing boot2docker images"
 boot2docker delete
 
-echo "* initialize boot2docker"
+echo "** initialize boot2docker"
 boot2docker init
 
-echo "* increasing boot2docker memory"
+echo "** increasing boot2docker memory"
 VBoxManage modifyvm boot2docker-vm --memory 8192
-echo "* exposing stash port to the outside world"
+echo "** exposing stash port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
-echo "* exposing nexus port to the outside world"
+echo "** exposing nexus port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
-echo "* exposing jenkins port to the outside world"
+echo "** exposing jenkins port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
 
 echo "** boot2docker startup"
@@ -52,7 +52,7 @@ echo "* display mounted nfs share"
 boot2docker ssh mount
 boot2docker ssh 'ls -ltra /Users'
 
-echo "* define root for data shares (must be under the above nfs share)"
+echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 mkdir -p $DATA_DIR
 
@@ -92,4 +92,3 @@ echo "** open nexus browser"
 open http://localhost:8081/
 echo "** open jenkins browser"
 open http://localhost:8080/
-
