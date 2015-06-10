@@ -33,9 +33,15 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 ### Installation Steps
 
 ##### Create local OSX user
-create local OSX user (jenkins) as Administrator, please use
+create local OSX user (jenkins), please use
 - username: 'jenkins'
 - password: 'password'
+- administrator: 'y'
+
+```
+cd /opt/boxen/repo
+./create_user.sh
+```
 
 ##### Configure Boxen on local machine
 ```
@@ -85,7 +91,7 @@ The entire machine can be reset, returned to an initial state prior to Discovery
 
 ```
 cd /opt/boxen/repo
-./nuke_complete.sh
+./reset_machine.sh
 ```
 
 ----
