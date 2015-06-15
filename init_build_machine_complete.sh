@@ -33,19 +33,24 @@ $(boot2docker shellinit)
 boot2docker ip
 
 echo "* enable host nfs daemon for /Users"
-echo "/Users -mapall=`whoami`:staff `boot2docker ip`" >> exports
+echo "/Users -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
+echo "* enable host nfs daemon for /opt/boxen"
+echo "/opt/boxen -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
 sudo mv exports /etc && sudo nfsd restart
 sleep 15
 
-echo "* enable boot2docker nfs clent for /Users"
+echo "* enable boot2docker nfs client"
 boot2docker ssh 'echo -e "#! /bin/bash\n\
 sudo mkdir /Users
+sudo mkdir -p /opt/boxen
 sudo chown docker:staff /Users
+sudo chown docker:staff /opt/boxen
 # start nfs client
 sudo /usr/local/etc/init.d/nfs-client start\n\
 # mount /Users to host /Users
-sudo mount 192.168.59.3:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp" > ~/bootlocal.sh'
-boot2docker ssh 'sudo mv ~/bootlocal.sh /var/lib/boot2docker/'
+sudo mount 192.168.59.3:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp\n\
+sudo mount 192.168.59.3:/opt/boxen /opt/boxen -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp" > ~/bootlocal.sh'
+boot2docker ssh 'sudo cp ~/bootlocal.sh /var/lib/boot2docker/'
 boot2docker ssh 'ls -ltra /var/lib/boot2docker/'
 boot2docker ssh '. /var/lib/boot2docker/bootlocal.sh'
 echo "* display mounted nfs share"
@@ -75,15 +80,15 @@ docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonaty
 docker ps
 
 echo "** docker jenkins startup"
-rm -rf $DATA_DIR/jenkins
+#rm -rf $DATA_DIR/jenkins
 mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
 progress_bar
 echo "* clone jenkins config"
-git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
+#git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
 echo "* clone jenkins jobs"
-git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
-docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins 
+#git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
+docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
 echo "** open stash browser"
