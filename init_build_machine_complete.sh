@@ -66,9 +66,10 @@ mkdir -p $DATA_DIR
 echo "** docker stash startup"
 if [ "$#" -eq 1 ] && [ -f $1 ]
 then
-  echo "* base stash image provided -> unzipping $1 to $DATA_DIR/stash"
+  echo "* base stash image provided -> untar'ing $1 to $DATA_DIR/stash"
   rm -rf $DATA_DIR/stash
-  unzip $1 -d $DATA_DIR/stash
+  cd $DATA_DIR/stash
+  tar xvf $1 
 else
   echo "* base stash image NOT provided -> assuming default"
   mkdir -p $DATA_DIR/stash
