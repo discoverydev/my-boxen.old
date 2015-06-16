@@ -90,6 +90,7 @@ node default {
       'scala',             #
       'wget',              #
       'xctool',            # xcode build, used by sonar
+      'rbenv',             #
     ]: 
     ensure => present
   }
