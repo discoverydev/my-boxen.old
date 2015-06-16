@@ -93,6 +93,9 @@ git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/dat
 docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
+echoo "* starting jenkins slave"
+javaws http://192.168.8.4:8080/computer/osxhost/slave-agent.jnlp 2>&1
+
 echo "** open stash browser"
 open http://localhost:7990/
 echo "** open nexus browser"
