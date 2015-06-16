@@ -26,6 +26,8 @@ echo "** exposing nexus port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
 echo "** exposing jenkins port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
+echo "** exposing jenkins SLAVE port to the outside world"
+VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-50000,tcp,,50000,,50000'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -80,14 +82,14 @@ docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonaty
 docker ps
 
 echo "** docker jenkins startup"
-#rm -rf $DATA_DIR/jenkins
+rm -rf $DATA_DIR/jenkins
 mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
 progress_bar
 echo "* clone jenkins config"
-#git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
+git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
 echo "* clone jenkins jobs"
-#git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
+git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
 docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
