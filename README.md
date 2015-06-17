@@ -33,9 +33,9 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 ### Installation Steps
 
 ##### Create local OSX user
-create local OSX user (jenkins), please use
-- username: 'jenkins'
-- password: 'password'
+create local OSX user (admin), please use
+- username: 'admin'
+- password: 'agileLIVE!'
 - administrator: 'y'
 
 ```
@@ -84,7 +84,7 @@ The base build installation will configure a single slave attached to the host O
 
 Additional machines (development and/or build) can be added to the jenkins instance.  These additions should be commited to the repository in order to allow subsequent machines created using the  boxen/docker install scripts to remain the same.
 
-The configured slave will utilize the 'jenkins' user created during the development machine install.
+The configured slave will utilize the 'admin' user created during the development machine install.
 
 ## Reset the machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
