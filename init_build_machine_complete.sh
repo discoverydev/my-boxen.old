@@ -77,6 +77,10 @@ fi
 docker run --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
+echo "** setting docker timezone to EST"
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 echo "** docker nexus startup"
 mkdir -p $DATA_DIR/nexus
 docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
