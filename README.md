@@ -32,17 +32,6 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 
 ### Installation Steps
 
-##### Create local OSX user
-create local OSX user (admin), please use
-- username: 'admin'
-- password: 'agileLIVE!'
-- administrator: 'y'
-
-```
-cd /opt/boxen/repo
-./create_user.sh
-```
-
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
@@ -62,6 +51,17 @@ It should run successfully, and indicate the need to source a shell script in yo
 Once the shell is ready, open a new tab/window in your Terminal
 and execute - `boxen --env`.
 If that runs cleanly, you're in good shape.
+
+##### Create local OSX user
+create local OSX user (admin), please use
+- username: 'admin'
+- password: 'agileLIVE!'
+- administrator: 'y'
+
+```
+cd /opt/boxen/repo
+./create_user.sh
+```
 
 ##### Boxen Install Complete
 The Development machine is operational.
