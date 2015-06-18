@@ -68,6 +68,7 @@ if [ "$#" -eq 1 ] && [ -f $1 ]
 then
   echo "* base stash image provided -> untar'ing $1 to $DATA_DIR/stash"
   rm -rf $DATA_DIR/stash
+  mkdir -p $DATA_DIR/stash
   cd $DATA_DIR/stash
   tar xvf $1 
 else
