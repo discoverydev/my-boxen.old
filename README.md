@@ -45,6 +45,15 @@ sudo mkdir -p /usr/local
 sudo chown admin:staff /usr/local
 ```
 
+##### How to fix 'sudo: no tty present and no askpass program specified' error?
+```
+sudo visudo
+
+find the line in the file... %admin ALL=(ALL) ALL
+
+change the line to... %admin ALL=(ALL) NOPASSWD:ALL
+```
+
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
@@ -53,14 +62,6 @@ git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
 git checkout ads
 ./script/boxen
-```
-##### How to fix 'sudo: no tty present and no askpass program specified' error?
-```
-sudo visudo
-
-find the line in the file... %admin ALL=(ALL) ALL
-
-change the line to... %admin ALL=(ALL) NOPASSWD:ALL
 ```
 
 ##### 'after' script
