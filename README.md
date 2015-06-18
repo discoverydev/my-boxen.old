@@ -56,6 +56,13 @@ find the line in the file... %admin ALL=(ALL) ALL
 change the line to... %admin ALL=(ALL) NOPASSWD:ALL
 ```
 
+##### 'after' script
+```
+the after script will install command-line appium tools and required gems
+
+cd /opt/boxen/repo
+./run_after_boxen.sh
+```
 
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
@@ -67,7 +74,7 @@ Once the shell is ready, open a new tab/window in your Terminal
 and execute - `boxen --env`.
 If that runs cleanly, you're in good shape.
 
-##### Create local OSX user
+##### Create local OSX user (this is not required if machine was setup with admin user)
 create local OSX user (admin), please use
 - username: 'admin'
 - password: 'agileLIVE!'
