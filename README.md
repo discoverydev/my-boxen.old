@@ -32,6 +32,12 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 
 ### Installation Steps
 
+##### create /usr/local on local machine
+```
+sudo mkdir -p /usr/local
+sudo chown admin:staff /usr/local
+```
+
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
@@ -41,6 +47,15 @@ cd /opt/boxen/repo
 git checkout ads
 ./script/boxen
 ```
+##### How to fix 'sudo: no tty present and no askpass program specified' error?
+```
+sudo visudo
+
+find the line in the file... %admin ALL=(ALL) ALL
+
+change the line to... %admin ALL=(ALL) NOPASSWD:ALL
+```
+
 
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
