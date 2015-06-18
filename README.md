@@ -72,6 +72,8 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
+[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
+
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
 ``` sh
