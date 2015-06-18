@@ -47,7 +47,7 @@ cd /opt/boxen/repo
 git checkout ads
 ./script/boxen
 ```
-#### How to fix 'sudo: no tty present and no askpass program specified' error?
+##### How to fix 'sudo: no tty present and no askpass program specified' error?
 ```
 sudo visudo
 
