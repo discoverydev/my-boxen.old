@@ -115,6 +115,7 @@ node default {
       'qlprettypatch',     # quicklook for patch files
       'qlstephen',         # quicklook for text files
       'slack',
+      'iterm2',
       'virtualbox'
     ]: 
     provider => 'brewcask', 
