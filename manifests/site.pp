@@ -86,6 +86,7 @@ node default {
       'maven',             #
       'node',              #
       'openssl',           #
+      'figlet',            #
       'p7zip',             #
       'scala',             #
       'wget',              #
