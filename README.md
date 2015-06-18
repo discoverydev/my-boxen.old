@@ -109,12 +109,37 @@ cd /opt/boxen/repo
 ./init_build_machine_complete.sh [base stash image if available]
 ```
 
-## Jenkins Slave machine
-The base build installation will configure a single slave attached to the host OSX machine.  The slave is configured to accept as much traffic as available.
+## Jenkins Slave Nodes
+The base build installation is configured with a single slave attached to the host OSX machine.  This node is configured to accept as much traffic as available.
 
-Additional machines (development and/or build) can be added to the jenkins instance.  These additions should be commited to the repository in order to allow subsequent machines created using the  boxen/docker install scripts to remain the same.
+Additional machines (development and/or build) can be added to the jenkins master instance.  These additions should be commited to the repository (git) in order to allow subsequent machines created using the boxen/docker install scripts to utilize.
 
 The configured slave will utilize the 'admin' user created during the development machine install.
+
+### Step to add a new 'slave node' to the master jenkins instance
+1. access master jenkins instance
+2. Manage Jenkins -> Manage Nodes -> New Node
+3. Copy an existing node for faster setup
+4. Configure the node
+```
+Name: [something meaningful]
+Description: [your choice]
+# of executors: [not recommended to be more than the # of cores]
+Remote root directory: /Users/admin/jenkins_slave
+Labels: [osxhost]
+Usage: [Utilize this node as much as possible]
+Launch Method: [Launch slave agents via Java Web Start]
+Availability: [Keep this slave on-line as much as possible]
+```
+5. Save the configuration
+6. Start the slave node
+```
+on the slave machine
+
+cd /opt/boxen/repo
+./start_jenkins_slave.sh [name of node you just created]
+```
+7. Node will start and jenkins will connect to remote slave node
 
 ## Reset the machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
