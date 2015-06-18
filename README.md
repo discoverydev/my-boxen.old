@@ -117,10 +117,10 @@ Additional machines (development and/or build) can be added to the jenkins maste
 The configured slave will utilize the 'admin' user created during the development machine install.
 
 ### Step to add a new 'slave node' to the master jenkins instance
-1. access master jenkins instance
-2. Manage Jenkins -> Manage Nodes -> New Node
-3. Copy an existing node for faster setup
-4. Configure the node
+* access master jenkins instance
+* Manage Jenkins -> Manage Nodes -> New Node
+* Copy an existing node for faster setup
+* Configure the node
 ```
 Name: [something meaningful]
 Description: [your choice]
@@ -131,15 +131,15 @@ Usage: [Utilize this node as much as possible]
 Launch Method: [Launch slave agents via Java Web Start]
 Availability: [Keep this slave on-line as much as possible]
 ```
-5. Save the configuration
-6. Start the slave node
+* Save the configuration
+* Start the slave node
 ```
 on the slave machine
 
 cd /opt/boxen/repo
 ./start_jenkins_slave.sh [name of node you just created]
 ```
-7. Node will start and jenkins will connect to remote slave node
+* Node will start and jenkins will connect to remote slave node
 
 ## Reset the machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
