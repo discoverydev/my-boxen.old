@@ -68,6 +68,7 @@ if [ "$#" -eq 1 ] && [ -f $1 ]
 then
   echo "* base stash image provided -> untar'ing $1 to $DATA_DIR/stash"
   rm -rf $DATA_DIR/stash
+  mkdir -p $DATA_DIR/stash
   cd $DATA_DIR/stash
   tar xvf $1 
 else
@@ -97,9 +98,6 @@ echo "* clone jenkins jobs"
 git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
 docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
-
-echo "* starting jenkins slave"
-javaws http://192.168.8.4:8080/computer/osxhost/slave-agent.jnlp 2>&1
 
 echo "** open stash browser"
 open http://localhost:7990/
