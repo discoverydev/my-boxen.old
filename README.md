@@ -32,6 +32,12 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 
 ### Installation Steps
 
+##### create /usr/local on local machine
+```
+sudo mkdir -p /usr/local
+sudo chown admin:staff /usr/local
+```
+
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
