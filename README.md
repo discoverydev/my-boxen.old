@@ -24,7 +24,13 @@ To give you a brief overview, we're going to:
 
 ### Dependencies
 
-Install the full Xcode and Command Line Tools.**
+Install the full Xcode (from the App Store) 
+Install the Command Line Tools.
+```
+within a terminal window -> xcode-select --install
+
+this will prompt to install Command Line Tools
+```
 
 ### What You Get
 
