@@ -10,7 +10,7 @@ This document will detail the steps required to setup/configure:
 
 The standard development machine is managed via a customized Boxen script.  The following steps are required for all Discovery Development machines... including 'build' machines.
 
-### Prerequisite
+### Introduction
 
 This is intended to configure Discovery Dev and Build machines on OSX hardware only.
 
@@ -18,9 +18,10 @@ This is intended to configure Discovery Dev and Build machines on OSX hardware o
 
 To give you a brief overview, we're going to:
 
-* Install dependencies (basically Xcode)
+* Install dependencies (basically Xcode and command line tools)
 * Pull down customized Boxen
 * Run Boxen to configure environment
+* execute 'after' script to handle non-boxen installs
 
 ### Dependencies
 
@@ -71,6 +72,8 @@ the after script will install command-line appium tools and required gems
 cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
+
+[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
 
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
