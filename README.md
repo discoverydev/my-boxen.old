@@ -82,6 +82,12 @@ git checkout ads
 ./script/boxen
 ```
 
+It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
+
+``` sh
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+```
+
 ##### 'after' script
 ```
 the after script will install command-line appium tools and required gems
@@ -91,12 +97,6 @@ cd /opt/boxen/repo
 ```
 
 [Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-create_user-instance)
-
-It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
-
-``` sh
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
-```
 
 Once the shell is ready, open a new tab/window in your Terminal
 and execute - `boxen --env`.
