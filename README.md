@@ -79,7 +79,7 @@ It should run successfully, and indicate the need to source a shell script in yo
 
 Once the shell is ready:
 * in Terminal, open a new tab/window (cmd-T)
-* execute - `boxen --env`.
+* execute: ```boxen --env```
 
 If that runs cleanly, you're in good shape.
 
