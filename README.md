@@ -6,6 +6,8 @@ This document will detail the steps required to setup/configure:
 * [create_user Slave machine](#create_user-slave-machine)
 * [Reset the machine](#reset-the-machine)
 
+----
+
 ## Development machine
 
 The standard development machine is managed via a customized Boxen script.  The following steps are required for all Discovery Development machines... including 'build' machines.
@@ -39,7 +41,7 @@ xcode-select --install
 
 this will prompt to install Command Line Tools
 
-### What You Get
+### What You Will Get
 
 List of packages installed, intentially not listed.  Please check the [site.pp](https://github.com/discoverydev/my-boxen/blob/ads/manifests/site.pp) file to find the current list of packages installed
 
@@ -87,13 +89,15 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
-[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-create_user-instance)
+[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
 
 ##### Boxen Install Complete
 The Development machine is operational.
 
+----
+
 ## Build machine
-The following instructions will configure a base 'build' machine, complete with Continuous Integration (create_user), artifact repository (Nexus) and Stash repository.
+The following instructions will configure a base 'build' machine, complete with Continuous Integration (Jenkins), artifact repository (Nexus) and Stash repository.
 
 ### Installation Steps
 #### Configure local build machine
@@ -129,20 +133,22 @@ Availability: [Keep this slave on-line as much as possible]
 ```
 * Save the configuration
 * Start the slave node
-```
-on the slave machine
 
+on the slave machine
+```
 cd /opt/boxen/repo
 ./start_jenkins_slave.sh [name of node you just created]
 ```
+
 * Node will start and jenkins will connect to remote slave node
 
-## Reset the machine
+----
+## Clean everything off machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
 
 ```
 cd /opt/boxen/repo
-./reset_machine.sh
+./nuke_machine.sh
 ```
 
 ----
