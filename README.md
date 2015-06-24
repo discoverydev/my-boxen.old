@@ -18,29 +18,12 @@ This is intended to configure Discovery Dev and Build machines on OSX hardware o
 
 To give you a brief overview, we're going to:
 
-* create 'admin' user
 * Install dependencies (basically Xcode and command line tools)
 * Pull down customized Boxen
 * Run Boxen to configure environment
 * execute 'after' script to handle non-boxen installs
 
 ### Dependencies
-##### Create local OSX user (this is not required if machine was setup with admin user)
-
-login in as Discovery base admin user
-clone the following repository [create user repository](https://github.com/discoverydev/create_user.git)
-
-create local OSX user (admin), please use
-- username: 'admin'
-- password: 'agileLIVE!'
-- administrator: 'y'
-
-```
-cd /opt/boxen/repo
-sudo ./create_user.sh
-log out
-log in as new 'admin' user
-```
 
 ####Install the full Xcode (from the App Store) 
 
