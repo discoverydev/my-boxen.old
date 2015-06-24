@@ -131,14 +131,14 @@ node default {
   include osx_config
 
   host {'jenkins':
-    ip => '192.168.8.4',
+    ip => '192.168.8.31',
   }
   
   host {'stash':
-    ip => '192.168.8.4',
+    ip => '192.168.8.31',
   }
   
   host {'nexus':
-    ip => '192.168.8.4',
+    ip => '192.168.8.31',
   }
 }
