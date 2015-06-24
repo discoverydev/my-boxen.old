@@ -88,6 +88,10 @@ It should run successfully, and indicate the need to source a shell script in yo
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 ```
 
+Once the shell is ready, open a new tab/window in your Terminal
+and execute - `boxen --env`.
+If that runs cleanly, you're in good shape.
+
 ##### 'after' script
 ```
 the after script will install command-line appium tools and required gems
@@ -97,10 +101,6 @@ cd /opt/boxen/repo
 ```
 
 [Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-create_user-instance)
-
-Once the shell is ready, open a new tab/window in your Terminal
-and execute - `boxen --env`.
-If that runs cleanly, you're in good shape.
 
 ##### Boxen Install Complete
 The Development machine is operational.
