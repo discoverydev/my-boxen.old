@@ -29,11 +29,12 @@ To give you a brief overview, we're going to:
 
 ####Install the full Xcode 
 
-Go to App Store and install Xcode
+* Go to App Store and install Xcode
+* Open Xcode and let it initialize itself
 
 ####Install the Command Line Tools.
 
-within a terminal window
+within a terminal window:
 
 ```
 xcode-select --install
