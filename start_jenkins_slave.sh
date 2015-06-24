@@ -11,4 +11,4 @@ else
 fi
 
 echo "* starting jenkins slave"
-javaws http://192.168.8.4:8080/computer/$NODE_NAME/slave-agent.jnlp
+javaws http://jenkins:8080/computer/$NODE_NAME/slave-agent.jnlp
