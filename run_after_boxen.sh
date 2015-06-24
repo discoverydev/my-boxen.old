@@ -5,6 +5,7 @@ npm install -g appium
 
 echo "* installing required gems"
 sudo gem install appium_console
+sudo gem install cocoapods
 sudo gem install ocunit2junit
 
 echo "* copy 'tailored' adroid-sdk from master"
