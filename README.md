@@ -3,7 +3,7 @@
 This document will detail the steps required to setup/configure:
 * [Development machine](#development-machine)
 * [Build machine](#build-machine)
-* [Jenkins Slave machine](#jenkins-slave-machine)
+* [create_user Slave machine](#create_user-slave-machine)
 * [Reset the machine](#reset-the-machine)
 
 ## Development machine
@@ -18,14 +18,31 @@ This is intended to configure Discovery Dev and Build machines on OSX hardware o
 
 To give you a brief overview, we're going to:
 
+* create 'admin' user
 * Install dependencies (basically Xcode and command line tools)
 * Pull down customized Boxen
 * Run Boxen to configure environment
 * execute 'after' script to handle non-boxen installs
 
 ### Dependencies
+##### Create local OSX user (this is not required if machine was setup with admin user)
 
-Install the full Xcode (from the App Store) 
+login in as Discovery base admin user
+clone the following repository [create user repository](https://github.com/discoverydev/create_user.git)
+
+create local OSX user (admin), please use
+- username: 'admin'
+- password: 'agileLIVE!'
+- administrator: 'y'
+
+```
+cd /opt/boxen/repo
+sudo ./create_user.sh
+log out
+log in as new 'admin' user
+```
+
+####Install the full Xcode (from the App Store) 
 
 Install the Command Line Tools.
 ```
@@ -73,7 +90,7 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
-[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
+[Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-create_user-instance)
 
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
@@ -85,22 +102,11 @@ Once the shell is ready, open a new tab/window in your Terminal
 and execute - `boxen --env`.
 If that runs cleanly, you're in good shape.
 
-##### Create local OSX user (this is not required if machine was setup with admin user)
-create local OSX user (admin), please use
-- username: 'admin'
-- password: 'agileLIVE!'
-- administrator: 'y'
-
-```
-cd /opt/boxen/repo
-./create_user.sh
-```
-
 ##### Boxen Install Complete
 The Development machine is operational.
 
 ## Build machine
-The following instructions will configure a base 'build' machine, complete with Continuous Integration (Jenkins), artifact repository (Nexus) and Stash repository.
+The following instructions will configure a base 'build' machine, complete with Continuous Integration (create_user), artifact repository (Nexus) and Stash repository.
 
 ### Installation Steps
 #### Configure local build machine
