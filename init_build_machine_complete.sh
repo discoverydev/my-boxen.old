@@ -87,15 +87,26 @@ mkdir -p $DATA_DIR/nexus
 docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
 docker ps
 
-echo "** docker jenkins startup"
-rm -rf $DATA_DIR/jenkins
-mkdir -p $DATA_DIR/jenkins
 echo "* wait for stash to startup"
 progress_bar
-echo "* clone jenkins config"
-git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
-echo "* clone jenkins jobs"
-git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
+
+echo "** docker jenkins startup"
+read -p "clone jenkins from stash?: (y/n) [Y]" CLONE_JENKINS
+CLONE_JENKINS=${CLONE_JENKINS:-y}
+
+if [ "$CLONE_JENKINS" = y ]
+then
+  echo "* cloning jenkins"
+  rm -rf $DATA_DIR/jenkins
+  mkdir -p $DATA_DIR/jenkins
+  echo "* clone jenkins config"
+  git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
+  echo "* clone jenkins jobs"
+  git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
+else
+  echo "* using existing jenkins data dir"
+fi
+
 docker run --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
