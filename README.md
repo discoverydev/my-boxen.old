@@ -25,14 +25,19 @@ To give you a brief overview, we're going to:
 
 ### Dependencies
 
-####Install the full Xcode (from the App Store) 
+####Install the full Xcode 
 
-Install the Command Line Tools.
+Go to App Store and install Xcode
+
+####Install the Command Line Tools.
+
+within a terminal window
+
 ```
-within a terminal window -> xcode-select --install
+xcode-select --install
+```
 
 this will prompt to install Command Line Tools
-```
 
 ### What You Get
 
@@ -43,22 +48,21 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 ##### create /usr/local on local machine
 ```
 sudo mkdir -p /usr/local
-sudo chown admin:staff /usr/local
+sudo chown ga-mlsdiscovery:staff /usr/local
 ```
 
 ##### How to fix 'sudo: no tty present and no askpass program specified' error?
 ```
 sudo visudo
-
-find the line in the file... %admin ALL=(ALL) ALL
-
-change the line to... %admin ALL=(ALL) NOPASSWD:ALL
 ```
+
+* find the line in the file: ```%admin ALL=(ALL) ALL```
+* add a new line: ```%ga-mlsdiscovery ALL=(ALL) NOPASSWD:ALL```
 
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
-sudo chown admin:staff /opt/boxen
+sudo chown ga-mlsdiscovery:staff /opt/boxen
 git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
 git checkout ads
@@ -106,7 +110,7 @@ The base build installation is configured with a single slave attached to the ho
 
 Additional machines (development and/or build) can be added to the jenkins master instance.  These additions should be commited to the repository (git) in order to allow subsequent machines created using the boxen/docker install scripts to utilize.
 
-The configured slave will utilize the 'admin' user created during the development machine install.
+The configured slave will utilize the 'ga-mlsdiscovery' user created during the development machine install.
 
 ### Step to add a new 'slave node' to the master jenkins instance
 * access master jenkins instance
@@ -117,7 +121,7 @@ The configured slave will utilize the 'admin' user created during the developmen
 Name: [something meaningful]
 Description: [your choice]
 # of executors: [not recommended to be more than the # of cores]
-Remote root directory: /Users/admin/jenkins_slave
+Remote root directory: /Users/ga-mlsdiscovery/jenkins_slave
 Labels: [osxhost]
 Usage: [Utilize this node as much as possible]
 Launch Method: [Launch slave agents via Java Web Start]
