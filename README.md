@@ -77,8 +77,10 @@ It should run successfully, and indicate the need to source a shell script in yo
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 ```
 
-Once the shell is ready, open a new tab/window in your Terminal
-and execute - `boxen --env`.
+Once the shell is ready:
+* in Terminal, open a new tab/window (cmd-T)
+* execute - `boxen --env`.
+
 If that runs cleanly, you're in good shape.
 
 ##### 'after' script
