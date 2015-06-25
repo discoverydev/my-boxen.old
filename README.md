@@ -70,7 +70,7 @@ sudo chown ga-mlsdiscovery:staff /usr/local
 ##### Configure Boxen on local machine
 ```
 sudo mkdir -p /opt/boxen
-sudo chown ga-mlsdiscovery:staff /opt/boxen
+sudo chown -R ga-mlsdiscovery:staff /opt
 git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
 git checkout ads
