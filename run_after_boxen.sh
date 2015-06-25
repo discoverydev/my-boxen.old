@@ -9,8 +9,9 @@ sudo gem install cocoapods
 sudo gem install ocunit2junit
 
 echo "* copy 'tailored' adroid-sdk from master"
-cd /opt/boxen/homebrew/Cellar/android-sdk/
-scp -r admin@192.168.8.31:/Users/admin/tailored_backup/tailored_backup.tar .
+mkdir -p /opt/boxen/homebrew/Cellar/android-sdk/tailored
+cd /opt/boxen/homebrew/Cellar/android-sdk/tailored
+scp -r ga-mlsdiscovery@192.168.8.61:/Users/ga-mlsdiscovery/tailored_backup/tailored_backup.tar .
 tar xvf tailored_backup.tar
 rm tailored_backup.tar
 
