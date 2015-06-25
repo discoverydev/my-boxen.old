@@ -20,7 +20,7 @@ This is intended to configure Discovery Dev and Build machines on OSX hardware o
 
 To give you a brief overview, we're going to:
 
-* Install dependencies (basically Xcode and command line tools)
+* Install dependencies (Xcode and command line tools)
 * Pull down customized Boxen
 * Run Boxen to configure environment
 * execute 'after' script to handle non-boxen installs
@@ -85,18 +85,6 @@ You will be asked for a GitHub login and password.  Use the `discoverydev` GitHu
 GitHub login: |ga-mlsdiscovery| discoverydev
 GitHub password: **********
 ```
-
-It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
-
-``` sh
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
-```
-
-Once the shell is ready:
-* in Terminal, open a new tab/window (cmd-T)
-* execute: ```boxen --env```
-
-If that runs cleanly, you're in good shape.
 
 ##### 'after' script
 ```
