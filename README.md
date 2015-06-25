@@ -33,6 +33,8 @@ To give you a brief overview, we're going to:
 * Open Xcode and let it initialize itself
 * Accept the license (which requires entering the user's password)
 
+In parallel with the rest of the commands go into Xcode -> Preferences -> Downloads and start downloading the iOS simulators (at least the 8.1 simulator is needed to build the 'ramrod' projects).
+
 ####Install/Update the Command Line Tools.
 
 Within a terminal window:
