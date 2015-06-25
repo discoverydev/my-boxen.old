@@ -20,7 +20,7 @@ This is intended to configure Discovery Dev and Build machines on OSX hardware o
 
 To give you a brief overview, we're going to:
 
-* Install dependencies (basically Xcode and command line tools)
+* Install dependencies (Xcode and command line tools)
 * Pull down customized Boxen
 * Run Boxen to configure environment
 * execute 'after' script to handle non-boxen installs
