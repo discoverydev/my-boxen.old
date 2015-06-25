@@ -14,7 +14,7 @@ class osx_config {
   include osx::universal_access::enable_scrollwheel_zoom
   include osx::safari::enable_developer_mode
 
-  class { 'osx::global::key_repeat_delay': delay => 10 }
+  class { 'osx::global::key_repeat_delay': delay => 30 }
   class { 'osx::global::key_repeat_rate': rate => 2 }
   class { 'osx::dock::icon_size': size => 18 }
 
