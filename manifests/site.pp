@@ -111,7 +111,7 @@ node default {
     ensure => present
   }
 
-  package { ['android-sdk']: ensure => abasent }
+  package { 'android-sdk': ensure => absent }   # custom pre-populated android-sdk installed after boxen
 
   exec { 'drafter': 
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
