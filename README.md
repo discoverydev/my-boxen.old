@@ -51,19 +51,21 @@ List of packages installed, intentially not listed.  Please check the [site.pp](
 
 ### Installation Steps
 
-##### create /usr/local on local machine
-```
-sudo mkdir -p /usr/local
-sudo chown ga-mlsdiscovery:staff /usr/local
-```
+##### Make ga-mlsdiscovery a sudoer
 
-##### How to fix 'sudo: no tty present and no askpass program specified' error?
 ```
 sudo visudo
 ```
 
 * find the line in the file: ```%admin ALL=(ALL) ALL```
-* add a new line: ```%ga-mlsdiscovery ALL=(ALL) NOPASSWD:ALL```
+* add a new line: ```ga-mlsdiscovery ALL=(ALL) NOPASSWD:ALL```
+
+##### Create /usr/local on local machine
+
+```
+sudo mkdir -p /usr/local
+sudo chown ga-mlsdiscovery:staff /usr/local
+```
 
 ##### Configure Boxen on local machine
 ```
