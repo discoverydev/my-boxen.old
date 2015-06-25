@@ -67,6 +67,7 @@ node default {
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
   nodejs::module { 'appium': node_version => 'v0.12.2' }
+  nodejs::module { 'ios-sim': node_version => 'v0.12.2' }
 
   ruby::version { '2.2.2': }
   class { 'ruby::global': version => '2.2.2' }
@@ -97,18 +98,16 @@ node default {
       'boot2docker',       #
       'chromedriver',      #
       'docker',            #
+      'figlet',            #
       'git',               #
       'gradle',            #
       'groovy',            #
       'maven',             #
-      'node',              #
       'openssl',           #
-      'figlet',            #
       'p7zip',             #
-      'scala',             #
+      'rbenv',             #
       'wget',              #
       'xctool',            # xcode build, used by sonar
-      'rbenv',             #
     ]: 
     ensure => present
   }
@@ -134,7 +133,7 @@ node default {
       'qlstephen',         # quicklook for text files
       'slack',
       'iterm2',
-      'virtualbox'
+      'virtualbox',
     ]: 
     provider => 'brewcask', 
     ensure => present
@@ -148,16 +147,21 @@ node default {
 
   include osx_config
 
-  host {'jenkins':
-    ip => '192.168.8.31',
-  }
-  
-  host {'stash':
-    ip => '192.168.8.31',
-  }
-  
-  host {'nexus':
-    ip => '192.168.8.31',
-  }
+  host { 'jenkins':  ip => '192.168.8.31' }  
+  host { 'stash':    ip => '192.168.8.31' }
+  host { 'nexus':    ip => '192.168.8.31' }
+
+  # ramrod android projects
+  boxen::project { 'ramrod_android_core':     source => 'http://stash/scm/mls/ramrod_android_core.git' }
+  boxen::project { 'ramrod_android_foo':      source => 'http://stash/scm/mls/ramrod_android_foo.git' }
+  boxen::project { 'ramrod_android_bar':      source => 'http://stash/scm/mls/ramrod_android_bar.git' }
+  boxen::project { 'ramrod_android_shell':    source => 'http://stash/scm/mls/ramrod_android_shell.git' }
+  # ramrod ios projects
+  boxen::project { 'ramrod_ios_core':         source => 'http://stash/scm/mls/ramrod_ios_core.git' }
+  boxen::project { 'ramrod_ios_foo':          source => 'http://stash/scm/mls/ramrod_ios_foo.git' }
+  boxen::project { 'ramrod_ios_bar':          source => 'http://stash/scm/mls/ramrod_ios_bar.git' }
+  boxen::project { 'ramrod_ios_shell':        source => 'http://stash/scm/mls/ramrod_ios_shell.git' }
+  # ramrod functional tests
+  boxen::project { 'ramrod-functional-tests': source => 'http://stash/scm/mls/ramrod-functional-tests.git' }
 
 }
