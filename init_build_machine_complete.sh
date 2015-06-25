@@ -9,6 +9,9 @@ progress_bar() {
   echo "Time is up, moving on."
 }
 
+read -p "clone jenkins from stash?: (y/n) [Y]" CLONE_JENKINS
+CLONE_JENKINS=${CLONE_JENKINS:-y}
+
 echo "* Initializing Build machine"
 echo "** shutting boot2docker down"
 boot2docker down
@@ -91,8 +94,6 @@ echo "* wait for stash to startup"
 progress_bar
 
 echo "** docker jenkins startup"
-read -p "clone jenkins from stash?: (y/n) [Y]" CLONE_JENKINS
-CLONE_JENKINS=${CLONE_JENKINS:-y}
 
 if [ "$CLONE_JENKINS" = y ]
 then
