@@ -3,8 +3,8 @@
 This document will detail the steps required to setup/configure:
 * [Development machine](#development-machine)
 * [Build machine](#build-machine)
-* [create_user Slave machine](#create_user-slave-machine)
-* [Reset the machine](#reset-the-machine)
+* [Jenkins Slave machine](#jenkins-slave-machine)
+* [Clean everything off the machine](#clean-everything-off-the-machine)
 
 ----
 
@@ -29,17 +29,21 @@ To give you a brief overview, we're going to:
 
 ####Install the full Xcode 
 
-Go to App Store and install Xcode
+* Go to App Store and install Xcode
+* Open Xcode and let it initialize itself
+* Accept the license (which requires entering the user's password)
 
-####Install the Command Line Tools.
+####Install/Update the Command Line Tools.
 
-within a terminal window
+Within a terminal window:
 
 ```
 xcode-select --install
 ```
 
-this will prompt to install Command Line Tools
+This will prompt to install Command Line Tools, click the Install button.
+
+At this point verify dependencies are setup properly by running ```git``` from Terminal.  There should not be any error messages.
 
 ### What You Will Get
 
@@ -77,8 +81,10 @@ It should run successfully, and indicate the need to source a shell script in yo
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 ```
 
-Once the shell is ready, open a new tab/window in your Terminal
-and execute - `boxen --env`.
+Once the shell is ready:
+* in Terminal, open a new tab/window (cmd-T)
+* execute: ```boxen --env```
+
 If that runs cleanly, you're in good shape.
 
 ##### 'after' script
@@ -143,7 +149,7 @@ cd /opt/boxen/repo
 * Node will start and jenkins will connect to remote slave node
 
 ----
-## Clean everything off machine
+## Clean everything off the machine
 The entire machine can be reset, returned to an initial state prior to Discovery install, using the following script.  This can be helpful when a machine has become unstable or needs to be repurposed.
 
 ```
