@@ -13,3 +13,7 @@ cd /opt/boxen/homebrew/Cellar/android-sdk/
 scp -r admin@192.168.8.31:/Users/ga-mlsdiscovery/tailored_backup/tailored_backup.tar .
 tar xvf tailored_backup.tar
 rm tailored_backup.tar
+
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -off -restart -agent -privs -all -allowAccessFor -allUsers
+
+sudo AppleFileServer
