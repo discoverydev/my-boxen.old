@@ -8,7 +8,7 @@ echo "* adding $SERVER to known_hosts"
 ssh-keyscan $SERVER > ~/.ssh/known_hosts
 
 TARFILE=tailored_backup.tar
-DEST=/opt/boxen/homebrew/Cellar/android-sdk/tailored
+DEST=/opt/android-sdk
 SRC=/Users/$USER/tailored_backup
 
 echo "* copy $TARFILE from $SERVER ($SRC) to $DEST"

@@ -93,7 +93,6 @@ node default {
   # common, useful packages -- brew
   package { 
     [
-      'android-sdk',       #
       'ant',               #
       'boot2docker',       #
       'chromedriver',      #
@@ -111,6 +110,8 @@ node default {
     ]: 
     ensure => present
   }
+
+  package { ['android-sdk']: ensure => abasent }
 
   exec { 'drafter': 
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
