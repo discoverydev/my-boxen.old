@@ -77,6 +77,13 @@ git checkout ads
 ./script/boxen
 ```
 
+You will be asked for a GitHub login and password.  Use the `discoverydev` GitHub user.
+
+```
+GitHub login: |ga-mlsdiscovery| discoverydev
+GitHub password: **********
+```
+
 It should run successfully, and indicate the need to source a shell script in your environment.  For users without a bash config or a `~/.profile` file, Boxen will create a shim for you that will work correctly.  If you do have a `~/.bashrc`, your shell will not use `~/.profile` so you'll need to add a line like so at _the end of your config_:
 
 ``` sh
