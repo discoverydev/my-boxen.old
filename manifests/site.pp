@@ -66,6 +66,23 @@ node default {
   nodejs::version { 'v0.12.2': }
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
+  nodejs::module { 'appium': node_version => 'v0.12.2' }
+
+  ruby::version { '2.2.2': }
+  class { 'ruby::global': version => '2.2.2' }
+  ruby_gem { 'cocoapods': 
+    gem          => 'cocoapods',
+    ruby_version => '*'
+  }
+  ruby_gem { 'ocunit2junit': 
+    gem          => 'ocunit2junit',
+    ruby_version => '*'
+  }
+  ruby_gem { 'appium_console': 
+    gem          => 'appium_console',
+    ruby_version => '*'
+  }
+
 
   file { '/usr/local/bin':
     ensure => directory,
@@ -98,7 +115,7 @@ node default {
 
   exec { 'drafter': 
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
-    require  => Class['homebrew']
+    require => Class['homebrew']
   }
 
   # common, useful packages -- brew-cask
@@ -128,6 +145,7 @@ node default {
     target => $boxen::config::repodir
   }
 
+
   include osx_config
 
   host {'jenkins':
@@ -141,4 +159,5 @@ node default {
   host {'nexus':
     ip => '192.168.8.31',
   }
+
 }
