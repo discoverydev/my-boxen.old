@@ -94,7 +94,7 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
-#### restart the terminal
+>restart the terminal in order to source proper variables
 
 [Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
 
