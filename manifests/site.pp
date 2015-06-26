@@ -145,6 +145,7 @@ node default {
     target => $boxen::config::repodir
   }
 
+  exec { 'git config --global push.default simple': }
 
   include osx_config
 
