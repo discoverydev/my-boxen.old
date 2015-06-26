@@ -94,6 +94,8 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
+#### restart the terminal
+
 [Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
 
 ##### Boxen Install Complete
