@@ -76,7 +76,7 @@ sudo chown -R ga-mlsdiscovery:staff /opt
 git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
 git checkout ads
-./script/boxen
+./script/boxen ramrod
 ```
 
 You will be asked for a GitHub login and password.  Use the `discoverydev` GitHub user.
