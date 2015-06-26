@@ -41,5 +41,29 @@ class projects::ramrod {
     source => 'http://stash/scm/mls/ramrod-functional-tests.git', 
     require => Host['stash'] 
   }
-	
+
+  exec { 'ramrod_android_core-build': 
+    cwd => "/Users/${::boxen_user}/src/ramrod_android_core",
+    command => '/bin/sh ci/all.sh',
+    environment => ["ANDROID_HOME=/opt/android-sdk"],
+    require => Boxen::Project['ramrod_android_core']
+  }
+  exec { 'ramrod_android_foo-build': 
+    cwd => "/Users/${::boxen_user}/src/ramrod_android_foo",
+    command => '/bin/sh ci/all.sh',
+    environment => ["ANDROID_HOME=/opt/android-sdk"],
+    require => [Exec['ramrod_android_core-build'], Boxen::Project['ramrod_android_foo']]
+  }
+  exec { 'ramrod_android_bar-build': 
+    cwd => "/Users/${::boxen_user}/src/ramrod_android_bar",
+    command => '/bin/sh ci/all.sh',
+    environment => ["ANDROID_HOME=/opt/android-sdk"],
+    require => [Exec['ramrod_android_core-build'], Boxen::Project['ramrod_android_bar']]
+  }
+  exec { 'ramrod_android_shell-build': 
+    cwd => "/Users/${::boxen_user}/src/ramrod_android_shell",
+    command => '/bin/sh ci/all.sh',
+    environment => ["ANDROID_HOME=/opt/android-sdk"],
+    require => [Exec['ramrod_android_foo-build'], Exec['ramrod_android_bar-build'], Boxen::Project['ramrod_android_shell']]
+  }	
 }

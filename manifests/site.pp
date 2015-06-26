@@ -71,19 +71,22 @@ node default {
 
   ruby::version { '2.2.2': }
   class { 'ruby::global': version => '2.2.2' }
+  ruby_gem { 'bundler':
+    gem          => 'bundler',
+    ruby_version => '*',
+  }
   ruby_gem { 'cocoapods': 
     gem          => 'cocoapods',
-    ruby_version => '*'
+    ruby_version => '*',
   }
-  ruby_gem { 'ocunit2junit': 
+  ruby_gem { 'ocunit2junit': # not sure if this is necessary here
     gem          => 'ocunit2junit',
-    ruby_version => '*'
+    ruby_version => '*',
   }
   ruby_gem { 'appium_console': 
     gem          => 'appium_console',
-    ruby_version => '*'
+    ruby_version => '*',
   }
-
 
   file { '/usr/local/bin':
     ensure => directory,
