@@ -103,7 +103,8 @@ cd /opt/boxen/repo
 At the end of this script an android device will pop up.  If not something went wrong.  In this emulated device you will need to execute some step manually:
 * accept any license agreement / startup dialogs
 * press Ok on first time android help screens
-* go into System > Security and set the Lock Screen to none (needed for automated tests)
+* go into Settings > Security and set the Screen Lock to none (needed for automated tests)
+* exit Settings and close the emulator
 
 ##### Pull down ramrod projects
 
