@@ -70,13 +70,16 @@ sudo chown ga-mlsdiscovery:staff /usr/local
 ```
 
 ##### Configure Boxen on local machine
+
+*Running boxen will override the user's ~/.profile from manifests/files/profile*
+
 ```
 sudo mkdir -p /opt/boxen
 sudo chown -R ga-mlsdiscovery:staff /opt
 git clone https://github.com/discoverydev/my-boxen /opt/boxen/repo
 cd /opt/boxen/repo
 git checkout ads
-./script/boxen ramrod
+./script/boxen
 ```
 
 You will be asked for a GitHub login and password.  Use the `discoverydev` GitHub user.
@@ -86,15 +89,29 @@ GitHub login: |ga-mlsdiscovery| discoverydev
 GitHub password: **********
 ```
 
-##### 'after' script
-```
-the after script will install command-line appium tools and required gems
+*Restart the terminal in order to source proper variables (runs ~/.profile)*
 
+##### 'After' script
+
+The after script will install preconfigured android sdk and devices.
+
+```
 cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
->restart the terminal in order to source proper variables
+At the end of this script an android device will pop up.  If not something went wrong.  In this emulated device you will need to execute some step manually:
+* accept any license agreement / startup dialogs
+* press Ok on first time android help screens
+* go into System > Security and set the Lock Screen to none (needed for automated tests)
+
+##### Pull down ramrod projects
+
+```
+cd /opt/boxen/repo
+./script/boxen ramrod
+```
+
 
 [Add machine as slave node](#step-to-add-a-new-slave-node-to-the-master-jenkins-instance)
 
