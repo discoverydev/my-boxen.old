@@ -18,7 +18,6 @@ pushd $DEST
 echo "  user $USER"
 rsync -ru $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
 tar xkvf $TARFILE
-rm $TARFILE
 popd
 
 echo "* run android HAXM install"
