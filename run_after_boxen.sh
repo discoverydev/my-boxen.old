@@ -16,7 +16,7 @@ mkdir -p $DEST
 
 pushd $DEST
 echo "  user $USER"
-rsync -ru $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
+rsync -ru --progress $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
 tar xkvf $TARFILE
 popd
 
