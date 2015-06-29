@@ -157,7 +157,7 @@ node default {
   host { 'nexus':    ip => '192.168.8.31' }
 
   file { "/Users/${::boxen_user}/.profile":
-    source => "${$boxen::config::repodir}/manifests/files/profile"
+    source => "${boxen::config::repodir}/manifests/files/profile"
   }
 
 }

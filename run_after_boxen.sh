@@ -16,8 +16,8 @@ mkdir -p $DEST
 
 pushd $DEST
 echo "  user $USER"
-scp -r $USER@$SERVER:$SRC/$TARFILE .
-tar xvf $TARFILE
+rsync -ru $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
+tar xkvf $TARFILE
 rm $TARFILE
 popd
 
