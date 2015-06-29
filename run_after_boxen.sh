@@ -21,7 +21,7 @@ tar xkvf $TARFILE
 popd
 
 echo "* run android HAXM install"
-$DEST/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
+sudo $DEST/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
 
 echo "* install more android components"
 echo "y" | $DEST/tools/android update sdk --all --no-ui --filter sys-img-x86-android-21
