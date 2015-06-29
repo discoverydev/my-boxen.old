@@ -150,6 +150,14 @@ node default {
 
   exec { 'git config --global push.default simple': }
 
+  exec { 'pip': 
+    command => 'sudo easy_install pip'
+  }
+  exec { 'virtualenv': 
+    command => 'sudo pip install virtualenv',
+    require => Exec['pip']
+  }
+
   include osx_config
 
   host { 'jenkins':  ip => '192.168.8.31' }  
