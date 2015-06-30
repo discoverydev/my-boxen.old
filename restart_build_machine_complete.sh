@@ -2,14 +2,14 @@
 progress_bar() {
   SECS=120
   while [[ 0 -ne $SECS ]]; do
-    echo "$SECS.."
+    echo "$SECS..\r"
     sleep 1
     SECS=$[$SECS-1]
   done
   echo "Time is up, moving on."
 }
 
-echo "* Initializing Build machine"
+figlet -f banner "Restarting Build machine"
 echo "** shutting boot2docker down"
 boot2docker down
 echo "** deleting existing boot2docker images"
@@ -65,23 +65,14 @@ DATA_DIR=/Users/Shared/data
 mkdir -p $DATA_DIR
 
 echo "** docker stash startup"
-if [ "$#" -eq 1 ] && [ -f $1 ]
-then
-  echo "* base stash image provided -> untar'ing $1 to $DATA_DIR/stash"
-  rm -rf $DATA_DIR/stash
-  mkdir -p $DATA_DIR/stash
-  cd $DATA_DIR/stash
-  tar xvf $1 
-else
-  echo "* base stash image NOT provided -> assuming default"
-  mkdir -p $DATA_DIR/stash
-fi
+echo "* base stash image NOT provided -> assuming default"
+mkdir -p $DATA_DIR/stash
 docker run --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
-echo "** setting docker timezone to EST"
-ENV TZ=America/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#echo "** setting docker timezone to EST"
+#ENV TZ=America/New_York
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 echo "** docker nexus startup"
 mkdir -p $DATA_DIR/nexus
@@ -92,22 +83,7 @@ echo "* wait for stash to startup"
 progress_bar
 
 echo "** docker jenkins startup"
-
-read -p "clone jenkins from stash?: (y/n) [Y]" CLONE_JENKINS
-CLONE_JENKINS=${CLONE_JENKINS:-y}
-
-if [ "$CLONE_JENKINS" = y ]
-then
-  echo "* cloning jenkins"
-  rm -rf $DATA_DIR/jenkins
-  mkdir -p $DATA_DIR/jenkins
-  echo "* clone jenkins config"
-  git clone http://admin@localhost:7990/scm/mls/jenkins_base_config.git /Users/Shared/data/jenkins
-  echo "* clone jenkins jobs"
-  git clone http://admin@localhost:7990/scm/mls/jenkins_jobs.git /Users/Shared/data/jenkins/jobs
-else
-  echo "* using existing jenkins data dir"
-fi
+echo "* using existing jenkins data dir"
 
 docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
