@@ -12,22 +12,21 @@ progress_bar() {
 figlet -f banner "Restarting Build machine"
 echo "** shutting boot2docker down"
 boot2docker down
-echo "** deleting existing boot2docker images"
-boot2docker delete
-
+#echo "** deleting existing boot2docker images"
+#boot2docker delete
 echo "** initialize boot2docker"
 boot2docker init
 
-echo "** increasing boot2docker memory"
-VBoxManage modifyvm boot2docker-vm --memory 8192
-echo "** exposing stash port to the outside world"
-VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
-echo "** exposing nexus port to the outside world"
-VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
-echo "** exposing jenkins port to the outside world"
-VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
-echo "** exposing jenkins SLAVE port to the outside world"
-VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-50000,tcp,,50000,,50000'
+#echo "** increasing boot2docker memory"
+#VBoxManage modifyvm boot2docker-vm --memory 8192
+#echo "** exposing stash port to the outside world"
+#VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
+#echo "** exposing nexus port to the outside world"
+#VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
+#echo "** exposing jenkins port to the outside world"
+#VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
+#echo "** exposing jenkins SLAVE port to the outside world"
+#VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-50000,tcp,,50000,,50000'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -67,7 +66,8 @@ mkdir -p $DATA_DIR
 echo "** docker stash startup"
 echo "* base stash image NOT provided -> assuming default"
 mkdir -p $DATA_DIR/stash
-docker run --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
+docker restart stash
+# --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
 #echo "** setting docker timezone to EST"
@@ -76,7 +76,8 @@ docker ps
 
 echo "** docker nexus startup"
 mkdir -p $DATA_DIR/nexus
-docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
+docker restart nexus
+#docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
 docker ps
 
 echo "* wait for stash to startup"
@@ -85,7 +86,8 @@ progress_bar
 echo "** docker jenkins startup"
 echo "* using existing jenkins data dir"
 
-docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
+docker restart jenkins
+#docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
 echo "** open stash browser"
