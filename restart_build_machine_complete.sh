@@ -9,24 +9,18 @@ progress_bar() {
   echo "Time is up, moving on."
 }
 
-figlet -f banner "Restarting Build machine"
+figlet -f banner "Restarting"
+read -p "are you sure you want to restart: (y/n) [Y]" RESTART
+RESTART=${RESTART:-y}
+
+if [ "$RESTART" = n ]
+then
+  figlet -f banner "Exiting."
+  exit 1
+fi
+
 echo "** shutting boot2docker down"
 boot2docker down
-#echo "** deleting existing boot2docker images"
-#boot2docker delete
-echo "** initialize boot2docker"
-boot2docker init
-
-#echo "** increasing boot2docker memory"
-#VBoxManage modifyvm boot2docker-vm --memory 8192
-#echo "** exposing stash port to the outside world"
-#VBoxManage modifyvm boot2docker-vm --natpf1 'stash-http-7990,tcp,,7990,,7990'
-#echo "** exposing nexus port to the outside world"
-#VBoxManage modifyvm boot2docker-vm --natpf1 'nexus-http-8081,tcp,,8081,,8081'
-#echo "** exposing jenkins port to the outside world"
-#VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-8080,tcp,,8080,,8080'
-#echo "** exposing jenkins SLAVE port to the outside world"
-#VBoxManage modifyvm boot2docker-vm --natpf1 'jenkins-http-50000,tcp,,50000,,50000'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -41,18 +35,8 @@ echo "/opt/boxen -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
 sudo mv exports /etc && sudo nfsd restart
 sleep 15
 
-echo "* enable boot2docker nfs client"
-boot2docker ssh 'echo -e "#! /bin/bash\n\
-sudo mkdir /Users
-sudo mkdir -p /opt/boxen
-sudo chown docker:staff /Users
-sudo chown docker:staff /opt/boxen
-# start nfs client
-sudo /usr/local/etc/init.d/nfs-client start\n\
-# mount /Users to host /Users
-sudo mount 192.168.59.3:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp\n\
-sudo mount 192.168.59.3:/opt/boxen /opt/boxen -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp" > ~/bootlocal.sh'
-boot2docker ssh 'sudo cp ~/bootlocal.sh /var/lib/boot2docker/'
+#echo "* enable boot2docker nfs client"
+#boot2docker ssh 'sudo cp ~/bootlocal.sh /var/lib/boot2docker/'
 boot2docker ssh 'ls -ltra /var/lib/boot2docker/'
 boot2docker ssh '. /var/lib/boot2docker/bootlocal.sh'
 echo "* display mounted nfs share"
@@ -61,23 +45,13 @@ boot2docker ssh 'ls -ltra /Users'
 
 echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
-mkdir -p $DATA_DIR
 
 echo "** docker stash startup"
-echo "* base stash image NOT provided -> assuming default"
-mkdir -p $DATA_DIR/stash
 docker restart stash
-# --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
-#echo "** setting docker timezone to EST"
-#ENV TZ=America/New_York
-#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 echo "** docker nexus startup"
-mkdir -p $DATA_DIR/nexus
 docker restart nexus
-#docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
 docker ps
 
 echo "* wait for stash to startup"
@@ -85,9 +59,7 @@ progress_bar
 
 echo "** docker jenkins startup"
 echo "* using existing jenkins data dir"
-
 docker restart jenkins
-#docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
 echo "** open stash browser"
