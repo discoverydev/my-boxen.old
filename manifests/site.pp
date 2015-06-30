@@ -109,6 +109,8 @@ node default {
       'openssl',           #
       'p7zip',             #
       'rbenv',             #
+      'sbt',               # for Gimbal Geofence Importer
+      'scala',             # for Gimbal Geofence Importer
       'wget',              #
       'xctool',            # xcode build, used by sonar
     ]: 
@@ -158,7 +160,10 @@ node default {
     command => 'sudo pip install virtualenv',
     require => Exec['pip']
   }
-
+  exec { 'link firefox to Applications': 
+    command => 'ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
+    require => Package['firefox']
+  }
   include osx_config
 
   host { 'jenkins':  ip => '192.168.8.31' }  
