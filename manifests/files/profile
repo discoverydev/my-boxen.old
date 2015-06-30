@@ -9,5 +9,6 @@ export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # aliases
 alias ll="ls -ltra"
+alias repo="cd /opt/boxen/repo"
 
 set -o vi
