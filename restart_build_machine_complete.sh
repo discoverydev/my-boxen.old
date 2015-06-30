@@ -10,15 +10,6 @@ progress_bar() {
 }
 
 figlet -f banner "Restarting"
-read -p "are you sure you want to restart: (y/n) [Y]" RESTART
-RESTART=${RESTART:-y}
-
-if [ "$RESTART" = n ]
-then
-  figlet -f banner "Exiting."
-  exit 1
-fi
-
 echo "** shutting boot2docker down"
 boot2docker down
 
