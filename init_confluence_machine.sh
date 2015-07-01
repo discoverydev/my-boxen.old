@@ -2,11 +2,11 @@
 progress_bar() {
   SECS=120
   while [[ 0 -ne $SECS ]]; do
-    echo "$SECS.."
+    echo ".\c"
     sleep 1
     SECS=$[$SECS-1]
   done
-  echo "Time is up, moving on."
+  echo "\nTime is up, moving on."
 }
 
 echo "* Initializing Build machine"
@@ -70,7 +70,6 @@ docker ps
 
 echo "** setting docker timezone to EST"
 ENV TZ=America/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 echo "* wait for confluence to startup"
 progress_bar

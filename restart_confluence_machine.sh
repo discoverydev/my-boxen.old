@@ -2,12 +2,15 @@
 progress_bar() {
   SECS=120
   while [[ 0 -ne $SECS ]]; do
-    echo "$SECS.."
+    echo ".\c"
     sleep 1
     SECS=$[$SECS-1]
   done
-  echo "Time is up, moving on."
+  echo "\nTime is up, moving on."
 }
+
+# sleeping in order to allow the box to stabilize before the script starts
+progress_bar
 
 export PATH=/opt/boxen/homebrew/bin:$PATH
 
@@ -16,13 +19,13 @@ echo "** shutting boot2docker down"
 boot2docker down
 
 echo "** boot2docker startup"
-boot2docker up --vbox-share=disable
 $(boot2docker shellinit)
+boot2docker up --vbox-share=disable
 boot2docker ip
 
 echo "* enable host nfs daemon for /Users"
 echo "/Users -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
-sudo mv exports /etc && sudo nfsd restart
+sudo mv exports /etc && sudo /sbin/nfsd restart
 sleep 15
 
 echo "* enable boot2docker nfs client"
@@ -36,7 +39,7 @@ echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 
 echo "** docker confluence startup"
-docker restart confluence
+docker --tlsverify=false restart confluence
 docker ps
 
 echo "* wait for confluence to startup"
