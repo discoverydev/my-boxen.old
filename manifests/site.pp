@@ -64,6 +64,11 @@ node default {
   include sublime_text
   # sublime_text::package { 'Emmet': source => 'sergeche/emmet-sublime' } 
 
+  file { "${boxen::config::srcdir}/our-boxen":
+    ensure => link,
+    target => $boxen::config::repodir
+  }
+
   nodejs::version { 'v0.12.2': }
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
@@ -97,18 +102,18 @@ node default {
   # common, useful packages -- brew
   package { 
     [
-      'ant',               #
-      'boot2docker',       #
-      'chromedriver',      #
-      'docker',            #
+      'ant',               # for builds 
+      'boot2docker',       # for docker used by ci (stash, jenkins, etc)
+      'chromedriver',      # 
+      'docker',            # for ci 
       'figlet',            #
       'git',               #
-      'gradle',            #
+      'gradle',            # for builds
       'groovy',            #
-      'maven',             #
+      'maven',             # for builds
       'openssl',           #
-      'p7zip',             #
-      'rbenv',             #
+      'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
+      'rbenv',             # ruby environment manager
       'sbt',               # for Gimbal Geofence Importer
       'scala',             # for Gimbal Geofence Importer
       'wget',              #
@@ -117,8 +122,10 @@ node default {
     ensure => present
   }
 
-  package { 'android-sdk': ensure => absent }   # custom pre-populated android-sdk installed after boxen
+  # packages that should not be present anymore
+  package { 'android-sdk': ensure => absent }   # instead, custom pre-populated android-sdk installed after boxen
 
+  # homebrew package that requires custom params
   exec { 'drafter': 
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
     require => Class['homebrew']
@@ -127,52 +134,44 @@ node default {
   # common, useful packages -- brew-cask
   package { [
       'android-studio',
-      'appium',
-      'firefox', 
+      'appium',            # ios/android app testing
+      'firefox',           # browser
       'genymotion',        # android in virtualbox (faster) 
-      'google-chrome',
-      'google-hangouts',
-      'intellij-idea',
+      'google-chrome',     # browser
+      'google-hangouts',   # communication tool
+      'intellij-idea',     # IDE all the things
       'java',              # java 8
       'qlgradle',          # quicklook for gradle files
       'qlmarkdown',        # quicklook for md files
       'qlprettypatch',     # quicklook for patch files
       'qlstephen',         # quicklook for text files
-      'slack',
-      'iterm2',
-      'virtualbox',
+      'slack',             # communication tool
+      'iterm2',            # terminal replacement
+      'virtualbox',        # VM for boot2docker, genymotion, etc
     ]: 
     provider => 'brewcask', 
     ensure => present
   }
 
-  file { "${boxen::config::srcdir}/our-boxen":
-    ensure => link,
-    target => $boxen::config::repodir
-  }
-
-  exec { 'git config --global push.default simple': }
   exec { 'sudo /usr/sbin/DevToolsSecurity --enable': }
 
-  exec { 'pip': 
+  # geofencing uses python scripts
+  exec { 'pip':  # python package manager  
     command => 'sudo easy_install pip'
   }
-  exec { 'virtualenv': 
+  exec { 'virtualenv':  # python environment manager
     command => 'sudo pip install virtualenv',
     require => Exec['pip']
   }
+
   exec { 'link firefox to Applications': 
-    command => 'ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
+    command => 'sudo ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
     require => Package['firefox']
   }
-  include osx_config
 
-  host { 'jenkins':  ip => '192.168.8.31' }  
-  host { 'stash':    ip => '192.168.8.31' }
-  host { 'nexus':    ip => '192.168.8.31' }
-
-  file { "/Users/${::boxen_user}/.profile":
-    source => "${boxen::config::repodir}/manifests/files/profile"
-  }
+  host { 'jenkins':    ip => '192.168.8.31' }  
+  host { 'stash':      ip => '192.168.8.31' }
+  host { 'nexus':      ip => '192.168.8.31' }
+  host { 'confluence': ip => '192.168.8.34' }
 
 }
