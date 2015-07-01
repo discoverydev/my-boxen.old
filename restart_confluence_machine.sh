@@ -22,7 +22,7 @@ boot2docker ip
 
 echo "* enable host nfs daemon for /Users"
 echo "/Users -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
-sudo mv exports /etc && sudo nfsd restart
+sudo mv exports /etc && sudo /sbin/nfsd restart
 sleep 15
 
 echo "* enable boot2docker nfs client"
