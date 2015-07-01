@@ -9,6 +9,9 @@ progress_bar() {
   echo "\nTime is up, moving on."
 }
 
+# sleeping in order to allow the box to stabilize before the script starts
+progress_bar
+
 export PATH=/opt/boxen/homebrew/bin:$PATH
 
 echo "* Restarting Confluence machine"
