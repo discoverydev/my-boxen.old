@@ -1,6 +1,6 @@
 #!/bin/sh
 progress_bar() {
-  SECS=120
+  SECS=1
   while [[ 0 -ne $SECS ]]; do
     echo "$SECS.."
     sleep 1
@@ -8,6 +8,8 @@ progress_bar() {
   done
   echo "Time is up, moving on."
 }
+
+export PATH=/opt/boxen/homebrew/bin:$PATH
 
 echo "* Restarting Confluence machine"
 echo "** shutting boot2docker down"
@@ -34,7 +36,7 @@ echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 
 echo "** docker confluence startup"
-docker --tlsverify=false restart confluence
+docker restart confluence
 docker ps
 
 echo "* wait for confluence to startup"
