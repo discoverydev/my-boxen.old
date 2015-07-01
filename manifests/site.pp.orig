@@ -64,11 +64,6 @@ node default {
   include sublime_text
   # sublime_text::package { 'Emmet': source => 'sergeche/emmet-sublime' } 
 
-  file { "${boxen::config::srcdir}/our-boxen":
-    ensure => link,
-    target => $boxen::config::repodir
-  }
-
   nodejs::version { 'v0.12.2': }
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
@@ -151,6 +146,11 @@ node default {
     ]: 
     provider => 'brewcask', 
     ensure => present
+  }
+
+  file { "${boxen::config::srcdir}/our-boxen":
+    ensure => link,
+    target => $boxen::config::repodir
   }
 
   exec { 'sudo /usr/sbin/DevToolsSecurity --enable': }
