@@ -1,6 +1,6 @@
 #!/bin/sh
 progress_bar() {
-  SECS=1
+  SECS=120
   while [[ 0 -ne $SECS ]]; do
     echo "$SECS.."
     sleep 1
