@@ -10,12 +10,12 @@ progress_bar() {
 }
 
 echo "* Restarting build machine"
+$(boot2docker shellinit)
 echo "** shutting boot2docker down"
 boot2docker down
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
-$(boot2docker shellinit)
 boot2docker ip
 
 echo "* enable host nfs daemon for /Users"

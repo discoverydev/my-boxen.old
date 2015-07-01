@@ -12,3 +12,21 @@ alias ll="ls -ltra"
 alias repo="cd /opt/boxen/repo"
 
 set -o vi
+
+# GIT aliases
+alias pull='git pull'
+alias push='git push'
+alias rh='git reset --hard'
+alias master='git checkout master'
+alias st='git status'
+alias log="clear; git log -20 --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative"
+alias log2="clear; git log -20 --format='%Cgreen%h%Creset %C(cyan)%an%Creset - %s' --graph --date=relative --abbrev-commit"
+alias db='git branch --merged | grep -v \master | xargs git branch -D '
+alias br='git branch'
+alias bra='git branch -a'
+alias diff='git diff'
+alias cb='git checkout -b'
+alias co='git checkout '
+alias ac='git add .; git commit -a '
+alias mrg='git merge --no-ff'
+alias com='git add .; git commit -m $1'

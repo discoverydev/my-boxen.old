@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #USER=ga-mlsdiscovery
-USER=admin
+USER=ga-mlsdiscovery
 SERVER=192.168.8.31
 
 echo "* adding $SERVER to known_hosts"
