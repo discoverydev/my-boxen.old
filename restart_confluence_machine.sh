@@ -6,7 +6,7 @@ progress_bar() {
     sleep 1
     SECS=$[$SECS-1]
   done
-  echo "Time is up, moving on."
+  echo "\nTime is up, moving on."
 }
 
 export PATH=/opt/boxen/homebrew/bin:$PATH
