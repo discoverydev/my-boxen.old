@@ -2,7 +2,7 @@
 progress_bar() {
   SECS=120
   while [[ 0 -ne $SECS ]]; do
-    echo -ne "$SECS..\r"
+    echo ".\c"
     sleep 1
     SECS=$[$SECS-1]
   done
