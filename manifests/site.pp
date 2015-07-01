@@ -161,7 +161,7 @@ node default {
     require => Exec['pip']
   }
   exec { 'link firefox to Applications': 
-    command => 'ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
+    command => 'sudo ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
     require => Package['firefox']
   }
   include osx_config
