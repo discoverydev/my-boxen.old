@@ -20,7 +20,7 @@ boot2docker down
 
 echo "** boot2docker startup"
 $(boot2docker shellinit)
-boot2docker up --vbox-share=disable -v
+boot2docker up --vbox-share=disable
 boot2docker ip
 
 echo "* enable host nfs daemon for /Users"
