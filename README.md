@@ -100,7 +100,7 @@ cd /opt/boxen/repo
 ./run_after_boxen.sh
 ```
 
-At the end of this script an android device will pop up.  If not something went wrong.  In this emulated device you will need to execute some step manually:
+At the end of this script an android device will pop up.  Within this emulated device you will need to execute some step manually:
 * accept any license agreement / startup dialogs
 * press Ok on first time android help screens
 * go into Settings > Security and set the Screen Lock to none (needed for automated tests)
