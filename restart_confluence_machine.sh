@@ -36,7 +36,7 @@ echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 
 echo "** docker confluence startup"
-docker restart confluence
+docker --tlsverify=false restart confluence
 docker ps
 
 echo "* wait for confluence to startup"
