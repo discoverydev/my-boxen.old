@@ -9,7 +9,7 @@ progress_bar() {
   echo "Time is up, moving on."
 }
 
-figlet -f banner "Restarting"
+echo "* Restarting build machine"
 echo "** shutting boot2docker down"
 boot2docker down
 
@@ -27,7 +27,6 @@ sudo mv exports /etc && sudo nfsd restart
 sleep 15
 
 #echo "* enable boot2docker nfs client"
-#boot2docker ssh 'sudo cp ~/bootlocal.sh /var/lib/boot2docker/'
 boot2docker ssh 'ls -ltra /var/lib/boot2docker/'
 boot2docker ssh '. /var/lib/boot2docker/bootlocal.sh'
 echo "* display mounted nfs share"
