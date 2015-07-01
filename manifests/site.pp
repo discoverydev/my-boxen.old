@@ -152,6 +152,7 @@ node default {
   }
 
   exec { 'git config --global push.default simple': }
+  exec { 'sudo /usr/sbin/DevToolsSecurity --enable': }
 
   exec { 'pip': 
     command => 'sudo easy_install pip'
