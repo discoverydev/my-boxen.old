@@ -28,7 +28,7 @@ echo "/Users -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
 # the /opt/boxen nfs mount is required for jenkins to find android sdk
 echo "* enable host nfs daemon for /opt/boxen"
 echo "/opt/boxen -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
-sudo mv exports /etc && sudo nfsd restart
+sudo mv exports /etc && sudo /sbin/nfsd restart
 sleep 15
 
 #echo "* enable boot2docker nfs client"
