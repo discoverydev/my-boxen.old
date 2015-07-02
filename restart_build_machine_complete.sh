@@ -28,7 +28,7 @@ echo "/Users -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
 # the /opt/boxen nfs mount is required for jenkins to find android sdk
 echo "* enable host nfs daemon for /opt/boxen"
 echo "/opt/boxen -mapall=`whoami`:staff `boot2docker ip`\n" >> exports
-sudo mv exports /etc && sudo nfsd restart
+sudo mv exports /etc && sudo /sbin/nfsd restart
 sleep 15
 
 #echo "* enable boot2docker nfs client"
@@ -42,11 +42,11 @@ echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 
 echo "** docker stash startup"
-docker restart stash
+docker --tlsverify=false restart stash
 docker ps
 
 echo "** docker nexus startup"
-docker restart nexus
+docker --tlsverify=false restart nexus
 docker ps
 
 echo "* wait for stash to startup"
@@ -54,7 +54,7 @@ progress_bar
 
 echo "** docker jenkins startup"
 echo "* using existing jenkins data dir"
-docker restart jenkins
+docker --tlsverify=false restart jenkins
 docker ps
 
 echo "** open stash browser"
