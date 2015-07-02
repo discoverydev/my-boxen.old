@@ -42,11 +42,11 @@ echo "* defining directory for data shares (must be under the above nfs share)"
 DATA_DIR=/Users/Shared/data
 
 echo "** docker stash startup"
-docker restart stash
+docker --tlsverify=false restart stash
 docker ps
 
 echo "** docker nexus startup"
-docker restart nexus
+docker --tlsverify=false restart nexus
 docker ps
 
 echo "* wait for stash to startup"
@@ -54,7 +54,7 @@ progress_bar
 
 echo "** docker jenkins startup"
 echo "* using existing jenkins data dir"
-docker restart jenkins
+docker --tlsverify=false restart jenkins
 docker ps
 
 echo "** open stash browser"
