@@ -125,6 +125,13 @@ The Development machine is operational.
 The following instructions will configure a base 'build' machine, complete with Continuous Integration (Jenkins), artifact repository (Nexus) and Stash repository.
 
 ### Installation Steps
+
+#### Apply boxen ci project config
+```
+cd /opt/boxen/repo
+./scripts/boxen ci
+```
+
 #### Configure local build machine
 
 > if you have not completed the [Development machine](#development-machine) setup, please complete prior to Stash installation
