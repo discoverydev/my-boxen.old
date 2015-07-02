@@ -110,6 +110,7 @@ node default {
       'git',               #
       'gradle',            # for builds
       'groovy',            #
+      'ideviceinstaller',  # for appium on ios devices
       'maven',             # for builds
       'openssl',           #
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
