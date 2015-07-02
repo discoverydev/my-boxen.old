@@ -3,7 +3,8 @@
 This document will detail the steps required to setup/configure:
 * [Development machine](#development-machine)
 * [Build machine](#build-machine)
-* [Jenkins Slave machine](#jenkins-slave-machine)
+* [Confluence machine](#confluence-machine)
+* [Jenkins Slave nodes](#jenkins-slave-nodes)
 * [Clean everything off the machine](#clean-everything-off-the-machine)
 
 ----
@@ -139,6 +140,26 @@ cd /opt/boxen/repo
 ```
 cd /opt/boxen/repo
 ./init_build_machine_complete.sh [base stash image if available]
+```
+
+## Confluence machine
+The following instructions will configure a base Confluence machine.
+
+### Installation Steps
+
+#### Apply boxen confluence project config
+```
+cd /opt/boxen/repo
+./scripts/boxen confluence
+```
+
+#### Configure local build machine
+
+> if you have not completed the [Development machine](#development-machine) setup, please complete prior to Stash installation
+
+```
+cd /opt/boxen/repo
+./init_confluence_machine.sh
 ```
 
 ## Jenkins Slave Nodes
