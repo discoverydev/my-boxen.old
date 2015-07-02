@@ -9,7 +9,6 @@ echo "* quitting any running instances of VirutalBox"
 osascript -e 'quit app "VirtualBox"'
 
 DATA_DIR=/Users/Shared/data
-#rm -rf $DATA_DIR
 
 echo "** deleting local user : jenkins"
 sudo dscl . -delete "/Users/jenkins"
