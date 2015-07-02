@@ -175,4 +175,9 @@ node default {
   host { 'nexus':      ip => '192.168.8.31' }
   host { 'confluence': ip => '192.168.8.34' }
 
+  host { 'xavier':     ip => '192.168.8.31' }  
+  host { 'rogue':      ip => '192.168.8.32' }  
+  host { 'warlock':    ip => '192.168.8.33' }  
+  host { 'wolverine':  ip => '192.168.8.34' }  
+  
 }
