@@ -162,7 +162,7 @@ Availability: [Keep this slave on-line as much as possible]
 on the slave machine
 ```
 cd /opt/boxen/repo
-./start_jenkins_slave.sh [name of node you just created]
+./start_jenkins_slave.sh
 ```
 
 * Node will start and jenkins will connect to remote slave node
