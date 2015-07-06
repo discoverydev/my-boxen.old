@@ -166,7 +166,7 @@ node default {
   }
 
   exec { 'link firefox to Applications': 
-    command => 'sudo ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
+    command => 'sudo rm /Applications/Firefox.app; sudo ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
     require => Package['firefox']
   }
 
