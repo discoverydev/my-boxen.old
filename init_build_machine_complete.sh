@@ -76,7 +76,7 @@ else
   echo "* base stash image NOT provided -> assuming default"
   mkdir -p $DATA_DIR/stash
 fi
-docker run --name=stash -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
+docker run --name=stash --add-host nexus:192.168.8.31 --add-host jenkins:192.168.8.31 --add-host confluence:192.168.8.34 -d -v $DATA_DIR/stash:/var/atlassian/application-data/stash -p 7990:7990 -p 7999:7999 atlassian/stash
 docker ps
 
 echo "** setting docker timezone to EST"
@@ -84,7 +84,7 @@ ENV TZ=America/New_York
 
 echo "** docker nexus startup"
 mkdir -p $DATA_DIR/nexus
-docker run --name nexus -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
+docker run --name nexus --add-host stash:192.168.8.31 --add-host jenkins:192.168.8.31 --add-host confluence:192.168.8.34 -d -v $DATA_DIR/nexus:/sonatype-work -p 8081:8081 sonatype/nexus 
 docker ps
 
 echo "* wait for stash to startup"
@@ -108,7 +108,7 @@ else
   echo "* using existing jenkins data dir"
 fi
 
-docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
+docker run --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --add-host confluence:192.168.8.34 --name jenkins -d -v $DATA_DIR/jenkins:/var/jenkins_home -v /opt/boxen:/opt/boxen -p 8080:8080 -p 50000:50000 jenkins 
 docker ps
 
 echo "** open stash browser"
