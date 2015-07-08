@@ -155,6 +155,7 @@ node default {
       'slack',             # communication tool
       'iterm2',            # terminal replacement
       'virtualbox',        # VM for boot2docker, genymotion, etc
+      'caffeine',          # 
     ]: 
     provider => 'brewcask', 
     ensure => present
