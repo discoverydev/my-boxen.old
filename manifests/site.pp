@@ -21,6 +21,7 @@ Exec {
 
   environment => [
     "HOMEBREW_CACHE=${homebrew::config::cachedir}",
+    "HOMEBREW_CASK_OPTS="--appdir=/Applications",
     "HOME=/Users/${::boxen_user}"
   ]
 }
