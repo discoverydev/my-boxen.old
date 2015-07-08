@@ -21,7 +21,6 @@ Exec {
 
   environment => [
     "HOMEBREW_CACHE=${homebrew::config::cachedir}",
-    "HOMEBREW_CASK_OPTS="--appdir=/Applications",
     "HOME=/Users/${::boxen_user}"
   ]
 }
@@ -33,7 +32,8 @@ File {
 
 Package {
   provider => homebrew,
-  require  => Class['homebrew']
+  require  => Class['homebrew'],
+  install_options => ['--appdir=/Applications', '--force']
 }
 
 Repository {
@@ -132,6 +132,11 @@ node default {
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
     require => Class['homebrew']
   }
+  
+  exec { 'firefox': 
+    command => 'sudo brew cask install firefox --appdir=/Applications --force',
+    require => Class['homebrew']
+  }
 
   # common, useful packages -- brew-cask
   package { [
@@ -164,11 +169,6 @@ node default {
   exec { 'virtualenv':  # python environment manager
     command => 'sudo pip install virtualenv',
     require => Exec['pip']
-  }
-
-  exec { 'link firefox to Applications': 
-    command => 'sudo rm /Applications/Firefox.app; sudo ln -s ~/Applications/Firefox.app /Applications/Firefox.app',
-    require => Package['firefox']
   }
 
   host { 'jenkins':    ip => '192.168.8.31' }  
