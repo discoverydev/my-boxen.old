@@ -9,7 +9,7 @@ progress_bar() {
   echo "\nTime is up, moving on."
 }
 
-echo "* Initializing Build machine"
+echo "* Initializing SonarCube machine"
 echo "** shutting boot2docker down"
 boot2docker down
 echo "** deleting existing boot2docker images"
@@ -20,8 +20,8 @@ boot2docker init
 
 echo "** increasing boot2docker memory"
 VBoxManage modifyvm boot2docker-vm --memory 2048
-echo "** exposing confluence port to the outside world"
-VBoxManage modifyvm boot2docker-vm --natpf1 'confluence-http-8090,tcp,,8090,,8090'
+echo "** exposing sonarqube port to the outside world"
+VBoxManage modifyvm boot2docker-vm --natpf1 'sonarqube-http-9000,tcp,,9000,,9000'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -49,30 +49,13 @@ echo "* display mounted nfs share"
 boot2docker ssh mount
 boot2docker ssh 'ls -ltra /Users'
 
-echo "* defining directory for data shares (must be under the above nfs share)"
-DATA_DIR=/Users/Shared/data
-mkdir -p $DATA_DIR
-
-echo "** docker confluence startup"
-if [ "$#" -eq 1 ] && [ -f $1 ]
-then
-  echo "* base confluence image provided -> untar'ing $1 to $DATA_DIR/confluence"
-  rm -rf $DATA_DIR/confluence
-  mkdir -p $DATA_DIR/confluence
-  cd $DATA_DIR/confluence
-  tar xvf $1 
-else
-  echo "* base confluence image NOT provided -> assuming default"
-  mkdir -p $DATA_DIR/confluence
-fi
-docker run --name=confluence -d -v $DATA_DIR/confluence:/var/local/atlassian/confluence -p 8090:8090 cptactionhank/atlassian-confluence:latest
+docker run --name=sonarqube -d -p 9000:9000 -p 9092:9092 sonarqube:latest
 docker ps
 
 echo "** setting docker timezone to EST"
 ENV TZ=America/New_York
 
-echo "* wait for confluence to startup"
+echo "* wait for sonarqube to startup"
 progress_bar
 
-echo "** open confluence browser"
-open http://localhost:8090/
+echo "* sonarqube successfully started."
