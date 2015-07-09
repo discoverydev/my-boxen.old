@@ -110,6 +110,7 @@ node default {
       'figlet',            #
       'git',               #
       'gradle',            # for builds
+      'grails',            # 
       'groovy',            #
       'ideviceinstaller',  # for appium on ios devices
       'maven',             # for builds
