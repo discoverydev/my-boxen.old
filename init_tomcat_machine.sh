@@ -63,10 +63,9 @@ then
   tar xvf $1 
 else
   echo "* base tomcat image NOT provided -> assuming default"
-  mkdir -p $DATA_DIR/tomcat/webapps/sample-checkout
+  mkdir -p $DATA_DIR/tomcat
 fi
 docker run -d -p 8888:8080 --name tomcat -v $DATA_DIR/tomcat/webapps/sample-checkout:/usr/local/tomcat/webapps/sample-checkout tomcat:8.0
-#docker run --name=tomcat -d -v $DATA_DIR/tomcat:/var/local/atlassian/tomcat -p 8090:8090 cptactionhank/atlassian-tomcat:latest
 docker ps
 
 echo "** setting docker timezone to EST"

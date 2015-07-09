@@ -10,7 +10,7 @@ progress_bar() {
 }
 
 # sleeping in order to allow the box to stabilize before the script starts
-#progress_bar
+progress_bar
 
 export PATH=/opt/boxen/homebrew/bin:$PATH
 export DOCKER_HOST=tcp://192.168.59.103:2376
