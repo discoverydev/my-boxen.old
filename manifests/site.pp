@@ -118,6 +118,7 @@ node default {
       'rbenv',             # ruby environment manager
       'sbt',               # for Gimbal Geofence Importer
       'scala',             # for Gimbal Geofence Importer
+      'sonar-runner',      # for sonar tests
       'wget',              #
       'xctool',            # xcode build, used by sonar
     ]: 
