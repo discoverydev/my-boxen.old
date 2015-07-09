@@ -22,6 +22,7 @@ echo "** increasing boot2docker memory"
 VBoxManage modifyvm boot2docker-vm --memory 2048
 echo "** exposing sonarqube port to the outside world"
 VBoxManage modifyvm boot2docker-vm --natpf1 'sonarqube-http-9000,tcp,,9000,,9000'
+VBoxManage modifyvm boot2docker-vm --natpf1 'sonarqube-http-9092,tcp,,9092,,9092'
 
 echo "** boot2docker startup"
 boot2docker up --vbox-share=disable
@@ -55,7 +56,7 @@ docker ps
 echo "** setting docker timezone to EST"
 ENV TZ=America/New_York
 
-echo "* wait for sonarqube to startup"
-progress_bar
+#echo "* wait for sonarqube to startup"
+#progress_bar
 
 echo "* sonarqube successfully started."
