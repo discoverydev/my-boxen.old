@@ -110,6 +110,7 @@ node default {
       'figlet',            #
       'git',               #
       'gradle',            # for builds
+      'grails',            # 
       'groovy',            #
       'ideviceinstaller',  # for appium on ios devices
       'maven',             # for builds
@@ -121,6 +122,7 @@ node default {
       'sonar-runner',      # for sonar tests
       'wget',              #
       'xctool',            # xcode build, used by sonar
+      'pv',                # pipeview for progress bar
     ]: 
     ensure => present
   }
@@ -156,6 +158,8 @@ node default {
       'slack',             # communication tool
       'iterm2',            # terminal replacement
       'virtualbox',        # VM for boot2docker, genymotion, etc
+      'caffeine',          # keep the machine from sleeping
+      'sourcetree',        # Atlassian Sourcetree
     ]: 
     provider => 'brewcask', 
     ensure => present
@@ -176,6 +180,7 @@ node default {
   host { 'stash':      ip => '192.168.8.31' }
   host { 'nexus':      ip => '192.168.8.31' }
   host { 'confluence': ip => '192.168.8.34' }
+  host { 'sonarqube':  ip => '192.168.8.35' }
 
   host { 'xavier':     ip => '192.168.8.31' }  
   host { 'rogue':      ip => '192.168.8.32' }  
