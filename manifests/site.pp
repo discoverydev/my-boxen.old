@@ -186,5 +186,6 @@ node default {
   host { 'rogue':      ip => '192.168.8.32' }  
   host { 'warlock':    ip => '192.168.8.33' }  
   host { 'wolverine':  ip => '192.168.8.34' }  
+  host { 'beast':      ip => '192.168.8.35' }  
   
 }
