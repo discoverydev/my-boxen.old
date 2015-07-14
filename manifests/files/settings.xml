@@ -1,0 +1,35 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+      <localRepository/>
+      <interactiveMode/>
+      <usePluginRegistry/>
+      <offline/>
+      <pluginGroups/>
+      <servers>
+        <server>
+          <id>nexus</id>
+          <username>deployment</username>
+          <password>deployment123</password>
+        </server>
+      </servers>
+      <mirrors/>
+      <proxies/>
+      <profiles>
+        <profile>
+          <id>nexus</id>
+          <activation>
+            <activeByDefault>true</activeByDefault>
+          </activation>
+          <repositories>
+            <repository>
+              <id>nexus</id>
+              <name>ADS Discovery Nexus</name>
+              <url>http://nexus/content/repositories/releases</url>
+            </repository>
+          </repositories>
+        </profile>
+      </profiles>
+      <activeProfiles/>
+</settings>
