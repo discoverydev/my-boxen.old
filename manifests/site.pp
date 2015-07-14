@@ -176,6 +176,10 @@ node default {
     require => Exec['pip']
   }
 
+  file { "/Users/${::boxen_user}/.m2/settings.xml":
+    source => "${boxen::config::repodir}/manifests/files/settings.xml"
+  }
+
   host { 'jenkins':    ip => '192.168.8.31' }  
   host { 'stash':      ip => '192.168.8.31' }
   host { 'nexus':      ip => '192.168.8.31' }
