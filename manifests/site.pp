@@ -116,13 +116,14 @@ node default {
       'maven',             # for builds
       'openssl',           #
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
+      'pv',                # pipeview for progress bar
       'rbenv',             # ruby environment manager
       'sbt',               # for Gimbal Geofence Importer
       'scala',             # for Gimbal Geofence Importer
       'sonar-runner',      # for sonar tests
+      'tomcat',            # for deploying .war files
       'wget',              #
       'xctool',            # xcode build, used by sonar
-      'pv',                # pipeview for progress bar
     ]: 
     ensure => present
   }
