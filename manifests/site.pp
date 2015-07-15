@@ -177,6 +177,10 @@ node default {
     require => Exec['pip']
   }
 
+  exec { 'dynatrace': # Dynatrace instrumentation utility
+    command => '/opt/boxen/repo/manifests/scripts/set-up-dynatrace-adk.sh'
+  }
+
   file { "/Users/${::boxen_user}/.m2/settings.xml":
     source => "${boxen::config::repodir}/manifests/files/settings.xml"
   }
