@@ -94,6 +94,10 @@ node default {
     gem          => 'appium_console',
     ruby_version => '*',
   }
+  ruby_gem { 'rspec':
+    gem          => 'rspec',
+    ruby_version => '*',
+  }
 
   file { '/usr/local/bin':
     ensure => directory,
