@@ -11,3 +11,6 @@
 !/shared/README.md
 /vendor/gems/
 npm-debug.log
+*.ipr
+*.iws
+
