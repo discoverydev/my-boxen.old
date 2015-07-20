@@ -50,7 +50,7 @@ echo "* display mounted nfs share"
 boot2docker ssh mount
 boot2docker ssh 'ls -ltra /Users'
 
-docker run --name=sonarqube --add-host nexus:192.168.8.31 --add-host jenkins:192.168.8.31 --add-host confluence:192.168.8.34 --add-host stash:192.168.8.31 -d -p 9000:9000 -p 9092:9092 sonarqube:latest
+docker run --name=sonarqube --add-host nexus:192.168.8.31 --add-host jenkins:192.168.8.31 --add-host confluence:192.168.8.34 --add-host stash:192.168.8.31 -d -p 9000:9000 -p 9092:9092 discoverydev/sonarqube-docker
 docker ps
 
 echo "** setting docker timezone to EST"
