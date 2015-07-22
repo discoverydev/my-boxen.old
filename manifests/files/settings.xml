@@ -16,20 +16,6 @@
       </servers>
       <mirrors/>
       <proxies/>
-      <profiles>
-        <profile>
-          <id>nexus</id>
-          <activation>
-            <activeByDefault>true</activeByDefault>
-          </activation>
-          <repositories>
-            <repository>
-              <id>nexus</id>
-              <name>ADS Discovery Nexus</name>
-              <url>http://nexus/content/repositories/releases</url>
-            </repository>
-          </repositories>
-        </profile>
-      </profiles>
+      <profiles/>
       <activeProfiles/>
 </settings>
