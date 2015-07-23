@@ -190,11 +190,13 @@ node default {
     command => '/opt/boxen/repo/manifests/scripts/install_imagemagick_fonts.sh'
   }
 
-  file { "/Users/${::boxen_user}/.m2":
+  file { "m2":
+    name => "/Users/${::boxen_user}/.m2",
     ensure => directory,
   }
 
   file { "/Users/${::boxen_user}/.m2/settings.xml":
+    require => File['m2'],
     source => "${boxen::config::repodir}/manifests/files/settings.xml"
   }
 
