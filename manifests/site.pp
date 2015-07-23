@@ -188,6 +188,9 @@ node default {
 
   exec { 'imagemagick_fonts': # Tell ImageMagick where to find fonts on this system
     command => '/opt/boxen/repo/manifests/scripts/install_imagemagick_fonts.sh'
+
+  file { "/Users/${::boxen_user}/.m2":
+    ensure => directory,
   }
 
   file { "/Users/${::boxen_user}/.m2/settings.xml":
