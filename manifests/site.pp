@@ -117,6 +117,7 @@ node default {
       'grails',            # 
       'groovy',            #
       'ideviceinstaller',  # for appium on ios devices
+      'imagemagick',       # for (aot) imprinting icons with version numbers
       'maven',             # for builds
       'openssl',           #
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
@@ -185,7 +186,17 @@ node default {
     command => '/opt/boxen/repo/manifests/scripts/set-up-dynatrace-adk.sh'
   }
 
+  exec { 'imagemagick_fonts': # Tell ImageMagick where to find fonts on this system
+    command => '/opt/boxen/repo/manifests/scripts/install_imagemagick_fonts.sh'
+  }
+
+  file { "m2":
+    name => "/Users/${::boxen_user}/.m2",
+    ensure => directory,
+  }
+
   file { "/Users/${::boxen_user}/.m2/settings.xml":
+    require => File['m2'],
     source => "${boxen::config::repodir}/manifests/files/settings.xml"
   }
 
