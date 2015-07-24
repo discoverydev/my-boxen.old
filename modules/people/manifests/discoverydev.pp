@@ -9,7 +9,8 @@ class people::discoverydev {
     source => "${boxen::config::repodir}/manifests/files/profile"
   }
 
-  file { "/opt/boxen/homebrew/Cellar/sonar-runner/2.4/libexec/conf/sonar-runner.properties":
+file { "/opt/boxen/homebrew/Cellar/sonar-runner/2.4/libexec/conf/sonar-runner.properties":
+    require => Package['sonar-runner'],
     source => "${boxen::config::repodir}/manifests/files/sonar-runner.properties"
   }
 }
