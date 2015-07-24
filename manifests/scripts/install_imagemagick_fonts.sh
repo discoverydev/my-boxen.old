@@ -10,8 +10,12 @@ IM_CONFIG="$IMAGE_MAGICK_HOME/etc/ImageMagick-6"
 IM_SYSTEM_TYPE_XML="$IM_CONFIG/type.xml"
 IM_LOCAL_TYPE_XML="$IM_CONFIG/local-type.xml"
 
+if [[ $(grep local-type\.xml "$IM_SYSTEM_TYPE_XML") != "" ]]; then
+    exit 0
+fi
+
 find $FONT_DIRS -name "*.[to]tf" | "$TYPE_GEN" -f - > "$IM_LOCAL_TYPE_XML"
 
 sed -i bak '\#</typemap>#i \
-   <include file="type.xml"/>\
+   <include file=\"local-type.xml"/>\
 ' "$IM_SYSTEM_TYPE_XML"
