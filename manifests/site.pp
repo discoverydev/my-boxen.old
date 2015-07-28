@@ -111,6 +111,7 @@ node default {
       'boot2docker',       # for docker used by ci (stash, jenkins, etc)
       'chromedriver',      # 
       'docker',            # for ci 
+      'dos2unix',          # some Java cmd-line utilities are Windows-specific
       'figlet',            #
       'git',               #
       'gradle',            # for builds
