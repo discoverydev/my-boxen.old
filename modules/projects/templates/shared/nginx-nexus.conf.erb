@@ -1,6 +1,7 @@
 server {
         listen   80;
         server_name nexus;
+        client_max_body_size 50M;
 
         location / {
                 proxy_set_header X-Real-IP $remote_addr;
@@ -15,6 +16,7 @@ server {
 server {
         listen 443;
         server_name nexus;
+        client_max_body_size 50M;
 
         ssl_certificate     /Users/Shared/data/nexus/ssl/nexus.crt;
         ssl_certificate_key /Users/Shared/data/nexus/ssl/nexus.key;
