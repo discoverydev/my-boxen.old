@@ -107,6 +107,7 @@ node default {
   # common, useful packages -- brew
   package { 
     [
+      'ack',               # 
       'ant',               # for builds 
       'boot2docker',       # for docker used by ci (stash, jenkins, etc)
       'chromedriver',      # 
