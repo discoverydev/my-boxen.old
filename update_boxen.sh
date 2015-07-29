@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/bash -l
 
+echo $PATH
+
+. /opt/boxen/env.sh
+env
 echo "updating boxen"
 
 cd /opt/boxen/repo
