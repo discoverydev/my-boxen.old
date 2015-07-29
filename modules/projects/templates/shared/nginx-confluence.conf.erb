@@ -1,6 +1,7 @@
 server {
         listen   80;
         server_name confluence;
+        client_max_body_size 2M;
 
         location / {
                 proxy_set_header X-Real-IP $remote_addr;
@@ -15,6 +16,7 @@ server {
 server {
         listen 443;
         server_name confluence;
+        client_max_body_size 2M;
 
         ssl_certificate /Users/Shared/data/confluence/ssl/confluence.crt;
         ssl_certificate_key /Users/Shared/data/confluence/ssl/confluence.key;
