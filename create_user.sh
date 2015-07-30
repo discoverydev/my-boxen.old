@@ -9,7 +9,7 @@ FULLNAME=${FULLNAME:-jenkins}
 read -p "Enter a password for this user: [password]" PASSWORD
 PASSWORD=${PASSWORD:-password}
 
-read -p "Is this an administrative user?: (y/n) [Y]" GROUP_ADD
+read -p "Is this an administrative user?: (Y/n)" GROUP_ADD
 GROUP_ADD=${GROUP_ADD:-y}
 
 if [ "$GROUP_ADD" = n ]
