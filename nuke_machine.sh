@@ -14,8 +14,17 @@ echo "** deleting local user : jenkins"
 sudo dscl . -delete "/Users/jenkins"
 sudo rm /Users/jenkins
 
-echo "** deleting directory : ~/src"
-rm -rf ~/src
+read -p "do you want to delete the 'src' directory?: (Y/n)" DELETE_SRC
+DELETE_SRC=${DELETE_SRC:-y}
+
+if [ "$DELETE_SRC" = y ]
+then
+  echo "** deleting directory : ~/src"
+  rm -rf ~/src
+else
+  echo "* keeping 'src' directory."
+fi
+
 echo "** deleting virtual box image"
 rm -rf ~/VirtualBox\ VMs/
 echo "** deleting .boot2docker directory"
