@@ -37,6 +37,7 @@ ehthumbs.db
 # Gradle:
 # .idea/gradle.xml
 # .idea/libraries
+local.properties
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
