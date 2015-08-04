@@ -24,3 +24,5 @@ else
     exit 1
 fi
 
+# update brew
+./brew_update_post_boxen.sh
