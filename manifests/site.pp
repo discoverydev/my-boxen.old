@@ -192,6 +192,10 @@ node default {
     command => '/opt/boxen/repo/manifests/scripts/install_imagemagick_fonts.sh'
   }
 
+  exec { 'mockability-server': # General-purpose mock HTTP server
+    command => '/opt/boxen/repo/manifests/scripts/set_up_mockability_server.sh'
+  }
+
   file { "m2":
     name => "/Users/${::boxen_user}/.m2",
     ensure => directory,
