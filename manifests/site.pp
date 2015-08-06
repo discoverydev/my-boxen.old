@@ -107,21 +107,20 @@ node default {
   # common, useful packages -- brew
   package { 
     [
-      'ack',               # 
+      'ack',               # for searching strings within files at the command-line
       'ant',               # for builds 
       'boot2docker',       # for docker used by ci (stash, jenkins, etc)
-      'chromedriver',      # 
+      'chromedriver',      # for appium
       'docker',            # for ci 
       'dos2unix',          # some Java cmd-line utilities are Windows-specific
-      'figlet',            #
       'git',               #
       'gradle',            # for builds
-      'grails',            # 
-      'groovy',            #
+      'grails',            # for simple checkout
+      'groovy',            # for simple checkout
       'ideviceinstaller',  # for appium on ios devices
       'imagemagick',       # for (aot) imprinting icons with version numbers
       'maven',             # for builds
-      'openssl',           #
+      'openssl',           # for ssl
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
       'pv',                # pipeview for progress bar
       'rbenv',             # ruby environment manager
@@ -129,7 +128,7 @@ node default {
       'scala',             # for Gimbal Geofence Importer
       'sonar-runner',      # for sonar tests
       'tomcat',            # for deploying .war files
-      'wget',              #
+      'wget',              # 
       'xctool',            # xcode build, used by sonar
     ]: 
     ensure => present
@@ -152,25 +151,30 @@ node default {
   # common, useful packages -- brew-cask
   package { [
       'android-studio',
-      'appium',            # ios/android app testing
+      'caffeine',          # keep the machine from sleeping
       'firefox',           # browser
-      'genymotion',        # android in virtualbox (faster) 
+      'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
       'intellij-idea',     # IDE all the things
+      'iterm2',            # terminal replacement
       'java',              # java 8
       'qlgradle',          # quicklook for gradle files
       'qlmarkdown',        # quicklook for md files
       'qlprettypatch',     # quicklook for patch files
       'qlstephen',         # quicklook for text files
       'slack',             # communication tool
-      'iterm2',            # terminal replacement
-      'virtualbox',        # VM for boot2docker, genymotion, etc
-      'caffeine',          # keep the machine from sleeping
       'sourcetree',        # Atlassian Sourcetree
-    ]: 
+      'virtualbox',        # VM for boot2docker, genymotion, etc
+    ]:
     provider => 'brewcask', 
     ensure => present
+  }
+
+  exec { "install-appium-1.4.8":
+    command => "brew cask install --appdir=/Applications ${boxen::config::repodir}/manifests/casks/appium.rb",
+    path    => "/usr/local/bin/:/bin/:/usr/bin/:/opt/boxen/homebrew/bin",
+    user    => root,
   }
 
   exec { 'sudo /usr/sbin/DevToolsSecurity --enable': }
