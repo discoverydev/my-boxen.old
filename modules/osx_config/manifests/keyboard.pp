@@ -9,4 +9,11 @@ class osx_config::keyboard {
   class { 'osx::global::key_repeat_delay': delay => 30 }
   class { 'osx::global::key_repeat_rate': rate => 2 }
 
+  boxen::osx_defaults { 'Enable full keyboard access for all controls':
+    ensure => present,
+    user   => $::boxen_user,
+    domain => 'NSGlobalDomain',
+    key    => 'AppleKeyboardUIMode',
+    value  => 3;
+  }
 }
