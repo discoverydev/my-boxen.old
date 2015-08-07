@@ -1,6 +1,6 @@
 class osx_config {
   
-  notify { 'class osx_config declared': }
+  #notify { 'class osx_config declared': }
 
   include osx_config::system
   include osx_config::global

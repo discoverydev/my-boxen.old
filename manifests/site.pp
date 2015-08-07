@@ -70,11 +70,21 @@ node default {
     target => $boxen::config::repodir
   }
 
+
+  #
+  # NODE stuff
+  #
+
   nodejs::version { 'v0.12.2': }
   class { 'nodejs::global': version => 'v0.12.2' }
   nodejs::module { 'npm': node_version => 'v0.12.2' }
   nodejs::module { 'appium': node_version => 'v0.12.2' }
   nodejs::module { 'ios-sim': node_version => 'v0.12.2' }
+
+
+  #
+  # RUBY stuff
+  #
 
   ruby::version { '2.2.2': }
   class { 'ruby::global': version => '2.2.2' }
@@ -99,13 +109,33 @@ node default {
     ruby_version => '*',
   }
 
-  file { '/usr/local/bin':
-    ensure => directory,
-    before => Package['virtualbox']
+
+  #
+  # PYTHON stuff
+  #
+
+  # geofencing uses python scripts
+  exec { 'pip':  # python package manager
+    command => 'sudo easy_install pip',
+    creates => '/usr/local/bin/pip',
+  }
+  exec { 'virtualenv':  # python environment manager
+    require => Exec['pip'],
+    command => 'sudo pip install virtualenv',
+    creates => '/usr/local/bin/virtualenv',
   }
 
-  # common, useful packages -- brew
-  package { 
+
+  #
+  # BREW and BREW CASKS
+  #
+
+  exec { "tap-discoverydev-ipa":
+    command => "brew tap discoverydev/ipa",
+    creates => "${homebrew::config::tapsdir}/discoverydev/homebrew-ipa",
+  }
+
+  package {
     [
       'ack',               # for searching strings within files at the command-line
       'ant',               # for builds 
@@ -131,28 +161,27 @@ node default {
       'wget',              # 
       'xctool',            # xcode build, used by sonar
     ]: 
-    ensure => present
+    ensure => present,
+    require => Exec['tap-discoverydev-ipa'],
   }
-
-  # packages that should not be present anymore
-  package { 'android-sdk': ensure => absent }   # instead, custom pre-populated android-sdk installed after boxen
 
   # homebrew package that requires custom params
-  exec { 'drafter': 
+  exec { 'drafter':
+    require => Class['homebrew'],
     command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
-    require => Class['homebrew']
+    unless => 'brew list drafter',
   }
-  
-  exec { 'firefox': 
-    command => 'sudo brew cask install firefox --appdir=/Applications --force',
-    require => Class['homebrew']
+
+  file { '/usr/local/bin':
+    ensure => directory,
+    before => Package['virtualbox']
   }
 
   # common, useful packages -- brew-cask
   package { [
-      'android-studio',
+      'android-studio',    # IDE for android coding
+      'appium148',         # for testing mobile emulators, simulators, and devices
       'caffeine',          # keep the machine from sleeping
-      'firefox',           # browser
       'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
@@ -168,47 +197,45 @@ node default {
       'virtualbox',        # VM for boot2docker, genymotion, etc
     ]:
     provider => 'brewcask', 
-    ensure => present
+    ensure => present,
+    require => Exec['tap-discoverydev-ipa'],
   }
 
-  exec { "install-appium-1.4.8":
-    command => "brew cask install --appdir=/Applications ${boxen::config::repodir}/manifests/casks/appium.rb",
-    path    => "/usr/local/bin/:/bin/:/usr/bin/:/opt/boxen/homebrew/bin",
-    user    => root,
+  exec { 'firefox':
+    require => Class['homebrew'],
+    command => 'sudo brew cask install firefox --appdir=/Applications --force',
+    creates => '/Applications/Firefox.app',
   }
 
-  exec { 'sudo /usr/sbin/DevToolsSecurity --enable': }
 
-  # geofencing uses python scripts
-  exec { 'pip':  # python package manager  
-    command => 'sudo easy_install pip'
-  }
-  exec { 'virtualenv':  # python environment manager
-    command => 'sudo pip install virtualenv',
-    require => Exec['pip']
-  }
+  #
+  # MANUAL STUFF
+  #
 
-  exec { 'dynatrace': # Dynatrace instrumentation utility
-    command => '/opt/boxen/repo/manifests/scripts/set-up-dynatrace-adk.sh'
+  # for iOS simulator to work
+  exec { 'sudo /usr/sbin/DevToolsSecurity --enable':
+    unless => "/usr/sbin/DevToolsSecurity | grep 'already enabled'"
   }
 
-  exec { 'imagemagick_fonts': # Tell ImageMagick where to find fonts on this system
-    command => '/opt/boxen/repo/manifests/scripts/install_imagemagick_fonts.sh'
+  exec { 'set-up-dynatrace-adk': # Dynatrace instrumentation utility
+    command => "${boxen::config::repodir}/manifests/scripts/set-up-dynatrace-adk.sh",
+    creates => '/opt/dynatrace',
   }
 
-  exec { 'mockability-server': # General-purpose mock HTTP server
-    command => '/opt/boxen/repo/manifests/scripts/set_up_mockability_server.sh'
+  exec { 'install_imagemagick_fonts': # Tell ImageMagick where to find fonts on this system
+    require => Package['imagemagick'],
+    command => "${boxen::config::repodir}/manifests/scripts/install_imagemagick_fonts.sh"
   }
 
-  file { "m2":
-    name => "/Users/${::boxen_user}/.m2",
-    ensure => directory,
+  exec { 'set_up_mockability_server': # General-purpose mock HTTP server
+    command => "${boxen::config::repodir}/manifests/scripts/set_up_mockability_server.sh",
+    creates => '/opt/mockability-server',
   }
 
-  file { "/Users/${::boxen_user}/.m2/settings.xml":
-    require => File['m2'],
-    source => "${boxen::config::repodir}/manifests/files/settings.xml"
-  }
+
+  #
+  # HOSTNAME to IPs
+  #
 
   host { 'jenkins':    ip => '192.168.8.31' }  
   host { 'stash':      ip => '192.168.8.31' }
@@ -221,6 +248,23 @@ node default {
   host { 'rogue':      ip => '192.168.8.32' }  
   host { 'warlock':    ip => '192.168.8.33' }  
   host { 'wolverine':  ip => '192.168.8.34' }  
-  host { 'beast':      ip => '192.168.8.35' }  
-  
+  host { 'beast':      ip => '192.168.8.35' }
+
+
+  #
+  # CLEAN UP
+  #
+
+  #remove this (and manifests/casks/appium.rb) after one cycle of running boxen on all machines
+  exec { "uninstall-boxen-appium":
+    command => "brew cask uninstall --appdir=/Applications ${boxen::config::repodir}/manifests/casks/appium.rb",
+    path    => "/usr/local/bin/:/bin/:/usr/bin/:/opt/boxen/homebrew/bin",
+    user    => root,
+    onlyif  => 'brew-cask list appium',
+    before  => Package['appium148'],
+  }
+
+  # packages that should not be present anymore
+  package { 'android-sdk': ensure => absent }   # instead, custom pre-populated android-sdk installed after boxen
+
 }

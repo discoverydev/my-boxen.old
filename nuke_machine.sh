@@ -25,21 +25,34 @@ else
   echo "* keeping 'src' directory."
 fi
 
-echo "** deleting virtual box image"
+echo "** deleting virtual box images"
 rm -rf ~/VirtualBox\ VMs/
-echo "** deleting .boot2docker directory"
+echo "** deleting boot2docker directory"
 rm -rf ~/.boot2docker/
-echo "** deleting .jenkins directory"
+echo "** deleting jenkins directories"
 rm -rf ~/.jenkins/
+rm -rf ~/jenkins_slave/
 echo "** deleting .subversion directory"
 rm -rf ~/.subversion/
-echo "** deleting .gemrc directory"
-rm -rf ~/.gemrc
-rm -rf ~/.CFUserTextEncoding
-echo "** deleting homebrew-cast directory"
-rm -rf /opt/homebrew-cask
 echo "** deleting rubies directory"
 rm -rf ~/rubies
+echo "** deleting .m2"
+rm -rf ~/.m2/
+
+echo "** deleting homebrew-cast directory"
+rm -rf /opt/homebrew-cask
+echo "** deleting android-sdk"
+rm -rf /opt/android-sdk
+echo "** deleting android-sdk"
+rm -rf /opt/android-sdk
+echo "** deleting mockability-server"
+rm -rf /opt/mockability-server
+echo "** deleting dynatrace"
+rm -rf /opt/dynatrace
+
+echo "** deleting various dot files"
+rm -rf ~/.gemrc ~/.CFUserTextEncoding ~/.profile ~/.gitignore ~/.gitconfig ~/.viminfo ~/.lesshst
+
 
 echo "** nuking boxen install"
 cd /opt/boxen/repo

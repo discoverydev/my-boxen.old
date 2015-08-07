@@ -1,6 +1,6 @@
 class osx_config::system {
 
-  notify { 'class osx::system declared': }
+  #notify { 'class osx::system declared': }
 
   exec { 'Turn on screen sharing':
     command => 'sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -privs -all -restart -agent -menu' 

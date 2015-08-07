@@ -6,7 +6,7 @@ set +e
 cd /opt/boxen/repo
 git checkout ads
 git pull
-./script/boxen
+./script/boxen workstation
 
 # This will obtain the return status of the last command (boxen)
 RESULT=$?

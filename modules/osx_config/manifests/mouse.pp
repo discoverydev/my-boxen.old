@@ -1,6 +1,6 @@
 class osx_config::mouse {
 
-  notify { 'class osx::mouse declared': }
+  #notify { 'class osx::mouse declared': }
 
   include osx::global::expand_print_dialog
   include osx::global::expand_save_dialog

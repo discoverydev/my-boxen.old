@@ -1,6 +1,6 @@
 class osx_config::finder {
 
-  notify { 'class osx::finder declared': }
+  #notify { 'class osx::finder declared': }
 
   include osx::finder::unhide_library
   include osx::finder::show_hidden_files
