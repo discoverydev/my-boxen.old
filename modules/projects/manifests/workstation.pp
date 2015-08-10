@@ -72,4 +72,10 @@ class projects::workstation {
     user    => root,
   }
 
+  exec { "iphone-distribution":
+    require => Repository['workstation-files'],
+    command => "security import Certificates_sept24.p12 -k ~/Library/Keychains/login.keychain -P $(cat Certificates_sept24.password)",
+    cwd => "${workstation_files}/certs"
+  }
+
 }
