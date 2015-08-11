@@ -254,16 +254,7 @@ node default {
   #
   # CLEAN UP
   #
-
-  #remove this (and manifests/casks/appium.rb) after one cycle of running boxen on all machines
-  exec { "uninstall-boxen-appium":
-    command => "brew cask uninstall --appdir=/Applications ${boxen::config::repodir}/manifests/casks/appium.rb",
-    path    => "/usr/local/bin/:/bin/:/usr/bin/:/opt/boxen/homebrew/bin",
-    user    => root,
-    onlyif  => 'brew-cask list appium',
-    before  => Package['appium148'],
-  }
-
+  
   # packages that should not be present anymore
   package { 'android-sdk': ensure => absent }   # instead, custom pre-populated android-sdk installed after boxen
 
