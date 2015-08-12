@@ -9,6 +9,11 @@ class projects::workstation {
     ensure => master,
   }
 
+  exec { 'update-workstation-files': 
+    require => Repository['workstation-files'],
+    cwd => $workstation_files,
+    command => 'git pull',
+  }
 
   #
   # maven global settings
@@ -20,7 +25,7 @@ class projects::workstation {
   }
 
   file { 'settings.xml':
-    require => [File['m2'],Repository['workstation-files']],
+    require => [File['m2'],Exec['update-workstation-files']],
     name => "${user_home}/.m2/settings.xml",
     source => "${workstation_files}/m2/settings.xml",
   }
@@ -35,7 +40,7 @@ class projects::workstation {
   }
 
   file { "boxen.update.plist":
-    require => [File['LaunchAgents'],Repository['workstation-files']],
+    require => [File['LaunchAgents'],Exec['update-workstation-files']],
     name => "${user_home}/Library/LaunchAgents/boxen.update.plist",
     source => "${workstation_files}/LaunchAgents/boxen.update.plist"
   }
@@ -59,23 +64,33 @@ class projects::workstation {
   #
 
   exec { "adscorporate-root-ca":
-    require => Repository['workstation-files'],
+    require => Exec['update-workstation-files'],
     command => "security add-trusted-cert -d -r trustRoot -k '/Library/Keychains/System.keychain' '${workstation_files}/certs/ADSCorporate-Root-CA.cer'",
     path    => "/usr/local/bin/:/bin/:/usr/bin/",
     user    => root,
   }
 
   exec { "adsretail-issuing-ca":
-    require => Repository['workstation-files'],
+    require => Exec['update-workstation-files'],
     command => "security add-trusted-cert -d -r trustRoot -k '/Library/Keychains/System.keychain' '${workstation_files}/certs/ADSRetail-Issuing-CA.cer'",
     path    => "/usr/local/bin/:/bin/:/usr/bin/",
     user    => root,
   }
 
   exec { "iphone-distribution":
-    require => Repository['workstation-files'],
+    require => Exec['update-workstation-files'],
     command => "security import Certificates_sept24.p12 -k ~/Library/Keychains/login.keychain -P $(cat Certificates_sept24.password)",
     cwd => "${workstation_files}/certs"
+  }
+
+  #
+  # xcode provisioning
+  #
+
+  exec { "mobileprovisions":
+    require => [Exec['update-workstation-files'],Exec['iphone-distribution']],
+    cwd => $workstation_files,
+    command => "bash -c 'for f in mobileprovisions/*; do open $f; done'; osascript -e 'tell app \"Xcode\" to quit'",
   }
 
 }
