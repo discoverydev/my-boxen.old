@@ -10,7 +10,7 @@ git pull
 
 # This will obtain the return status of the last command (boxen)
 RESULT=$?
-echo $RESULT
+echo "boxen completed with the following exit code : " $RESULT
 
 ############################
 # boxen uses Puppet's feature of '--detailed-exitcodes' and extends the standard '0' exit code on success
