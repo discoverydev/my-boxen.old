@@ -8,6 +8,11 @@ class people::discoverydev {
   file { "/Users/${::boxen_user}/.profile":
     source => "${boxen::config::repodir}/manifests/files/profile"
   }
+  
+  file { "/Users/${::boxen_user}/.vimrc":
+    source => "${boxen::config::repodir}/manifests/files/vimrc"
+  }
+
 
   file { "sonar-runner.properties":
     name => "${homebrew::config::installdir}/Cellar/sonar-runner/2.4/libexec/conf/sonar-runner.properties",
