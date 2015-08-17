@@ -5,7 +5,8 @@ source /opt/boxen/env.sh
 
 # android home
 export ANDROID_HOME=/opt/android-sdk
-export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+export GENYMOTION_HOME=/opt/homebrew-cask/Caskroom/genymotion/2.5.0/Genymotion.app
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$GENYMOTION_HOME/Contents/MacOS:$PATH
 
 # aliases
 alias ll="ls -ltra"
