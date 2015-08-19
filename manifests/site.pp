@@ -182,6 +182,7 @@ node default {
       'android-studio',    # IDE for android coding
       'appium148',         # for testing mobile emulators, simulators, and devices
       'caffeine',          # keep the machine from sleeping
+      'citrix-receiver',   # Citrix VPN
       'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
