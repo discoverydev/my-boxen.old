@@ -250,6 +250,8 @@ node default {
   host { 'warlock':    ip => '192.168.8.33' }  
   host { 'wolverine':  ip => '192.168.8.34' }  
   host { 'beast':      ip => '192.168.8.35' }
+  
+  host { 'jenkins-dev':      ip => '192.168.8.31' }
 
 
   #
