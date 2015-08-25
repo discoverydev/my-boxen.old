@@ -1,11 +1,11 @@
 class projects::cerebro {
 
-  boxen::project { 'dynamit_android_nac':
-    source  => 'http://stash/scm/mls/dynamit_android_nac.git',
+  boxen::project { 'android_plugin_account_center':
+    source  => 'http://stash/scm/mls/android_plugin_account_center.git',
     require => Host['stash']
   }
-  boxen::project { 'dynamit_ios_nac':
-    source  => 'http://stash/scm/mls/dynamit_ios_nac.git',
+  boxen::project { 'ios_plugin_account_center':
+    source  => 'http://stash/scm/mls/ios_plugin_account_center.git',
     require => Host['stash']
   }
   boxen::project { 'mlsplatform_apis':
