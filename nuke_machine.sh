@@ -5,8 +5,11 @@ boot2docker down
 echo "* deleting any existing boot2docker images"
 boot2docker delete
 
-echo "* quitting any running instances of VirutalBox"
+echo "* quitting any running instances of VirtualBox"
 osascript -e 'quit app "VirtualBox"'
+
+echo "* shutting down local jenkins instance"
+curl --silent --request POST "http://localhost:8080/exit"
 
 DATA_DIR=/Users/Shared/data
 
