@@ -62,7 +62,4 @@ cd /opt/boxen/repo
 ./script/nuke --force --all
 rm -rf /opt/boxen
 
-echo "** removing brew cache"
-rm $(brew --cache)/Formula/*
-
 cd ~
