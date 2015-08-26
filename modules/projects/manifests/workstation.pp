@@ -98,14 +98,14 @@ class projects::workstation {
 
   repository { 'local_pipeline_setup':
     path => $local_pipeline_setup,
-    source => "http://${::boxen_user}@stash/scm/mls/local_pipeline_setup.git"
+    source => "http://${::boxen_user}@stash/scm/mls/local_pipeline_setup.git",
     ensure => master,
   }
 
   exec { 'start-local-pipeline': 
     require => Repository['local_pipeline_setup'],
     cwd => $local_pipeline_setup,
-    command => 'git pull; script/start-dev.sh',
+    command => 'script/start_dev.sh',
   }
 
 }
