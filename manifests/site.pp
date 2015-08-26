@@ -160,6 +160,7 @@ node default {
       'tomcat',            # for deploying .war files
       'wget',              # 
       'xctool',            # xcode build, used by sonar
+      'carthage'
     ]: 
     ensure => present,
     require => Exec['tap-discoverydev-ipa'],
