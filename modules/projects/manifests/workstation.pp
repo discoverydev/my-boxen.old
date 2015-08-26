@@ -102,10 +102,4 @@ class projects::workstation {
     ensure => master,
   }
 
-  exec { 'start-local-pipeline': 
-    require => Repository['local_pipeline_setup'],
-    cwd => $local_pipeline_setup,
-    command => 'script/start_dev.sh',
-  }
-
 }
