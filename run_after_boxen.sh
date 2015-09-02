@@ -4,6 +4,8 @@
 USER=ga-mlsdiscovery
 SERVER=192.168.8.31
 
+source ~/.profile
+
 echo "* adding $SERVER to known_hosts"
 ssh-keyscan $SERVER > ~/.ssh/known_hosts
 
@@ -20,14 +22,9 @@ rsync -ru --progress $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
 tar xkvf $TARFILE
 popd
 
-echo "* run android HAXM install"
-sudo $DEST/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
-
-echo "* install more android components"
-echo "y" | $DEST/tools/android update sdk --all --no-ui --filter sys-img-x86-android-21
-
 echo "* create android virtual devices"
-echo "n" | $DEST/tools/android create avd --force --name Nexus_5_API_21_x86 --target android-21 --skin WXGA720
+gmtool admin create "Google Nexus 5 - 5.0.0 - API 21 - 1080x1920" Nexus_5_API_21_x86
 
 echo "* run and configure android virtual devices"
-$DEST/tools/emulator @Nexus_5_API_21_x86
+gmtool admin start Nexus_5_API_21_x86
+
