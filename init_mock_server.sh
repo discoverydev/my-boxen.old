@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 progress_bar() {
   SECS=5
@@ -45,6 +45,12 @@ else
   echo "* base mockserver image NOT provided -> assuming default"
   mkdir -p $DATA_DIR/mockserver
 fi
+
+mockserver_path="${DATA_DIR}/mockserver/api-blueprint-mockserver"
+specs_path="${DATA_DIR}/mockserver/api-blueprint-specs"
+
+echo "* convert api specs to json"
+drafter --format=json ${specs_path}/hello_world.apib > ${mockserver_path}/hello_world.json
 
 mockserver_path="/usr/local/src/api-blueprint-mockserver"
 specs_path="/usr/local/src/api-blueprint-specs"
