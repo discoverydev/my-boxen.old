@@ -51,11 +51,12 @@ specs_path="${DATA_DIR}/mockserver/api-blueprint-specs"
 
 echo "* convert api specs to json"
 drafter --format=json ${specs_path}/hello_world.apib > ${mockserver_path}/hello_world.json
+drafter --format=json ${specs_path}/android_global_config.apib > ${mockserver_path}/android_global_config.json
 
 mockserver_path="/usr/local/src/api-blueprint-mockserver"
 specs_path="/usr/local/src/api-blueprint-specs"
 
-docker run --name=mockserver -dt -v $DATA_DIR/mockserver:/usr/local/src -p 9001:9001 java /bin/bash -c "${mockserver_path}/mockserver -b ${mockserver_path}/hello_world.json -h 0.0.0.0 -p 9001"
+docker run --name=mockserver -dt -v $DATA_DIR/mockserver:/usr/local/src -p 9001:9001 java /bin/bash -c "${mockserver_path}/mockserver -b ${mockserver_path}/android_global_config.json -h 0.0.0.0 -p 9001"
 docker ps
 
 echo "** setting docker timezone to EST"
