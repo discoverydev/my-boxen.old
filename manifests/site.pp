@@ -166,13 +166,6 @@ node default {
     require => Exec['tap-discoverydev-ipa'],
   }
 
-  # homebrew package that requires custom params
-  exec { 'drafter':
-    require => Class['homebrew'],
-    command => 'brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb',
-    unless => 'brew list drafter',
-  }
-
   file { '/usr/local/bin':
     ensure => directory,
     before => Package['virtualbox']
