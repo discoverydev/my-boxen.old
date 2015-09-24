@@ -150,6 +150,7 @@ node default {
       'ideviceinstaller',  # for appium on ios devices
       'imagemagick',       # for (aot) imprinting icons with version numbers
       'maven',             # for builds
+      'mockserver',        # for mocking servers for testing
       'openssl',           # for ssl
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
       'pv',                # pipeview for progress bar
