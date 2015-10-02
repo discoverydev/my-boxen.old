@@ -92,8 +92,8 @@ progress_bar
 
 echo "** docker jenkins startup"
 
-read -p "clone jenkins from stash?: (Y/n)" CLONE_JENKINS
-CLONE_JENKINS=${CLONE_JENKINS:-y}
+read -p "clone jenkins from stash (probably not)?: (N/y)" CLONE_JENKINS
+CLONE_JENKINS=${CLONE_JENKINS:-n}
 
 if [ "$CLONE_JENKINS" = y ]
 then
