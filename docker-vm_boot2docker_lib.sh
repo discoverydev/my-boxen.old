@@ -10,6 +10,10 @@ b2d() {
     boot2docker $command
 }
 
+dm_env() {
+    eval $( b2d shellinit )    
+}
+
 dm_create() {
     b2d init
     VBoxManage modifyvm boot2docker-vm --memory "$DOCKER_VM_MEMORY"

@@ -2,6 +2,11 @@
 source docker-vm_machine_lib.sh
 #source docker-vm_boot2docker_lib.sh
 echo "Docker Virtual Machine ($DOCKER_VM_NAME)"
+echo DOCKER_VM_VBOXNET=${DOCKER_VM_VBOXNET}
+echo DOCKER_VM_MEMORY=${DOCKER_VM_MEMORY}
+echo DOCKER_VM_CPUS=${DOCKER_VM_CPUS}
+echo DOCKER_VM_HOST=${DOCKER_VM_HOST}
+echo DOCKER_VM_ARGS=${DOCKER_VM_ARGS}
 
 create() {
     delete
@@ -9,7 +14,7 @@ create() {
     echo "* create $DOCKER_VM_NAME instance"
     dm_create
 
-    echo "* setup $DOCKER_VM_NAME ($DOCKER_VM_IP)"
+    echo "* setup $DOCKER_VM_NAME ($DOCKER_VM_IP, host=$DOCKER_VM_HOST)"
     dm_install_bootlocal
 
     echo "* enable host nfs daemon for /Users"
@@ -17,6 +22,17 @@ create() {
 
     echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
     stop
+
+    #echo "* setting host only adapter to $DOCKER_VM_VBOXNET"
+    #VBoxManage modifyvm "$DOCKER_VM_NAME"  --hostonlyadapter1 $DOCKER_VM_VBOXNET   
+}
+
+nat() {
+    local name=$1
+    local hostport=$2
+    local guestport=$3
+    echo "* exposing $guestport to the host as $hostport ($name)"
+    VBoxManage modifyvm "$DOCKER_VM_NAME" --natpf1 "$name,tcp,,$hostport,,$guestport"
 }
 
 delete() {
@@ -53,6 +69,10 @@ bootlocal() {
 
 bootlocal-log() {
     dm_show_bootlocal_log
+}
+
+env() {
+    dm_env
 }
 
 ssh() {

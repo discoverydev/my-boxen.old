@@ -10,15 +10,24 @@ dm() {
     docker-machine $command $DOCKER_VM_NAME
 }
 
+dm_env() {
+    eval $( dm env )
+}
+
 dm_create() {
     docker-machine create -d virtualbox $DOCKER_VM_NAME --virtualbox-memory "$DOCKER_VM_MEMORY" --virtualbox-cpu-count "$DOCKER_VM_CPUS"
-    eval $( dm env )
+    dm_env
     export DOCKER_VM_IP=$( dm ip )
+}
+
+dm_modify() {
+    echo "==DEBUG VBoxManage modifyvm "$DOCKER_VM_NAME" $1 $2"
+    VBoxManage modifyvm "$DOCKER_VM_NAME" $1 $2
 }
 
 dm_start() {
     dm start
-    eval $( dm env )
+    dm_env
     export DOCKER_VM_IP=$( dm ip )
 }
 
