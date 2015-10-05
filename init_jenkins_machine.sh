@@ -29,7 +29,7 @@ then
   rm -rf $DATA_DIR/jenkins
   mkdir -p $DATA_DIR/jenkins
   echo "* clone jenkins config"
-  git clone http://stash/scm/util/jenkins_base_config.git /Users/Shared/data/jenkins
+  git clone http://ga-mlsdiscovery@192.168.8.31:7990/scm/util/jenkins_base_config.git /Users/Shared/data/jenkins
 else
   echo "* using existing jenkins data dir"
 fi
