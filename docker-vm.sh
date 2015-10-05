@@ -25,6 +25,7 @@ create() {
 
     #echo "* setting host only adapter to $DOCKER_VM_VBOXNET"
     #VBoxManage modifyvm "$DOCKER_VM_NAME"  --hostonlyadapter1 $DOCKER_VM_VBOXNET   
+    #VBoxManage showvminfo nexus-vm | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2
 }
 
 nat() {
