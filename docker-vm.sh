@@ -13,7 +13,7 @@ create() {
     dm_install_bootlocal
 
     echo "* enable host nfs daemon for /Users"
-    sudo nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
+    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
 
     echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
     stop
@@ -25,7 +25,7 @@ delete() {
 }
 
 start() {
-    sudo nfsd_util.sh
+    sudo ./nfsd_util.sh
 
     echo "* starting"
     dm_start
