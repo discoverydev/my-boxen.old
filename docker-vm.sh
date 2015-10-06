@@ -28,8 +28,10 @@ create() {
     echo "* enable host nfs daemon for /opt/boxen"
     sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
 
-    echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
+    echo "* setting vm options"
     stop
+    VBoxManage modifyvm $DOCKER_VM_NAME --memory $DOCKER_VM_MEMORY
+    VBoxManage modifyvm $DOCKER_VM_NAME --cpus $DOCKER_VM_CPUS
 }
 
 nat() {

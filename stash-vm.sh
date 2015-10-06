@@ -20,4 +20,8 @@ init_docker_run() {
 	docker run --name $DOCKER_CONTAINER --restart=always --detach=true $hosts $volumes $publish $DOCKER_IMAGE
 }
 
+tail-log() {
+	tail -n 100 -f $DOCKER_DATA_DIR/log/atlassian-stash.log
+}
+
 $1
