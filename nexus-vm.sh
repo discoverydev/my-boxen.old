@@ -20,7 +20,7 @@ init() {
 	docker run --name $DOCKER_CONTAINER --restart=always --add-host stash:192.168.8.31 --add-host jenkins:192.168.8.31 --add-host confluence:192.168.8.34 -d -v $DATA_DIR:/sonatype-work -p 8081:8081 sonatype/nexus
 	docker ps
 
-	echo "** open nexus browser"
+	echo "** open $DOCKER_CONTAINER browser"
 	open http://localhost:8081/
 }
 
