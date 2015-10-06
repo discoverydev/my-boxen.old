@@ -1,12 +1,6 @@
 #!/bin/bash
 source docker-vm_machine_lib.sh
-#source docker-vm_boot2docker_lib.sh
 echo "Docker Virtual Machine ($DOCKER_VM_NAME)"
-echo DOCKER_VM_VBOXNET=${DOCKER_VM_VBOXNET}
-echo DOCKER_VM_MEMORY=${DOCKER_VM_MEMORY}
-echo DOCKER_VM_CPUS=${DOCKER_VM_CPUS}
-echo DOCKER_VM_HOST=${DOCKER_VM_HOST}
-echo DOCKER_VM_ARGS=${DOCKER_VM_ARGS}
 
 create() {
     delete
@@ -14,18 +8,16 @@ create() {
     echo "* create $DOCKER_VM_NAME instance"
     dm_create
 
-    echo "* setup $DOCKER_VM_NAME ($DOCKER_VM_IP, host=$DOCKER_VM_HOST)"
+    echo "* setup $DOCKER_VM_NAME ($DOCKER_VM_IP)"
     dm_install_bootlocal
 
     echo "* enable host nfs daemon for /Users"
     sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
+    echo "* enable host nfs daemon for /opt/boxen"
+    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
 
     echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
     stop
-
-    #echo "* setting host only adapter to $DOCKER_VM_VBOXNET"
-    #VBoxManage modifyvm "$DOCKER_VM_NAME"  --hostonlyadapter1 $DOCKER_VM_VBOXNET   
-    #VBoxManage showvminfo nexus-vm | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2
 }
 
 nat() {
@@ -42,14 +34,15 @@ delete() {
 }
 
 start() {
-    sudo ./nfsd_util.sh
+    #sudo ./nfsd_util.sh
 
     echo "* starting"
     dm_start
 
-    echo "* show bootlocal log"
+    echo "* begin bootlocal log"
     sleep 3
     dm_show_bootlocal_log
+    echo "* end bootlocal log"
 
     echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
 }
@@ -72,12 +65,17 @@ bootlocal-log() {
     dm_show_bootlocal_log
 }
 
-env() {
-    dm_env
-}
-
 ssh() {
     dm_ssh
 }
 
-$1
+status() {
+    dm status
+    dm_env
+    docker ps
+}
+
+attach() {
+    dm_env
+    docker attach --sig-proxy=false $DOCKER_CONTAINER
+}

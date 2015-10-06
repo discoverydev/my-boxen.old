@@ -20,18 +20,19 @@ nfsd_configure() {
 
 nfsd_map_share() {
     local guest_ip=$1
+    local guest_network=$(echo $guest_ip | cut -d"." -f1-3).0
     local guest_user=$2
     local host_share=$3
-    echo "=== mapping $host_share to $guest_ip"
-    local exports_line="${host_share} -mapall=${guest_user}:staff ${guest_ip}"
+    echo "=== mapping $host_share for $guest_user to network $guest_network"
+    local exports_line="${host_share} -mapall=${guest_user}:staff -network ${guest_network}"
     grep "$exports_line" /etc/exports > /dev/null
     if [ "$?" != "0" ]; then
       $(cp -n /etc/exports /etc/exports.prev) && echo "Backed up /etc/exports to /etc/exports.prev"
       grep -v "^${host_share} " /etc/exports > /etc/exports
-      cat /etc/exports
+      #cat /etc/exports
       echo "$exports_line" >> /etc/exports
     fi
-    cat /etc/exports
+    #cat /etc/exports
 }
 
 nfsd_configure

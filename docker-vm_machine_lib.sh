@@ -1,8 +1,6 @@
-: ${DOCKER_VM_VBOXNET=vboxnet0}
 : ${DOCKER_VM_NAME=docker-vm}
 : ${DOCKER_VM_MEMORY=2048}
 : ${DOCKER_VM_CPUS=2}
-: ${DOCKER_VM_HOST=`ifconfig $DOCKER_VM_VBOXNET | grep 'inet ' | cut -d ' ' -f 2`}
 : ${DOCKER_VM_ARGS=}
 
 dm() {
@@ -18,11 +16,6 @@ dm_create() {
     docker-machine create -d virtualbox $DOCKER_VM_NAME --virtualbox-memory "$DOCKER_VM_MEMORY" --virtualbox-cpu-count "$DOCKER_VM_CPUS"
     dm_env
     export DOCKER_VM_IP=$( dm ip )
-}
-
-dm_modify() {
-    echo "==DEBUG VBoxManage modifyvm "$DOCKER_VM_NAME" $1 $2"
-    VBoxManage modifyvm "$DOCKER_VM_NAME" $1 $2
 }
 
 dm_start() {
@@ -56,6 +49,10 @@ dm_run_bootlocal() {
 dm_install_bootlocal() {
     local bootlocal_file=$1
     local bootlocal_tmp=/tmp/bootlocal.sh
+
+    local adapter=`VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2`
+    local host_ip=`ifconfig $adapter | grep 'inet ' | cut -d ' ' -f 2`
+
     if [ -f "$bootlocal_file" ]; then
         cp $bootlocal_file $bootlocal_tmp
     else
@@ -64,7 +61,7 @@ echo "=== wait for host networking"
 EXIT_RESULT=1
 while [ \${EXIT_RESULT} -gt 0 ]; do
     sleep 1
-    ping -c 1 $DOCKER_VM_HOST > /dev/null 2>&1
+    ping -c 1 $host_ip > /dev/null 2>&1
     EXIT_RESULT=\$?
 done
 sleep 3
@@ -74,7 +71,7 @@ sudo /usr/local/etc/init.d/nfs-client start
 
 echo "=== remount /Users using nfs"
 sudo umount /Users
-sudo mount $DOCKER_VM_HOST:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
+sudo mount $host_ip:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
 
 echo "=== show /Users"
 mount | grep /Users
