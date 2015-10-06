@@ -1,3 +1,4 @@
+: ${DOCKER_DATA_DIR="/Users/Shared/data/$DOCKER_CONTAINER"}
 : ${DOCKER_VM_NAME=docker-vm}
 : ${DOCKER_VM_MEMORY=2048}
 : ${DOCKER_VM_CPUS=2}

@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 
-export DOCKER_IMAGE=atlassian/stash
-export DOCKER_CONTAINER=stash
-export DOCKER_VM_NAME=stash-vm
+export DOCKER_IMAGE=cptactionhank/atlassian-confluence:latest
+export DOCKER_CONTAINER=confluence
+export DOCKER_VM_NAME=confluence-vm
 export DOCKER_VM_MEMORY=2048
 export DOCKER_VM_CPUS=2
 
 source docker-vm.sh
 
 init_post_create() {
-	nat ${DOCKER_CONTAINER}-http 7990 7990
-	nat ${DOCKER_CONTAINER}-ssh 7999 7999
+	nat ${DOCKER_CONTAINER}-http 8090 8090
 }
 
 init_docker_run() {
 	local hosts="--add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --add-host confluence:192.168.8.34"
-	local volumes="--volume=$DOCKER_DATA_DIR:/var/atlassian/application-data/stash"
-	local publish="--publish=7990:7990 --publish=7999:7999"
+	local volumes="--volume=$DOCKER_DATA_DIR:/var/local/atlassian/confluence"
+	local publish="--publish=8090:8090"
 	docker run --name $DOCKER_CONTAINER --restart=always --detach=true $hosts $volumes $publish $DOCKER_IMAGE
 }
 
