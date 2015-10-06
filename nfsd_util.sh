@@ -25,14 +25,18 @@ nfsd_map_share() {
     local host_share=$3
     echo "=== mapping $host_share for $guest_user to network $guest_network"
     local exports_line="${host_share} -mapall=${guest_user}:staff -network ${guest_network}"
+    # check to see if the exports line is already in the file
     grep "$exports_line" /etc/exports > /dev/null
     if [ "$?" != "0" ]; then
+      # backup the existing exports
       $(cp -n /etc/exports /etc/exports.prev) && echo "Backed up /etc/exports to /etc/exports.prev"
-      grep -v "^${host_share} " /etc/exports > /etc/exports
-      #cat /etc/exports
-      echo "$exports_line" >> /etc/exports
+      # keep everything but the host_share name
+      grep -v "^${host_share} " /etc/exports > /tmp/exports
+      # append the new host_share exports line
+      echo "$exports_line" >> /tmp/exports
+      # put it back
+      mv /tmp/exports /etc
     fi
-    #cat /etc/exports
 }
 
 nfsd_configure

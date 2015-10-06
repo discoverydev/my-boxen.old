@@ -70,12 +70,20 @@ echo "=== start nfs"
 sudo /usr/local/etc/init.d/nfs-client start
 
 echo "=== remount /Users using nfs"
+sudo mkdir -p /Users
+sudo chown docker:staff /Users
 sudo umount /Users
 sudo mount $host_ip:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
-
-echo "=== show /Users"
 mount | grep /Users
 ls /Users
+
+echo "=== remount /opt/boxen using nfs"
+sudo mkdir -p /opt/boxen
+sudo chown docker:staff /opt/boxen
+sudo umount /opt/boxen
+sudo mount $host_ip:/opt/boxen /opt/boxen -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
+mount | grep /opt/boxen
+ls /opt/boxen
 EOF
     fi
 

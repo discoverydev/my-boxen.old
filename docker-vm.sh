@@ -34,8 +34,6 @@ delete() {
 }
 
 start() {
-    #sudo ./nfsd_util.sh
-
     echo "* starting"
     dm_start
 
@@ -44,7 +42,7 @@ start() {
     dm_show_bootlocal_log
     echo "* end bootlocal log"
 
-    echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP"
+    echo "$DOCKER_VM_NAME running at $DOCKER_VM_IP.  Use 'attach' to see the console output."
 }
 
 stop() {
