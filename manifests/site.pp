@@ -139,9 +139,9 @@ node default {
     [
       'ack',               # for searching strings within files at the command-line
       'ant',               # for builds 
-      'boot2docker',       # for docker used by ci (stash, jenkins, etc)
       'chromedriver',      # for appium
       'docker',            # for ci 
+      'docker-machine',    # for docker-machine used by ci (stash, jenkins, etc)
       'dos2unix',          # some Java cmd-line utilities are Windows-specific
       'git',               #
       'gradle',            # for builds
@@ -190,7 +190,7 @@ node default {
       'qlstephen',         # quicklook for text files
       'slack',             # communication tool
       'sourcetree',        # Atlassian Sourcetree
-      'virtualbox',        # VM for boot2docker, genymotion, etc
+      'virtualbox',        # VM for docker-machine, genymotion, etc
     ]:
     provider => 'brewcask', 
     ensure => present,
