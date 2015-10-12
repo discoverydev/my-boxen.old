@@ -53,21 +53,31 @@ dm_ssh() {
 
 copy_to_dm_home() {
     local src=$1
-    docker-machine scp $src $DOCKER_VM_NAME:
+    local dest=$2
+    docker-machine scp $src $DOCKER_VM_NAME:$2
 }
 
 dm_install_bootlocal() {
-    local bootlocal_file=$1
-    local bootlocal_tmp=/tmp/bootlocal.sh
-
     local adapter=`VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2`
     local host_ip=`ifconfig $adapter | grep 'inet ' | cut -d ' ' -f 2`
+    local bootlocal_file=/tmp/bootlocal${RANDOM}.sh
+    generate_bootlocal $host_ip > $bootlocal_file
+    dm_install_bootlocal_file $bootlocal_file
+    rm $bootlocal_file
+}
 
-    if [ -f "$bootlocal_file" ]; then
-        cp $bootlocal_file $bootlocal_tmp
-    else
-        cat <<EOF >$bootlocal_tmp
-echo "=== wait for host networking"
+dm_install_bootlocal_file() {
+    local bootlocal_file=$1
+    copy_to_dm_home $bootlocal_file bootlocal.sh
+    dm_ssh "chmod +x bootlocal.sh"
+    dm_ssh "sudo mv bootlocal.sh /var/lib/boot2docker/"
+    dm_ssh "sudo chown root:root /var/lib/boot2docker/bootlocal.sh"    
+}
+
+generate_bootlocal() {
+    local host_ip=$1
+    cat <<EOF 
+echo "=== wait for host networking ($host_ip)"
 EXIT_RESULT=1
 while [ \${EXIT_RESULT} -gt 0 ]; do
     sleep 1
@@ -75,33 +85,25 @@ while [ \${EXIT_RESULT} -gt 0 ]; do
     EXIT_RESULT=\$?
 done
 sleep 3
-
 echo "=== start nfs"
 sudo /usr/local/etc/init.d/nfs-client start
-
-echo "=== remount /Users using nfs"
-sudo mkdir -p /Users
-sudo chown docker:staff /Users
-sudo umount /Users
-sudo mount $host_ip:/Users /Users -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
-mount | grep /Users
-ls /Users
-
-echo "=== remount /opt/boxen using nfs"
-sudo mkdir -p /opt/boxen
-sudo chown docker:staff /opt/boxen
-sudo umount /opt/boxen
-sudo mount $host_ip:/opt/boxen /opt/boxen -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
-mount | grep /opt/boxen
-ls /opt/boxen
+$(generate_bootlocal_mount "$host_ip:/Users" "/Users")
+$(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
 EOF
-    fi
+}
 
-    copy_to_dm_home $bootlocal_tmp
-    dm_ssh "chmod +x bootlocal.sh"
-    dm_ssh "sudo mv bootlocal.sh /var/lib/boot2docker/"
-    dm_ssh "sudo chown root:root /var/lib/boot2docker/bootlocal.sh"
-    rm $bootlocal_tmp
+generate_bootlocal_mount() {
+    local share=$1
+    local mount_point=$2
+    cat <<EOF
+echo "=== remount $mount_point to $share using nfs"
+sudo mkdir -p $mount_point
+sudo chown docker:staff $mount_point
+sudo umount $mount_point
+sudo mount $share $mount_point -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
+mount | grep $mount_point
+ls $mount_point
+EOF
 }
 
 dm_run_bootlocal() {
