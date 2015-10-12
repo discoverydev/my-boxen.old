@@ -3,7 +3,7 @@
 export DOCKER_IMAGE=jenkins
 export DOCKER_CONTAINER=jenkins
 export DOCKER_VM_NAME=jenkins-vm
-export DOCKER_VM_MEMORY=2048
+export DOCKER_VM_MEMORY=3072
 export DOCKER_VM_CPUS=2
 
 source docker-vm.sh
