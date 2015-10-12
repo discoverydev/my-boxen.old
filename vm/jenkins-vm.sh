@@ -14,10 +14,16 @@ init_post_create() {
 }
 
 init_docker_run() {
+	local environment="--env JAVA_OPTS=-Xmx2g"
 	local hosts="--add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --add-host confluence:192.168.8.34"
-	local volumes="--volume=$DOCKER_DATA_DIR:/var/jenkins_home --volume=/opt/boxen:/opt/boxen"
+	#local volumes="--volume=$DOCKER_DATA_DIR:/var/jenkins_home --volume=/opt/boxen:/opt/boxen"
+	local volumes=""
 	local publish="--publish=8080:8080 --publish=50000:50000"
-	docker run --name $DOCKER_CONTAINER --restart=always --detach=true $hosts $volumes $publish $DOCKER_IMAGE
+	docker run --name $DOCKER_CONTAINER --restart=always --detach=true $environment $hosts $volumes $publish $DOCKER_IMAGE
+}
+
+open() {
+	/usr/bin/open "http://localhost:8080/"
 }
 
 clone() {
@@ -27,4 +33,4 @@ clone() {
 	git clone http://ga-mlsdiscovery@192.168.8.31:7990/scm/util/jenkins_base_config.git $DOCKER_DATA_DIR
 }
 
-$1
+for arg in "$@"; do $arg; done
