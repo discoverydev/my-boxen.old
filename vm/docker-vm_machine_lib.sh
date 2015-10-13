@@ -4,6 +4,14 @@
 : ${DOCKER_VM_CPUS=2}
 : ${DOCKER_VM_ARGS=}
 
+host_adapter() {
+    VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2    
+}
+
+host_ip() {
+    ifconfig $(host_adapter) | grep 'inet ' | cut -d ' ' -f 2
+}
+
 dm() {
     local command=$1
     docker-machine $command $DOCKER_VM_NAME
@@ -51,24 +59,22 @@ dm_ssh() {
     docker-machine $DOCKER_VM_ARGS ssh $DOCKER_VM_NAME $1 $2 $3 $4 $5 $7 $8 $9
 }
 
-copy_to_dm_home() {
+dm_scp() {
     local src=$1
     local dest=$2
     docker-machine scp $src $DOCKER_VM_NAME:$2
 }
 
 dm_install_bootlocal() {
-    local adapter=`VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2`
-    local host_ip=`ifconfig $adapter | grep 'inet ' | cut -d ' ' -f 2`
     local bootlocal_file=/tmp/bootlocal${RANDOM}.sh
-    generate_bootlocal $host_ip > $bootlocal_file
+    generate_bootlocal $(host_ip) > $bootlocal_file
     dm_install_bootlocal_file $bootlocal_file
     rm $bootlocal_file
 }
 
 dm_install_bootlocal_file() {
     local bootlocal_file=$1
-    copy_to_dm_home $bootlocal_file bootlocal.sh
+    dm_scp $bootlocal_file bootlocal.sh
     dm_ssh "chmod +x bootlocal.sh"
     dm_ssh "sudo mv bootlocal.sh /var/lib/boot2docker/"
     dm_ssh "sudo chown root:root /var/lib/boot2docker/bootlocal.sh"    

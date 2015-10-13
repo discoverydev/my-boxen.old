@@ -20,27 +20,12 @@ reinit() {
     status
 }
 
-modifyvm() {
-    stop
-    init_post_create   
-
-    echo "*** setting $DOCKER_VM_NAME memory to $DOCKER_VM_MEMORY"
-    VBoxManage modifyvm $DOCKER_VM_NAME --memory $DOCKER_VM_MEMORY
-    echo "*** setting $DOCKER_VM_NAME cpus to $DOCKER_VM_CPUS"
-    VBoxManage modifyvm $DOCKER_VM_NAME --cpus $DOCKER_VM_CPUS
-}
-
 create() {
     delete
     echo "*** create $DOCKER_VM_NAME instance"
     dm_create
     nfsd-init
     bootlocal-init
-}
-
-delete() {
-    echo "*** shut $DOCKER_VM_NAME down and delete instance"
-    dm_delete
 }
 
 start() {
@@ -60,12 +45,23 @@ restart() {
 }
 
 attach() {
-    dm_env
-    docker attach --sig-proxy=false $DOCKER_CONTAINER
+    dm_is_running
+    if [[ $? == 0 ]]; then 
+        echo "*** attaching to $DOCKER_CONTAINER"
+        dm_env
+        docker attach --sig-proxy=false $DOCKER_CONTAINER
+    else
+        echo "*** $DOCKER_VM_NAME is not running"
+    fi
 }
 
 ssh() {
     dm_ssh
+}
+
+delete() {
+    echo "*** shut $DOCKER_VM_NAME down and delete instance"
+    dm_delete
 }
 
 
@@ -84,6 +80,16 @@ nfsd-init() {
 ##
 ## virtualbox commands
 ##
+
+modifyvm() {
+    stop
+    init_post_create   
+
+    echo "*** setting $DOCKER_VM_NAME memory to $DOCKER_VM_MEMORY"
+    VBoxManage modifyvm $DOCKER_VM_NAME --memory $DOCKER_VM_MEMORY
+    echo "*** setting $DOCKER_VM_NAME cpus to $DOCKER_VM_CPUS"
+    VBoxManage modifyvm $DOCKER_VM_NAME --cpus $DOCKER_VM_CPUS
+}
 
 nat() {
     local name=$1
@@ -165,10 +171,8 @@ settings() {
     echo DOCKER_VM_ARGS=${DOCKER_VM_ARGS}
     dm_exists
     if [[ $? == 0 ]]; then
-        local adapter=`VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2`
-        local host_ip=`ifconfig $adapter | grep 'inet ' | cut -d ' ' -f 2`
-        echo adapter=$adapter
-        echo host_ip=$host_ip
+        echo host_adapter=$(host_adapter)
+        echo host_ip=$(host_ip)
     fi
 }
 
