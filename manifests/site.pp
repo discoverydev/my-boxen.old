@@ -161,7 +161,8 @@ node default {
       'tomcat',            # for deploying .war files
       'wget',              # 
       'xctool',            # xcode build, used by sonar
-      'carthage'
+      'carthage',
+      'https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb' #sshpass
     ]: 
     ensure => present,
     require => Exec['tap-discoverydev-ipa'],
