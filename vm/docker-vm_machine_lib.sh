@@ -1,8 +1,4 @@
-: ${DOCKER_DATA_DIR="/Users/Shared/data/$DOCKER_CONTAINER"}
-: ${DOCKER_VM_NAME=docker-vm}
-: ${DOCKER_VM_MEMORY=2048}
-: ${DOCKER_VM_CPUS=2}
-: ${DOCKER_VM_ARGS=}
+# uses DOCKER_VM_NAME, DOCKER_VM_USER 
 
 host_adapter() {
     VBoxManage showvminfo $DOCKER_VM_NAME | sed -n -e 's/^.*Host-only Interface //p' | cut -d \' -f2    
@@ -56,7 +52,7 @@ dm_exists() {
 }
 
 dm_ssh() {
-    docker-machine $DOCKER_VM_ARGS ssh $DOCKER_VM_NAME $1 $2 $3 $4 $5 $7 $8 $9
+    docker-machine ssh $DOCKER_VM_NAME $1 $2 $3 $4 $5 $7 $8 $9
 }
 
 dm_scp() {
@@ -80,6 +76,36 @@ dm_install_bootlocal_file() {
     dm_ssh "sudo chown root:root /var/lib/boot2docker/bootlocal.sh"    
 }
 
+dm_run_bootlocal() {
+    dm_ssh "/var/lib/boot2docker/bootlocal.sh"
+}
+
+dm_cat_bootlocal() {
+    dm_ssh "cat /var/lib/boot2docker/bootlocal.sh"
+}
+
+dm_cat_bootlocal_log() {
+    dm_ssh "cat /var/log/bootlocal.log"
+}
+
+launchd_install() {
+    local plist_file=~/Library/LaunchAgents/docker.$DOCKER_VM_NAME.plist
+    generate_launchd_plist $(host_ip) > $plist_file  
+    launchctl load -wF $plist_file
+}
+
+launchd_uninstall() {
+    local plist_file=~/Library/LaunchAgents/docker.$DOCKER_VM_NAME.plist
+    if [[ -f $plist_file ]]; then
+        launchctl unload $plist_file
+        rm $plist_file
+    fi
+}
+
+##
+## data generators
+##
+
 generate_bootlocal() {
     local host_ip=$1
     cat <<EOF 
@@ -92,7 +118,7 @@ while [ \${EXIT_RESULT} -gt 0 ]; do
 done
 sleep 3
 echo "=== start nfs"
-sudo /usr/local/etc/init.d/nfs-client start
+sudo /usr/local/etc/init.d/nfs-client restart &>/dev/null
 $(generate_bootlocal_mount "$host_ip:/Users" "/Users")
 $(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
 EOF
@@ -102,24 +128,43 @@ generate_bootlocal_mount() {
     local share=$1
     local mount_point=$2
     cat <<EOF
-echo "=== remount $mount_point to $share using nfs"
+echo "=== mount $mount_point to $share using nfs"
+sudo umount -f $mount_point &>/dev/null
 sudo mkdir -p $mount_point
 sudo chown docker:staff $mount_point
-sudo umount $mount_point
 sudo mount $share $mount_point -o rw,async,noatime,rsize=32768,wsize=32768,proto=tcp
 mount | grep $mount_point
-ls $mount_point
 EOF
 }
 
-dm_run_bootlocal() {
-    dm_ssh "/var/lib/boot2docker/bootlocal.sh"
+generate_launchd_plist() {
+    cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>KeepAlive</key>
+    <true/>
+    <key>Label</key>
+    <string>docker.$DOCKER_VM_NAME</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>docker-machine</string>
+      <string>start</string>
+      <string>$DOCKER_VM_NAME</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>UserName</key>
+    <string>$DOCKER_VM_USER</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/$DOCKER_VM_USER</string>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/log/$DOCKER_VM_NAME.log</string>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/log/$DOCKER_VM_NAME.log</string>
+  </dict>
+</plist>
+EOF
 }
 
-dm_cat_bootlocal() {
-    dm_ssh "cat /var/lib/boot2docker/bootlocal.sh"
-}
-
-dm_cat_bootlocal_log() {
-    dm_ssh "cat /var/log/bootlocal.log"
-}
