@@ -15,6 +15,9 @@ export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$GENYMOTION_HOME/Ge
 alias ll="ls -ltra"
 alias repo="cd /opt/boxen/repo"
 alias shared="cd /Users/Shared"
+alias src="cd ~/src"
+alias mls="cd ~/src/mls-dev"
+alias ..="cd .."
 
 set -o vi
 
