@@ -1,5 +1,9 @@
 #!/bin/bash -l
 
+# update brew
+echo "updating brew"
+./brew_update_pre_boxen.sh
+
 echo "updating boxen and pushing result to Jenkins"
 
 set +e
@@ -29,7 +33,4 @@ else
     echo "Boxen was NOT updated successfully."
     exit 1
 fi
-
-# update brew
-./brew_update_post_boxen.sh
 
