@@ -18,6 +18,7 @@ alias shared="cd /Users/Shared"
 alias src="cd ~/src"
 alias mls="cd ~/src/mls-dev"
 alias ..="cd .."
+alias sourcetree="open -a /Applications/Sourcetree.app"
 
 set -o vi
 
