@@ -13,5 +13,9 @@
         <key>Minute</key>
         <integer>0</integer>
     </dict>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/log/boxen.log</string>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/log/boxen.log</string>
 </dict>
 </plist>
