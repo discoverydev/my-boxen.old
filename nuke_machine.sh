@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Make sure only root can run our script
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run using sudo" 1>&2
+   exit 1
+fi
+
 echo "** shutting boot2docker down"
 boot2docker down
 echo "* deleting any existing boot2docker images"
