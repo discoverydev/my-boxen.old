@@ -47,9 +47,19 @@ echo "** deleting rubies directory"
 rm -rf ~/rubies
 echo "** deleting .m2"
 rm -rf ~/.m2/
+echo "** deleting .ivy2 directory"
+rm -rf ~/.ivy2/
+echo "** deleting Nexus directory"
+rm -rf ~/Nexus_5_API_21_x86/
+echo "** deleting local Applications"
+rm -rf ~/Applications/
 
 echo "** deleting homebrew-cast directory"
 rm -rf /opt/homebrew-cask
+echo "** deleting rubies directory"
+rm -rf /opt/rubies
+echo "** deleting nodes directory"
+rm -rf /opt/nodes
 echo "** deleting android-sdk"
 rm -rf /opt/android-sdk
 echo "** deleting android-sdk"
