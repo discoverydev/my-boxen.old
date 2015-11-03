@@ -4,6 +4,8 @@ export DOCKER_IMAGE=atlassian/stash
 export DOCKER_CONTAINER=stash
 export DOCKER_CONTAINER_DATA_DIR=/var/atlassian/application-data/stash
 export DOCKER_CONTAINER_PUBLISH="--publish=7990:7990 --publish=7999:7999"
+export DOCKER_VM_MEMORY=3072
+export DOCKER_VM_CPUS=3
 
 source docker-vm_lib.sh
 
