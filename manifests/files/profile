@@ -20,6 +20,7 @@ alias src="cd ~/src"
 alias mls="cd ~/src/mls-dev"
 alias ..="cd .."
 alias sourcetree="open -a /Applications/Sourcetree.app"
+alias dm="docker-machine"
 
 set -o vi
 
