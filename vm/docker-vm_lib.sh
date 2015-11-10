@@ -148,6 +148,7 @@ docker-delete() {
 ##
 
 bootlocal-init() {
+    echo "*** init bootlocal script"
     bootlocal-install
     bootlocal-run
 }
@@ -159,6 +160,7 @@ bootlocal-install() {
 
 bootlocal-run() {
     echo "*** run bootlocal script"
+    dm_env
     dm_run_bootlocal
 }
 

@@ -77,6 +77,7 @@ dm_install_bootlocal_file() {
 }
 
 dm_run_bootlocal() {
+    dm_env
     dm_ssh "/var/lib/boot2docker/bootlocal.sh"
 }
 
