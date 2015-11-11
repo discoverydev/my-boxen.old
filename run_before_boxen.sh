@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #USER=ga-mlsdiscovery
 USER=ga-mlsdiscovery
