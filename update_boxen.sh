@@ -1,7 +1,6 @@
 #!/bin/bash -l
 
 # update brew
-echo "updating brew"
 ./brew_update_pre_boxen.sh
 
 echo "updating boxen and pushing result to Jenkins"
