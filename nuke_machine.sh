@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Make sure only root can run our script
+# Make sure only root can execute this script
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run using sudo" 1>&2
+   echo "This script must be executed using sudo" 1>&2
    exit 1
 fi
 
@@ -18,10 +18,6 @@ echo "* shutting down local jenkins instance"
 curl --silent --request POST "http://localhost:8080/exit"
 
 DATA_DIR=/Users/Shared/data
-
-echo "** deleting local user : jenkins"
-sudo dscl . -delete "/Users/jenkins"
-sudo rm /Users/jenkins
 
 read -p "do you want to delete the 'src' directory?: (Y/n)" DELETE_SRC
 DELETE_SRC=${DELETE_SRC:-y}
