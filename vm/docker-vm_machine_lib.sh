@@ -120,8 +120,12 @@ done
 sleep 3
 echo "=== start nfs"
 sudo /usr/local/etc/init.d/nfs-client restart &>/dev/null
-$(generate_bootlocal_mount "$host_ip:/Users" "/Users")
-$(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
+
+if [[ "$DOCKER_CONTAINER_DATA_DIR" != "" ]]; then
+    $(generate_bootlocal_mount "$host_ip:/Users" "/Users")
+    $(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
+fi
+
 EOF
 }
 

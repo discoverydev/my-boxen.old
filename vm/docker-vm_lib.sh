@@ -76,10 +76,12 @@ env() {
 ##
 
 nfsd-init() {
-    echo "*** enable host nfs daemon for /Users ($DOCKER_VM_IP)"
-    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
-    echo "*** enable host nfs daemon for /opt/boxen ($DOCKER_VM_IP)"
-    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
+    if [[ "$DOCKER_CONTAINER_DATA_DIR" != "" ]]; then
+        echo "*** enable host nfs daemon for /Users ($DOCKER_VM_IP)"
+        sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
+        echo "*** enable host nfs daemon for /opt/boxen ($DOCKER_VM_IP)"
+        sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
+    fi
 }
 
 

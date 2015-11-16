@@ -2,7 +2,6 @@
 
 export DOCKER_IMAGE=discoverydev/mock-server
 export DOCKER_CONTAINER=mockserver
-export DOCKER_CONTAINER_DATA_DIR=/var/local/discoverydev/mockserver
 export DOCKER_CONTAINER_PUBLISH="--publish=1080:1080 --publish=1090:1090"
 export DOCKER_CONTAINER_ENV="--env JAVA_OPTS=-Xmx2g"
 export DOCKER_VM_MEMORY=3072
