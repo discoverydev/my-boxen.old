@@ -21,4 +21,10 @@ open() {
 	/usr/bin/open "http://localhost:1080/"
 }
 
+setup() {
+	cd /Users/Shared/data/mockserver
+	bundle install
+	ruby mock_server_setup.rb
+}
+
 for arg in "$@"; do $arg; done
