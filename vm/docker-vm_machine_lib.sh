@@ -23,6 +23,12 @@ dm_create() {
     export DOCKER_VM_IP=$( dm ip )
 }
 
+dm_create_azure() {
+    docker-machine create -d azure --azure-location "East US" --azure-subscription-id="6213d50c-e042-40e1-b3fe-4aa13ef0dff2" --azure-subscription-cert=/Users/ga-mlsdiscovery/azure_cert/mycert.pem $DOCKER_VM_NAME
+    dm_env
+    export DOCKER_VM_IP=$( dm ip )
+}
+
 dm_start() {
     dm_is_running
     if [[ $? == 1 ]]; then dm start; fi

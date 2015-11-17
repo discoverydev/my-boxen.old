@@ -20,6 +20,16 @@ reinit() {
     docker-init
 }
 
+reinit_azure() {
+    start
+    docker-init
+}
+
+create_azure() {
+    echo "*** create $DOCKER_VM_NAME AZURE instance"
+    dm_create_azure
+}
+
 create() {
     delete
     echo "*** create $DOCKER_VM_NAME instance"
