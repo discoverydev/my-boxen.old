@@ -241,7 +241,7 @@ node default {
   host { 'tomcat':     ip => '192.168.8.32' }
   host { 'confluence': ip => '192.168.8.34' }
   host { 'sonarqube':  ip => '192.168.8.35' }
-  host { 'mockserver': ip => '192.168.8.32' }
+  host { 'mockserver': ip => '192.168.8.35' }
 
   host { 'xavier':     ip => '192.168.8.31' }  
   host { 'rogue':      ip => '192.168.8.32' }  
