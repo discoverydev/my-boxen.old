@@ -159,6 +159,7 @@ node default {
       'scala',             # for Gimbal Geofence Importer
       'sonar-runner',      # for sonar tests
       'tomcat',            # for deploying .war files
+      'trash',             # for using instead of rm to move things to the trash
       'wget',              # 
       'xctool',            # xcode build, used by sonar
       'carthage',

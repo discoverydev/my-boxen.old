@@ -21,6 +21,7 @@ alias mls="cd ~/src/mls-dev"
 alias ..="cd .."
 alias sourcetree="open -a /Applications/Sourcetree.app"
 alias dm="docker-machine"
+alias rm="trash"
 
 set -o vi
 
