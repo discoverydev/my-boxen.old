@@ -183,7 +183,7 @@ node default {
       'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
-      'intellij-idea',     # IDE all the things
+      'intellij1415',    # IDE all the things
       'iterm2',            # terminal replacement
       'java',              # java 8
       'qlgradle',          # quicklook for gradle files
