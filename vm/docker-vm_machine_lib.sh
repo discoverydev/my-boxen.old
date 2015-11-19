@@ -24,7 +24,7 @@ dm_create() {
 }
 
 dm_create_azure() {
-    docker-machine create -d azure --azure-location "East US" --azure-subscription-id="6213d50c-e042-40e1-b3fe-4aa13ef0dff2" --azure-subscription-cert=/Users/ga-mlsdiscovery/azure_cert/mycert.pem $DOCKER_VM_NAME
+    docker-machine create -d azure --azure-location "East US" --azure-subscription-id="add subcription id here" --azure-subscription-cert=/Users/ga-mlsdiscovery/azure_cert/mycert.pem $DOCKER_VM_NAME
     dm_env
     export DOCKER_VM_IP=$( dm ip )
 }
