@@ -4,8 +4,8 @@ export DOCKER_IMAGE=jenkins
 export DOCKER_CONTAINER=jenkins
 export DOCKER_CONTAINER_DATA_DIR=/var/jenkins_home
 export DOCKER_CONTAINER_PUBLISH="--publish=8080:8080 --publish=50000:50000"
-export DOCKER_CONTAINER_ENV="--env JAVA_OPTS=-Xmx2g"
-export DOCKER_VM_MEMORY=3072
+export DOCKER_CONTAINER_ENV="--env JAVA_OPTS=-Xmx3g"
+export DOCKER_VM_MEMORY=4112
 
 source docker-vm_lib.sh
 
