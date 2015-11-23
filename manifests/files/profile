@@ -21,7 +21,7 @@ alias mls="cd ~/src/mls-dev"
 alias ..="cd .."
 alias sourcetree="open -a /Applications/Sourcetree.app"
 alias dm="docker-machine"
-alias rm="trash"
+# alias rm="trash" (ddaugher - umocmment after all machines are upgraded to xcode 7)
 
 set -o vi
 
