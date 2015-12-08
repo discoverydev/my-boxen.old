@@ -20,6 +20,16 @@ reinit() {
     docker-init
 }
 
+reinit_azure() {
+    start
+    docker-init
+}
+
+create_azure() {
+    echo "*** create $DOCKER_VM_NAME AZURE instance"
+    dm_create_azure
+}
+
 create() {
     delete
     echo "*** create $DOCKER_VM_NAME instance"
@@ -76,10 +86,12 @@ env() {
 ##
 
 nfsd-init() {
-    echo "*** enable host nfs daemon for /Users ($DOCKER_VM_IP)"
-    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
-    echo "*** enable host nfs daemon for /opt/boxen ($DOCKER_VM_IP)"
-    sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
+    if [[ "$DOCKER_CONTAINER_DATA_DIR" != "" ]]; then
+        echo "*** enable host nfs daemon for /Users ($DOCKER_VM_IP)"
+        sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /Users
+        echo "*** enable host nfs daemon for /opt/boxen ($DOCKER_VM_IP)"
+        sudo ./nfsd_util.sh $DOCKER_VM_IP `whoami` /opt/boxen
+    fi
 }
 
 
@@ -148,6 +160,7 @@ docker-delete() {
 ##
 
 bootlocal-init() {
+    echo "*** init bootlocal script"
     bootlocal-install
     bootlocal-run
 }
@@ -159,6 +172,7 @@ bootlocal-install() {
 
 bootlocal-run() {
     echo "*** run bootlocal script"
+    dm_env
     dm_run_bootlocal
 }
 

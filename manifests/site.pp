@@ -159,6 +159,7 @@ node default {
       'scala',             # for Gimbal Geofence Importer
       'sonar-runner',      # for sonar tests
       'tomcat',            # for deploying .war files
+#      'trash',             # for using instead of rm to move things to the trash
       'wget',              # 
       'xctool',            # xcode build, used by sonar
       'carthage',
@@ -182,7 +183,7 @@ node default {
       'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
-      'intellij-idea',     # IDE all the things
+      'intellij1415',    # IDE all the things
       'iterm2',            # terminal replacement
       'java',              # java 8
       'qlgradle',          # quicklook for gradle files
@@ -240,7 +241,7 @@ node default {
   host { 'tomcat':     ip => '192.168.8.32' }
   host { 'confluence': ip => '192.168.8.34' }
   host { 'sonarqube':  ip => '192.168.8.35' }
-  host { 'mockserver': ip => '192.168.8.32' }
+  host { 'mockserver': ip => '192.168.8.35' }
 
   host { 'xavier':     ip => '192.168.8.31' }  
   host { 'rogue':      ip => '192.168.8.32' }  

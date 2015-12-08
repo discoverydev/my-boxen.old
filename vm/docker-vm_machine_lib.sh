@@ -23,6 +23,12 @@ dm_create() {
     export DOCKER_VM_IP=$( dm ip )
 }
 
+dm_create_azure() {
+    docker-machine create -d azure --azure-location "East US" --azure-subscription-id="add subcription id here" --azure-subscription-cert=/Users/ga-mlsdiscovery/azure_cert/mycert.pem $DOCKER_VM_NAME
+    dm_env
+    export DOCKER_VM_IP=$( dm ip )
+}
+
 dm_start() {
     dm_is_running
     if [[ $? == 1 ]]; then dm start; fi
@@ -77,6 +83,7 @@ dm_install_bootlocal_file() {
 }
 
 dm_run_bootlocal() {
+    dm_env
     dm_ssh "/var/lib/boot2docker/bootlocal.sh"
 }
 
@@ -119,8 +126,12 @@ done
 sleep 3
 echo "=== start nfs"
 sudo /usr/local/etc/init.d/nfs-client restart &>/dev/null
-$(generate_bootlocal_mount "$host_ip:/Users" "/Users")
-$(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
+
+if [[ "$DOCKER_CONTAINER_DATA_DIR" != "" ]]; then
+    $(generate_bootlocal_mount "$host_ip:/Users" "/Users")
+    $(generate_bootlocal_mount "$host_ip:/opt/boxen" "/opt/boxen")
+fi
+
 EOF
 }
 

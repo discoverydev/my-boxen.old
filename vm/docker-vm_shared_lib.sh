@@ -18,3 +18,7 @@
 : ${DOCKER_VM_MEMORY=2048}
 : ${DOCKER_VM_CPUS=2}
 : ${DOCKER_VM_USER=ga-mlsdiscovery}
+: ${DOCKER_HOST=tcp://192.168.99.100:2376}
+: ${DOCKER_MACHINE_NAME=default}
+: ${DOCKER_TLS_VERIFY=1}
+: ${DOCKER_CERT_PATH=/Users/ga-mlsdiscovery/.docker/machine/machines/$DOCKER_MACHINE_NAME}

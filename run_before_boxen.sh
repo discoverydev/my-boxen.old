@@ -9,9 +9,9 @@ source ~/.profile
 echo "* adding $SERVER to known_hosts"
 ssh-keyscan $SERVER > ~/.ssh/known_hosts
 
-TARFILE=tailored_backup.tar
-DEST=/opt/android-sdk
-SRC=/Users/$USER/tailored_backup
+TARFILE=boxen.tar
+DEST=/opt
+SRC=/opt
 
 echo "* copy $TARFILE from $SERVER ($SRC) to $DEST"
 mkdir -p $DEST
@@ -21,10 +21,3 @@ echo "  user $USER"
 rsync -ru --progress $USER@$SERVER:$SRC/$TARFILE $DEST/$TARFILE
 tar xkvf $TARFILE
 popd
-
-echo "* create android virtual devices"
-gmtool admin create "Google Nexus 5 - 5.0.0 - API 21 - 1080x1920" Nexus_5_API_21_x86
-
-echo "* run and configure android virtual devices"
-gmtool admin start Nexus_5_API_21_x86
-
