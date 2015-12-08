@@ -80,7 +80,7 @@ node default {
   nodejs::module { 'npm': node_version => 'v0.12.2' }
   nodejs::module { 'appium': node_version => 'v0.12.2' }
   nodejs::module { 'ios-sim': node_version => 'v0.12.2' }
-  nodejs::module { 'phantomjs': node_version => 'v1.9.18' }
+  nodejs::module { 'phantomjs': node_version => 'v0.12.2' }
 
   #
   # RUBY stuff
