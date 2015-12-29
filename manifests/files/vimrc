@@ -1,2 +1,14 @@
+"enable syntax highlighting
 syntax enable
+
+"turn on line numbers
 set number
+
+"tabs will put in spaces instead of tab characters
+set expandtab 
+set tabstop=4
+
+"mappings
+
+" hit jk in insert mode to switch back to normal mode
+inoremap jk <esc>
