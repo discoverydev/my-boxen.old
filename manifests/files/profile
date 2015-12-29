@@ -37,3 +37,11 @@ alias log2="clear; git log -20 --format='%Cgreen%h%Creset %C(cyan)%an%Creset - %
 alias br='git branch'
 alias ac='git add .; git commit -a '
 alias mrg='git merge --no-ff'
+
+function post-json {
+    if [[ -z "$1" || -z "$2" ]]; then
+        echo "Usage: post_json <json string> <address>"
+        return 1
+    fi
+    curl -i -H "Content-Type: application/json" -X POST -d "$1" "$2"
+}
