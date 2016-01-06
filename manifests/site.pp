@@ -140,13 +140,13 @@ node default {
       'ack',               # for searching strings within files at the command-line
       'ant',               # for builds 
       'chromedriver',      # for appium
-      'docker',            # for ci 
-      'docker-machine',    # for docker-machine used by ci (stash, jenkins, etc)
+      'docker',            # to run prebuilt containers, used by ci (stash, jenkins, etc)
+      'docker-machine',    # to run docker from os-x
       'dos2unix',          # some Java cmd-line utilities are Windows-specific
-      'git',               #
+      'git',               # 
       'gradle',            # for builds
-      'grails',            # for simple checkout
-      'groovy',            # for simple checkout
+      'grails',            # application framework (for simple checkout sample)
+      'groovy',            # groovy language (for simple checkout)
       'ideviceinstaller',  # for appium on ios devices
       'imagemagick',       # for (aot) imprinting icons with version numbers
       'maven',             # for builds
@@ -155,15 +155,14 @@ node default {
       'p7zip',             # 7z, XZ, BZIP2, GZIP, TAR, ZIP and WIM
       'pv',                # pipeview for progress bar
       'rbenv',             # ruby environment manager
-      'sbt',               # for Gimbal Geofence Importer
-      'scala',             # for Gimbal Geofence Importer
-      'sonar-runner',      # for sonar tests
-      'tomcat',            # for deploying .war files
-#      'trash',             # for using instead of rm to move things to the trash
-      'wget',              # 
+      'sbt',               # scala build tool (for Gimbal Geofence Importer)
+      'scala',             # scala language (for Gimbal Geofence Importer)
+      'sonar-runner',      # code quality metrics 
+      'tomcat',            # for deploying .war files (simple-checkout)
+      'wget',              # get things from the web (alternative to curl)
       'xctool',            # xcode build, used by sonar
-      'carthage',
-      'https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb' #sshpass
+      'carthage',          # xcode dependency management
+      'https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb' # sshpass  <-- duh, but what is it used for????
     ]: 
     ensure => present,
     require => Exec['tap-discoverydev-ipa'],
@@ -183,7 +182,7 @@ node default {
       'genymotion',        # android in virtualbox (faster)
       'google-chrome',     # browser
       'google-hangouts',   # communication tool
-      'intellij1415',    # IDE all the things
+      'intellij1416',      # IDE all the things
       'iterm2',            # terminal replacement
       'java',              # java 8
       'qlgradle',          # quicklook for gradle files
