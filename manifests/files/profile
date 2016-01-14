@@ -45,3 +45,5 @@ function post-json {
     fi
     curl -i -H "Content-Type: application/json" -X POST -d "$1" "$2"
 }
+
+source ~/.git-completion.bash

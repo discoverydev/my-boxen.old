@@ -13,6 +13,9 @@ class people::discoverydev {
     source => "${boxen::config::repodir}/manifests/files/vimrc"
   }
 
+  file { "/Users/${::boxen_user}/.git-completion.bash":
+    source => "${boxen::config::repodir}/manifests/files/git-completion.bash"
+  }
 
   file { "sonar-runner.properties":
     name => "${homebrew::config::installdir}/Cellar/sonar-runner/2.4/libexec/conf/sonar-runner.properties",
