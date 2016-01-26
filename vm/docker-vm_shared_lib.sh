@@ -9,7 +9,7 @@
 # export DOCKER_CONTAINER_ENV="--env XYZ=abc"
 
 : ${DOCKER_CONTAINER="$DOCKER_IMAGE"}
-: ${DOCKER_CONTAINER_HOSTS="--add-host jenkins:192.168.8.31 --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --add-host confluence:192.168.8.34"}
+: ${DOCKER_CONTAINER_HOSTS="--add-host jenkins:192.168.8.36 --add-host stash:192.168.8.31 --add-host nexus:192.168.8.31 --add-host confluence:192.168.8.34"}
 
 : ${DOCKER_HOST_DATA_ROOT="/Users/Shared/data"}
 : ${DOCKER_HOST_DATA_DIR="$DOCKER_HOST_DATA_ROOT/$DOCKER_CONTAINER"}

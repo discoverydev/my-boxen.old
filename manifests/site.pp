@@ -234,7 +234,7 @@ node default {
   # HOSTNAME to IPs
   #
 
-  host { 'jenkins':    ip => '192.168.8.31' }  
+  host { 'jenkins':    ip => '192.168.8.36' }  
   host { 'stash':      ip => '192.168.8.31' }
   host { 'nexus':      ip => '192.168.8.31' }
   host { 'tomcat':     ip => '192.168.8.32' }
@@ -247,6 +247,7 @@ node default {
   host { 'warlock':    ip => '192.168.8.33' }  
   host { 'wolverine':  ip => '192.168.8.34' }  
   host { 'beast':      ip => '192.168.8.35' }
+  host { 'mystique':   ip => '192.168.8.36' }
   
   #
   # CLEAN UP
