@@ -19,7 +19,7 @@ if [ $RESULT -eq 0 ]
 then
     echo "Boxen tar was created successfully."
     echo "Sending results to Jenkins."
-    curl http://jenkins/job/Boxen_Tar_Create/buildWithParameters?CALLER=BOXEN
+    curl http://jenkins/job/MYSTIQUE_tar_creation_status/buildWithParameters?CALLER=BOXEN
     . /opt/boxen/env.sh
 else 
     echo "Boxen tar was NOT created successfully."
