@@ -18,7 +18,7 @@ class people::discoverydev {
   }
 
   file { "sonar-runner.properties":
-    name => "${homebrew::config::installdir}/Cellar/sonar-runner/2.4/libexec/conf/sonar-runner.properties",
+    name => "${homebrew::config::installdir}/Cellar/sonar-runner/2.5/libexec/conf/sonar-runner.properties",
     source => "${boxen::config::repodir}/manifests/files/sonar-runner.properties",
     require => Package['sonar-runner'],
   }
