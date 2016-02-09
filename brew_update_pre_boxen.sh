@@ -1,8 +1,8 @@
 #!/bin/bash -l
 
 echo "updating brew"
-brew update
+brew -v update
 echo "upgrading  brew"
-brew upgrade --all
+brew -v upgrade --all
 echo "cleaning up old versions"
-brew cleanup
+brew -v cleanup
