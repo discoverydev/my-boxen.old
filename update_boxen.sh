@@ -1,8 +1,8 @@
-#!/bin/bash -l
+#!/bin/bash -le
 
 echo "kill xcode"
-killall Simulator
-killall Xcode
+killall Simulator || true
+killall Xcode || true
 
 echo "calling brew_update_pre_boxen script in order to update brew dependencies."
 ./brew_update_pre_boxen.sh
