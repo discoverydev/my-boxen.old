@@ -163,7 +163,7 @@ node default {
       'wget',              # get things from the web (alternative to curl)
       'xctool',            # xcode build, used by sonar
       'carthage',          # xcode dependency management
-      'https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb' # sshpass  <-- duh, but what is it used for????
+      'https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb' # sshpass - used for piping passwords into ssh commands. it is MUCH better to set up a keypair. ask coleman if you don't know how.
     ]: 
     ensure => present,
     require => Exec['tap-discoverydev-ipa'],
