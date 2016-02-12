@@ -24,6 +24,7 @@ alias ..="cd .."
 alias sourcetree="open -a /Applications/Sourcetree.app"
 alias dm="docker-machine"
 alias source-profile="source /Users/ga-mlsdiscovery/.profile"
+alias lip="localip"
 # alias rm="trash" (ddaugher - umocmment after all machines are upgraded to xcode 7)
 
 set -o vi
@@ -43,10 +44,14 @@ alias mrg='git merge --no-ff'
 
 function post-json {
     if [[ -z "$1" || -z "$2" ]]; then
-        echo "Usage: post_json <json string> <address>"
+        echo "Usage: post-json <json string> <address>"
         return 1
     fi
     curl -i -H "Content-Type: application/json" -X POST -d "$1" "$2"
 }
+
+function localip {
+    ifconfig | grep 192 | cut -d ' ' -f 2
+} 
 
 source ~/.git-completion.bash
