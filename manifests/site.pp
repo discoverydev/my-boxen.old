@@ -158,6 +158,7 @@ node default {
       'sbt',               # scala build tool (for Gimbal Geofence Importer)
       'scala',             # scala language (for Gimbal Geofence Importer)
       'sonar-runner',      # code quality metrics 
+      'ssh-copy-id',       # simplifies installation of ssh keys on remote servers
       'tomcat',            # for deploying .war files (simple-checkout)
       'wget',              # get things from the web (alternative to curl)
       'xctool',            # xcode build, used by sonar
