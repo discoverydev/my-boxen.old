@@ -16,11 +16,14 @@ alias ll="ls -ltra"
 alias repo="cd /opt/boxen/repo"
 alias boxen="cd /opt/boxen/repo"
 alias shared="cd /Users/Shared"
+alias data "cd /Users/Shared/data"
 alias src="cd ~/src"
 alias mls="cd ~/src/mls-dev"
+alias sc="cd ~/src/sc-dev"
 alias ..="cd .."
 alias sourcetree="open -a /Applications/Sourcetree.app"
 alias dm="docker-machine"
+alias source-profile="source /Users/ga-mlsdiscovery/.profile"
 # alias rm="trash" (ddaugher - umocmment after all machines are upgraded to xcode 7)
 
 set -o vi
