@@ -16,7 +16,11 @@ boxen::personal::homebrew_packages:
   - htop
 
 boxen::personal::osx_apps:
+<<<<<<< HEAD
   - google_chrome
+=======
+  - google-chrome
+>>>>>>> master
   - spotify
   - things
 
